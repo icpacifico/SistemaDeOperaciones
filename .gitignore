@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+# Ignorar contenido de la carpeta migrations en cualquier nivel
+migrations/*
+Lib
+Scripts
+
+
