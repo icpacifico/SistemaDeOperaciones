@@ -6,7 +6,7 @@ class Nacionalidad(models.Model):
     nombre_nacionalidad = models.CharField(max_length=50)
 
     def __str__(self):
-        return str("("+self.id_nacionalidad+")") + " " +self.nombre_nacionalidad
+        return "("+str(self.id_nacionalidad)+")" + " " +self.nombre_nacionalidad
 
     class Meta:
         db_table = "nacionalidad"
@@ -15,7 +15,7 @@ class Banco(models.Model):
     id_banco = models.AutoField(primary_key=True)
     nombre_banco =  models.CharField(max_length=50)
     def __str__(self):
-        return str("("+self.id_banco+")") + " " +self.nombre_banco
+        return "("+str(self.id_banco)+")" + " " +self.nombre_banco
 
     class Meta:
         db_table = "banco"
@@ -53,7 +53,7 @@ class ConjuntoParametros(models.Model):
     banco_alzante = models.ForeignKey(Banco, verbose_name="Banco Alzante", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str("("+self.id_conjunto_parametros+")") + " " +self.id_condominio.nombre_condominio
+        return "("+str(self.id_conjunto_parametros)+")" + " " +self.id_condominio.nombre_condominio
 
     class Meta:
         db_table = "parametros"

@@ -27,7 +27,7 @@ class Etapa(models.Model):
     num_real_etapa = models.IntegerField(verbose_name="N° real Etapa", blank=True, null=True)
 
     def __str__(self):
-        return str("(" + self.num_etapa + ")") + " - " + self.nombre_etapa
+        return "(" + str(self.num_etapa) + ")" + " - " + self.nombre_etapa
 
     class Meta:
         db_table = "etapa"
