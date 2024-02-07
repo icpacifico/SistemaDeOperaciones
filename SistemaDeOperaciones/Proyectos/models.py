@@ -16,7 +16,7 @@ class Condominio(models.Model):
         db_table = "condominio"
 
 class Etapa(models.Model):
-    id_etapa = models.AutoField()
+    id_etapa = models.AutoField(primary_key=True)
     nombre_etapa = models.CharField(max_length=50)
     id_condominio = models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
 
@@ -24,7 +24,7 @@ class Etapa(models.Model):
         return str("(" + self.id_condominio + ")") + " - " + self.nombre_etapa
 
     class Meta:
-        db_table = "etapa"
+        db_table = "etapa_proyecto"
 class Torre(models.Model):
     id_torre = models.AutoField(primary_key=True)
     id_etapa = models.ForeignKey(Etapa, verbose_name="Etapa", on_delete=models.CASCADE)

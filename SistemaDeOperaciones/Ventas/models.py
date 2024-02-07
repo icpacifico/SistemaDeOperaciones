@@ -1,12 +1,14 @@
 from django.db import models
 from Proyectos.models import Vivienda
 from Administracion.models import Banco, Nacionalidad
+from SistemaDeOperaciones.choices import *
+
 
 # Create your models here.
 
 
 class Profesion(models.Model):
-    id_profesion = models.AutoField()
+    id_profesion = models.AutoField(primary_key=True)
     nombre_profesion = models.CharField(max_length=50)
 
     def __str__(self):
@@ -49,10 +51,10 @@ class Cliente(models.Model):
 class Venta(models.Model):
     id_venta = models.AutoField(primary_key=True)
     id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
-    id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    # id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE) # PENDIENTE
-    id_pie_ven = models.ForeignKey(PieVenta, on_delete=models.CASCADE)
+    # id_pie_ven = models.ForeignKey(PieVenta, on_delete=models.CASCADE)
     forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=credito)
     # id_descuento = models.ForeignKey(Descuento, on_delete=models.CASCADE) # PENDIENTE
     # id_premio = models.ForeignKey(Premio, on_delete=models.CASCADE) # PENDIENTE
@@ -121,7 +123,7 @@ class Venta(models.Model):
         db_table = "venta"
 
 class TipoDesistimiento(models.Model):
-    id_tipodesistimiento = models.AutoField()
+    id_tipodesistimiento = models.AutoField(primary_key=True)
     nombre_tipodesistimiento = models.CharField(max_length=50)
 
     def __str__(self):
@@ -131,7 +133,7 @@ class TipoDesistimiento(models.Model):
         db_table = "tipodesistimiento"
 
 class Desistimiento(models.Model):
-    id_desistimiento = models.AutoField()
+    id_desistimiento = models.AutoField(primary_key=True)
     id_venta = models.ForeignKey(Venta, verbose_name="Venta", on_delete=models.CASCADE)
     comentario_desistimiento = models.CharField(max_length=50, verbose_name="Comentario")
     id_tipodesistimiento = models.ForeignKey(TipoDesistimiento, verbose_name="Tipo", on_delete=models.CASCADE)
