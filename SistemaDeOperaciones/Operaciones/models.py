@@ -1,4 +1,5 @@
 from django.db import models
+from SistemaDeOperaciones.choices import *
 
 # Create your models here.
 

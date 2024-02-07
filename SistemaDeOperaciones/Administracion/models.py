@@ -2,7 +2,7 @@ from django.db import models
 from Proyectos.models import Condominio
 # Create your models here.
 class Nacionalidad(models.Model):
-    id_nacionalidad = models.AutoField()
+    id_nacionalidad = models.AutoField(primary_key=True)
     nombre_nacionalidad = models.CharField(max_length=50)
 
     def __str__(self):
@@ -12,7 +12,7 @@ class Nacionalidad(models.Model):
         db_table = "nacionalidad"
 
 class Banco(models.Model):
-    id_banco = models.AutoField()
+    id_banco = models.AutoField(primary_key=True)
     nombre_banco =  models.CharField(max_length=50)
     def __str__(self):
         return str("("+self.id_banco+")") + " " +self.nombre_banco
@@ -20,7 +20,7 @@ class Banco(models.Model):
     class Meta:
         db_table = "banco"
 
-class ConjuntoParametros(model.Model):
+class ConjuntoParametros(models.Model):
     id_conjunto_parametros = models.AutoField(primary_key=True)
     id_condominio = models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
     factor_junior_vendedor = models.IntegerField(verbose_name="Factor")
@@ -50,7 +50,7 @@ class ConjuntoParametros(model.Model):
     factor_senior_supervisor = models.IntegerField(verbose_name="Factor Senior Supervisor")
     fecha_termino_venta = models.DateField(verbose_name="Fecha termino de ventas")
     direccion_condominio = models.CharField(max_length=100, verbose_name="Dirección Condominio")
-    banco_alzante = models.ForeignKey(Banco, verbose_name="Banco Alzante")
+    banco_alzante = models.ForeignKey(Banco, verbose_name="Banco Alzante", on_delete=models.CASCADE)
 
     def __str__(self):
         return str("("+self.id_conjunto_parametros+")") + " " +self.id_condominio.nombre_condominio
