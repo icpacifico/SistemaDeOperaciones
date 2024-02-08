@@ -10,7 +10,7 @@ class Condominio(models.Model):
     fecha_venta_condominio = models.DateField(verbose_name="Fecha Venta Condominio", null=True, blank=True)
 
     def __str__(self):
-        return str("(" + self.id_condominio + ")") + " - " + self.nombre_condominio
+        return "(" + str(self.id_condominio) + ")" + " - " + self.nombre_condominio
 
     class Meta:
         db_table = "condominio"
@@ -21,7 +21,7 @@ class Etapa(models.Model):
     id_condominio = models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str("(" + self.id_condominio + ")") + " - " + self.nombre_etapa
+        return "(" + str(self.id_condominio) + ")" + " - " + self.nombre_etapa
 
     class Meta:
         db_table = "etapa_proyecto"
@@ -32,7 +32,7 @@ class Torre(models.Model):
     nombre_torre = models.CharField(verbose_name="Nombre", max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return str("(" + self.id_torre + ")") + " - " + self.nombre_torre
+        return "(" + str(self.id_torre) + ")" + " - " + self.nombre_torre
 
     class Meta:
         db_table = "torre"
@@ -46,7 +46,7 @@ class Modelo(models.Model):
     descripcion_modelo = models.TextField(verbose_name="Descripción")
 
     def __str__(self):
-        return str("(" + self.id_modelo + ")") + " - " + self.nombre_modelo
+        return "(" + str(self.id_modelo) + ")" + " - " + self.nombre_modelo
 
     class Meta:
         db_table = "modelo"
@@ -60,7 +60,7 @@ class Bodega(models.Model):
     rol_bodega = models.CharField(verbose_name="Rol", max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return str("(" + self.id_bodega + ")") + " - " + self.nombre_bodega
+        return "(" + str(self.id_bodega) + ")" + " - " + self.nombre_bodega
 
     class Meta:
         db_table = "bodega"
@@ -73,7 +73,7 @@ class Estacionamiento(models.Model):
     valor_estacionamiento = models.FloatField(verbose_name="Valor", null=True, blank=True)
 
     def __str__(self):
-        return str("(" + self.id_estacionamiento + ")") + " - " + self.nombre_estacionamiento
+        return "(" + str(self.id_estacionamiento) + ")" + " - " + self.nombre_estacionamiento
 
     class Meta:
         db_table = "estacionamiento"
@@ -99,7 +99,7 @@ class Vivienda(models.Model):
     rol_vivienda = models.CharField(verbose_name="Rol", max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return str("(id: " + self.id_vivienda + ")") + " - Depto: " + self.nombre_vivienda
+        return "(id: " + str(self.id_vivienda) + ")" + " - Depto: " + self.nombre_vivienda
 
     class Meta:
         db_table = "vivienda"

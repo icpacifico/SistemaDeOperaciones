@@ -12,7 +12,7 @@ class Profesion(models.Model):
     nombre_profesion = models.CharField(max_length=50)
 
     def __str__(self):
-        return str("("+self.id_profesion+")")+" - "+self.nombre_profesion
+        return "("+str(self.id_profesion)+")"+" - "+self.nombre_profesion
 
     class Meta:
         db_table = "profesion"
@@ -43,7 +43,7 @@ class Cliente(models.Model):
     fecha_nacimiento_cliente = models.DateField(verbose_name="Fecha nacimiento", null=True, blank=True)
 
     def __str__(self):
-        return str("("+self.rut_cliente+")")+" - "+self.nombre_cliente +" "+self.apellido_paterno_cliente
+        return "("+str(self.rut_cliente)+")"+" - "+self.nombre_cliente +" "+self.apellido_paterno_cliente
 
     class Meta:
         db_table = "cliente"
@@ -117,7 +117,7 @@ class Venta(models.Model):
     fecha_escritura_ven = models.DateField(verbose_name="Fecha", null=True, blank=True)
 
     def __str__(self):
-        return str("(" +self.id_venta+")")+" - "+self.id_vivienda+" - "+self.id_cliente
+        return "(" +str(self.id_venta)+")"+" - "+self.id_vivienda+" - "+self.id_cliente
 
     class Meta:
         db_table = "venta"
@@ -127,7 +127,7 @@ class TipoDesistimiento(models.Model):
     nombre_tipodesistimiento = models.CharField(max_length=50)
 
     def __str__(self):
-        return str("(" +self.id_tipodesistimiento+")")+"-"+self.nombre_tipodesistimiento
+        return "(" +str(self.id_tipodesistimiento)+")"+"-"+self.nombre_tipodesistimiento
 
     class Meta:
         db_table = "tipodesistimiento"
@@ -139,7 +139,7 @@ class Desistimiento(models.Model):
     id_tipodesistimiento = models.ForeignKey(TipoDesistimiento, verbose_name="Tipo", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str("(" +self.id_desistimiento+")")+"-"+self.id_tipodesistimiento.nombre_tipodesistimiento
+        return "(" +str(self.id_desistimiento)+")"+"-"+self.id_tipodesistimiento.nombre_tipodesistimiento
 
     class Meta:
         db_table = "desistimiento"
