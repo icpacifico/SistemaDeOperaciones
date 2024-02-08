@@ -1,6 +1,6 @@
 from django.db import models
 from SistemaDeOperaciones.choices import *
-
+from Ventas.models import Venta
 # Create your models here.
 
 class CategoriaEtapa(models.Model):
@@ -43,3 +43,17 @@ class CampoEtapa(models.Model):
 
     class Meta:
         db_table = "campo_etapa"
+
+
+class Operacione(models.Model):
+    id_operacion = models.AutoField(primary_key=True)
+    id_venta = models.ForeignKey(Venta, verbose_name="Venta", on_delete=models.CASCADE)
+    id_etapa =  models.ForeignKey(Etapa, verbose_name="Etapa", on_delete=models.CASCADE)
+    fecha_operacion = models.DateField(auto_now=True, verbose_name="Fecha Registro")
+    comentario = models.TextField(verbose_name="Comentario")
+
+    def __str__(self):
+        return self.id_operacion
+
+    class Meta:
+        db_table = "operaciones"
