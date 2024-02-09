@@ -48,11 +48,31 @@ class Cliente(models.Model):
     class Meta:
         db_table = "cliente"
 
+
+class Cotizacion(models.Model):
+    id_cotizacion = models.AutoField(primary_key=True)
+    id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    fecha_cotizacion = models.DateField(verbose_name="Fecha Cotización", null=True, blank=True ) 
+    fecha_promesa_cotizacion = models.DateField(verbose_name="Fecha Promesa", null=True, blank=True ) 
+    procentaje_credito_cotizacion = models.FloatField(verbose_name="Porcentaje Credito", null=True, blank=True)
+    numero_cotizacion = models.IntegerField(verbose_name="Estado Venta",  null=True, blank=True)
+    canal_cotizacion = models.CharField(verbose_name="Canal Cotización", max_length=200, choices=CANAL_COTIZACION_CHOICES, default=None)
+    preaprobacion_cotizacion = models.CharField(verbose_name="Preaprobación Cotización", max_length=200, choices=PREAPROBACION_COTIZACION_CHOICES, default=None)
+    renta_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=RENTA_COTIZACION_CHOICES, default=None)
+    estado_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=IS_ACTIVE_CHOICES, default=None)
+
+    def __str__(self):
+        return "(" +str(self.id_cotizacion)+")"
+    class Meta:
+        db_table = "cotizacion"
+
 class Venta(models.Model):
     id_venta = models.AutoField(primary_key=True)
-    id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
-    # id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
-    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    id_cotizacion = models.ForeignKey(Cotizacion, on_delete=models.CASCADE)
+    #id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
+    # id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
+    #id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE) # PENDIENTE
     # id_pie_ven = models.ForeignKey(PieVenta, on_delete=models.CASCADE)
     forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=credito)
@@ -117,7 +137,7 @@ class Venta(models.Model):
     fecha_escritura_ven = models.DateField(verbose_name="Fecha", null=True, blank=True)
 
     def __str__(self):
-        return "(" +str(self.id_venta)+")"+" - "+self.id_vivienda+" - "+self.id_cliente
+        return "(" +str(self.id_venta)+")"
 
     class Meta:
         db_table = "venta"
@@ -143,3 +163,4 @@ class Desistimiento(models.Model):
 
     class Meta:
         db_table = "desistimiento"
+
