@@ -6,3 +6,4 @@ Scripts
 
 
 *.pyc
+*.sqlite3
