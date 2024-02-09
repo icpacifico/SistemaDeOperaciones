@@ -1,6 +1,9 @@
 from django.db import models
 from SistemaDeOperaciones.choices import *
-from Ventas.models import Venta
+from Ventas.models import *
+from Proyectos.models import Vivienda
+from Administracion.models import Banco, Nacionalidad
+from SistemaDeOperaciones.choices import *
 # Create your models here.
 
 class CategoriaEtapa(models.Model):
@@ -32,28 +35,33 @@ class Etapa(models.Model):
     class Meta:
         db_table = "etapa"
 
-class CampoEtapa(models.Model):
-    id_campo_etapa = models.AutoField(primary_key=True)
-    id_etapa =  models.ForeignKey(Etapa,verbose_name="Etapa", on_delete=models.CASCADE)
-    tipo_campo_etapa =  models.CharField(verbose_name="Tipo Campo", max_length=6, choices=TIPO_CAMPO_ETAPA, default=texto)
-    nombre_campo_etapa = models.CharField(verbose_name="Nombre Campo", max_length=50, blank=True, null=True)
+
+class VentaOp(models.Model):
+    id_venta = models.AutoField(primary_key=True)
+    id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
+    # id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE) # PENDIENTE
+    forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=credito)
+    estado_ven = models.CharField(verbose_name="Estado Venta", max_length=20, choices=EST_VENTA_CHOICES, default=activa)
+    fecha_ven = models.DateTimeField(verbose_name="Fecha Venta", null=True, blank=True)
+    monto_ven = models.FloatField(verbose_name="Monto Venta", null=True, blank=True)
+
 
     def __str__(self):
-        return self.nombre_campo_etapa
+        return "(" +str(self.id_venta)+")"+" - "+str(self.id_vivienda)+" - "+str(self.id_cliente)
 
     class Meta:
-        db_table = "campo_etapa"
-
-
+        db_table = "ventaop"
 class Operacione(models.Model):
     id_operacion = models.AutoField(primary_key=True)
-    id_venta = models.ForeignKey(Venta, verbose_name="Venta", on_delete=models.CASCADE)
+    id_venta = models.ForeignKey(VentaOp, verbose_name="Venta", on_delete=models.CASCADE)
     id_etapa =  models.ForeignKey(Etapa, verbose_name="Etapa", on_delete=models.CASCADE)
     fecha_operacion = models.DateField(auto_now=True, verbose_name="Fecha Registro")
     comentario = models.TextField(verbose_name="Comentario")
 
     def __str__(self):
-        return self.id_operacion
+        return str(self.id_operacion)
 
     class Meta:
         db_table = "operaciones"
