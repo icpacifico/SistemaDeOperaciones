@@ -218,23 +218,44 @@ enlace_inmo = 'Enlace Inmobiliario'
 nueva_campagna = 'Nueva Campaña'
 
 # cotizacion_canal_cotizacion
-CANAL_COTIZACION_CHOICES = [(sala_venta, 'Sala de Ventas'),
-                          (pag_web, 'Página Web'),
-                          (terreno, 'Terreno'),
-                          (rrss, 'Redes Sociales - Inmobiliaria'),
-                          (otros, 'Otros'),
-                          (comercial_tv, 'Comercial TV Pabellón de la Construcción'),
-                          (expovivienda, 'Expovivienda'),
-                          (letreros, 'Letreros'),
-                          (por_tv, 'Por la Televisión'),
-                          (por_otro_medio, 'Por Otro Medio'),
-                          (portal_inmo, 'Portal Inmobiliario Internet'),
-                          (recomendacion, 'Recomendación'),
-                          (vivienda, 'Vivienda y Decoración'),
-                          (rrss_asesor, 'Redes Sociales - Gestión Asesor'),
-                          (toc_toc, 'Toc-Toc'),
-                          (enlace_inmo, 'Enlace Inmobiliario'),
-                          (nueva_campagna, 'Nueva Campaña'), ]
+
+CANAL_COTIZACION_CHOICES = [
+    (comercial_tv, 'Comercial TV Pabellón de la Construcción'),
+    (enlace_inmo, 'Enlace Inmobiliario'),
+    (expovivienda, 'Expovivienda'),
+    (letreros, 'Letreros'),
+    (nueva_campagna, 'Nueva Campaña'),
+    (otros, 'Otros'),
+    (pag_web, 'Página Web'),
+    (por_otro_medio, 'Por Otro Medio'),
+    (por_tv, 'Por la Televisión'),
+    (portal_inmo, 'Portal Inmobiliario Internet'),
+    (recomendacion, 'Recomendación'),
+    (rrss, 'Redes Sociales - Inmobiliaria'),
+    (rrss_asesor, 'Redes Sociales - Gestión Asesor'),
+    (sala_venta, 'Sala de Ventas'),
+    (terreno, 'Terreno'),
+    (toc_toc, 'Toc-Toc'),
+    (vivienda, 'Vivienda y Decoración')
+]
+
+# CANAL_COTIZACION_CHOICES = [(sala_venta, 'Sala de Ventas'),
+#                           (pag_web, 'Página Web'),
+#                           (terreno, 'Terreno'),
+#                           (rrss, 'Redes Sociales - Inmobiliaria'),
+#                           (otros, 'Otros'),
+#                           (comercial_tv, 'Comercial TV Pabellón de la Construcción'),
+#                           (expovivienda, 'Expovivienda'),
+#                           (letreros, 'Letreros'),
+#                           (por_tv, 'Por la Televisión'),
+#                           (por_otro_medio, 'Por Otro Medio'),
+#                           (portal_inmo, 'Portal Inmobiliario Internet'),
+#                           (recomendacion, 'Recomendación'),
+#                           (vivienda, 'Vivienda y Decoración'),
+#                           (rrss_asesor, 'Redes Sociales - Gestión Asesor'),
+#                           (toc_toc, 'Toc-Toc'),
+#                           (enlace_inmo, 'Enlace Inmobiliario'),
+#                           (nueva_campagna, 'Nueva Campaña'), ]
 ############################################################################################
 rank_1 = '$0 a $499.999'
 rank_2 = '$450.000 a $799.999'
@@ -260,11 +281,11 @@ RENTA_COTIZACION_CHOICES = [(rank_1, '$0 a $499.999'),
                             (rank_10, '> $7.000.000'),
                             (rank_11, 'No definido'), ]
 ############################################################################################
-si = 'Si'
+si = 'Sí'
 no = 'No'
 contado = 'Contado'
 # cotizacion_preaprobacion_cotizacion
-PREAPROBACION_COTIZACION_CHOICES = [(si, 'Si'),
+PREAPROBACION_COTIZACION_CHOICES = [(si, 'Sí'),
                                     (no, 'No'),
                                     (contado, 'Contado'), ]
 ############################################################################################
@@ -289,10 +310,16 @@ supervisor_vnts = 'Supervisor de Ventas'
 vendedor = 'Vendedor'
 jefe_oopp = 'Jefe de Operaciones'
 # bono_tipo_bono
-TIPO_BONO_CHOICES = [(jefe_vnts, 'Jefe de Ventas'),
-                     (supervisor_vnts, 'Supervisor de Ventas'),
-                     (vendedor, 'Vendedor'),
-                     (jefe_oopp, 'Jefe de Operaciones'), ]
+TIPO_BONO_CHOICES = [
+    (jefe_oopp, 'Jefe de Operaciones'),
+    (jefe_vnts, 'Jefe de Ventas'),
+    (supervisor_vnts, 'Supervisor de Ventas'),
+    (vendedor, 'Vendedor')
+]
+# TIPO_BONO_CHOICES = [(jefe_vnts, 'Jefe de Ventas'),
+#                      (supervisor_vnts, 'Supervisor de Ventas'),
+#                      (vendedor, 'Vendedor'),
+#                      (jefe_oopp, 'Jefe de Operaciones'), ]
 ############################################################################################
 junior = 'Junior'
 advance = 'Advance'
@@ -325,18 +352,32 @@ beneficio_empleador = 'Beneficio Empleador'
 pago_con_tarj_credito = 'Pago con tarj. Crédito'
 promocion_abono_inmobiliario = 'Promoción Abono Inmobiliario'
 
-FORMA_PAGO_CHOICES = [(credito, 'Crédito'),
-                      (contado, 'Contado'),
-                      (transferencia_bancaria, 'Transferencia Bancaria'),
-                      (cheque_a_fecha, 'Cheque a fecha'),
-                      (deposito, 'Depósito'),
-                      (pago_firma_escritura, 'Pago Firma Escritura'),
-                      (traspaso_de_saldo, 'Traspaso de Saldo'),
-                      (cheque_al_dia, 'Cheque al día'),
-                      (vale_vista, 'Vale Vista'),
-                      (beneficio_empleador, 'Beneficio Empleador'),
-                      (pago_con_tarj_credito, 'Pago con tarj. Crédito'),
-                      (promocion_abono_inmobiliario, 'Promoción Abono Inmobiliario')]
+FORMA_PAGO_CHOICES = [
+    (beneficio_empleador, 'Beneficio Empleador'),
+    (cheque_a_fecha, 'Cheque a fecha'),
+    (cheque_al_dia, 'Cheque al día'),
+    (contado, 'Contado'),
+    (credito, 'Crédito'),
+    (deposito, 'Depósito'),
+    (pago_con_tarj_credito, 'Pago con tarj. Crédito'),
+    (pago_firma_escritura, 'Pago Firma Escritura'),
+    (promocion_abono_inmobiliario, 'Promoción Abono Inmobiliario'),
+    (transferencia_bancaria, 'Transferencia Bancaria'),
+    (traspaso_de_saldo, 'Traspaso de Saldo'),
+    (vale_vista, 'Vale Vista')
+]
+# FORMA_PAGO_CHOICES = [(credito, 'Crédito'),
+#                       (contado, 'Contado'),
+#                       (transferencia_bancaria, 'Transferencia Bancaria'),
+#                       (cheque_a_fecha, 'Cheque a fecha'),
+#                       (deposito, 'Depósito'),
+#                       (pago_firma_escritura, 'Pago Firma Escritura'),
+#                       (traspaso_de_saldo, 'Traspaso de Saldo'),
+#                       (cheque_al_dia, 'Cheque al día'),
+#                       (vale_vista, 'Vale Vista'),
+#                       (beneficio_empleador, 'Beneficio Empleador'),
+#                       (pago_con_tarj_credito, 'Pago con tarj. Crédito'),
+#                       (promocion_abono_inmobiliario, 'Promoción Abono Inmobiliario')]
 ############################################################################################
 # tipo_campo_etapa
 texto = 'Texto'
