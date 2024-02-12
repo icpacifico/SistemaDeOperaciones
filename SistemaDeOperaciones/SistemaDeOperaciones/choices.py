@@ -218,7 +218,7 @@ enlace_inmo = 'Enlace Inmobiliario'
 nueva_campagna = 'Nueva Campaña'
 
 # cotizacion_canal_cotizacion
-CANAL_COTIZACION_CHOICES = [(sala_venta, 'sala de ventas'),
+CANAL_COTIZACION_CHOICES = [(sala_venta, 'Sala de Ventas'),
                           (pag_web, 'Página Web'),
                           (terreno, 'Terreno'),
                           (rrss, 'Redes Sociales - Inmobiliaria'),

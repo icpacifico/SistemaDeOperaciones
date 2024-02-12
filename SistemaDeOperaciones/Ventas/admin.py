@@ -72,7 +72,7 @@ class ClienteAdmin(admin.ModelAdmin):
     search_fields = ['rut_cliente']
 
 class CotizacionAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['id_cliente']
+    autocomplete_fields = ['id_cliente','id_vivienda']
 
 admin.site.register(Profesion)
 admin.site.register(Cliente, ClienteAdmin)
