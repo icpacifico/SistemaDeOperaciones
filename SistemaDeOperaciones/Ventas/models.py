@@ -43,7 +43,7 @@ class Cliente(models.Model):
     fecha_nacimiento_cliente = models.DateField(verbose_name="Fecha nacimiento", null=True, blank=True)
 
     def __str__(self):
-        return "("+str(self.rut_cliente)+")"+" - "+self.nombre_cliente +" "+self.apellido_paterno_cliente
+        return "("+str(self.rut_cliente)+")"+" - "+self.nombre_cliente +" "+self.apellido_paterno_cliente+" "+self.apellido_materno_cliente
 
     class Meta:
         db_table = "cliente"

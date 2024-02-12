@@ -4,24 +4,6 @@ from .models import *
 
 class VentasAdmin(admin.ModelAdmin):
 
-    # fieldsets = (
-        
-        # ('Datos de la Solicitud',
-        #     {'fields':
-        #         (
-        #             ('id_vivienda', 'id_cliente'),
-        #         ),
-        #     'classes': 'collapse'}
-        # ),
-        # ('Asignaciones de la solicitud',
-        #     {'fields':
-        #         (
-        #             ('bodega', 'preparador'),
-        #               ('estado_solicitud', 'observacion', 'is_active_solicitud')
-        #         ),
-        #     'classes': 'collapse wide'}
-        # ),
-    # )
     fieldsets = (
         ('Información General', {
             'fields': (
@@ -86,11 +68,15 @@ class VentasAdmin(admin.ModelAdmin):
         
     )
 
+class ClienteAdmin(admin.ModelAdmin):
+    search_fields = ['rut_cliente']
 
+class CotizacionAdmin(admin.ModelAdmin):
+    autocomplete_fields = ['id_cliente']
 
 admin.site.register(Profesion)
-admin.site.register(Cliente)
-admin.site.register(Cotizacion)
+admin.site.register(Cliente, ClienteAdmin)
+admin.site.register(Cotizacion,CotizacionAdmin)
 admin.site.register(Venta, VentasAdmin)
 admin.site.register(TipoDesistimiento) # Quizás sea necesario moverlo al panel de admin
 admin.site.register(Desistimiento)
