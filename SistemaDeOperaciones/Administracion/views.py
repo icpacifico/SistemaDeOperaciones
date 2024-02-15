@@ -6,24 +6,89 @@ from .models import Nacionalidad, Banco, ConjuntoParametros, Profesion
 
 
 
-"""
+# Vistas basadas en clases de Nacionalidad
+class CrearNacionalidad(CreateView):
+    model = Nacionalidad
+    form_class = ""
+    template_name = ""
+    success_url = ""
+
+
+class ListadoNacionalidad(ListView):
+    model = Nacionalidad
+    template_name = ""
+    context_object_name = ""
+    queryset = ""
+
+
+class ActualizarNacionalidad(UpdateView):
+    model = Nacionalidad
+    template_name = ""
+    form_class = ""
+    success_url =  ""
+
+
 # Vistas basadas en clases de Banco
 class CrearBanco(CreateView):
     model = Banco
-    form_class = BancoForm
-    template_name = 'gui_administracion/gui_banco/crear_banco.html'
-    success_url = reverse_lazy('administracion:listar_banco')
+    form_class = ""
+    template_name = ""
+    success_url = ""
 
 
 class ListadoBanco(ListView):
     model = Banco
-    template_name = 'gui_administracion/gui_banco/listar_banco.html'
-    context_object_name = 'bancos'
-    queryset = Banco.objects.all()
+    template_name = ""
+    context_object_name = ""
+    queryset = ""
 
 
 class ActualizarBanco(UpdateView):
     model = Banco
-    template_name = 'gui_administracion/gui_banco/crear_banco.html'
-    form_class = BancoForm
-    success_url =  reverse_lazy('administracion:listar_banco')"""
+    template_name = ""
+    form_class = ""
+    success_url =  ""
+
+
+# Vistas basadas en clases de ConjuntoParametros
+class CrearConjuntoParametros(CreateView):
+    model = ConjuntoParametros
+    form_class = ""
+    template_name = ""
+    success_url = ""
+
+
+class ListadoConjuntoParametros(ListView):
+    model = ConjuntoParametros
+    template_name = ""
+    context_object_name = ""
+    queryset = ""
+
+
+class ActualizarConjuntoParametros(UpdateView):
+    model = ConjuntoParametros
+    template_name = ""
+    form_class = ""
+    success_url =  ""
+
+
+# Vistas basadas en clases de Profesion
+class CrearProfesion(CreateView):
+    model = Profesion
+    form_class = ""
+    template_name = ""
+    success_url = ""
+
+
+class ListadoProfesion(ListView):
+    model = Profesion
+    template_name = ""
+    context_object_name = ""
+    queryset = ""
+
+
+class ActualizarProfesion(UpdateView):
+    model = Profesion
+    template_name = ""
+    form_class = ""
+    success_url =  ""
