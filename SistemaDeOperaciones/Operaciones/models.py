@@ -57,7 +57,7 @@ class Operacione(models.Model):
     id_operacion = models.AutoField(primary_key=True)
     id_venta = models.ForeignKey(VentaOp, verbose_name="Venta", on_delete=models.CASCADE)
     id_etapa =  models.ForeignKey(Etapa, verbose_name="Etapa", on_delete=models.CASCADE)
-    fecha_operacion = models.DateField(auto_now=True, verbose_name="Fecha Registro")
+    fecha_operacion = models.DateField(verbose_name="Fecha Registro")
     comentario = models.TextField(verbose_name="Comentario")
 
     def __str__(self):

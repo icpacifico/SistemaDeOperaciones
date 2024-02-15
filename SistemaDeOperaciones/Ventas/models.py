@@ -1,21 +1,12 @@
 from django.db import models
 from Proyectos.models import Vivienda
-from Administracion.models import Banco, Nacionalidad
+from Administracion.models import *
 from SistemaDeOperaciones.choices import *
 
 
 # Create your models here.
 
 
-class Profesion(models.Model):
-    id_profesion = models.AutoField(primary_key=True)
-    nombre_profesion = models.CharField(max_length=50)
-
-    def __str__(self):
-        return "("+str(self.id_profesion)+")"+" - "+self.nombre_profesion
-
-    class Meta:
-        db_table = "profesion"
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
@@ -62,8 +53,8 @@ class Cotizacion(models.Model):
     renta_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=RENTA_COTIZACION_CHOICES, default=None)
     estado_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=IS_ACTIVE_CHOICES, default=None)
 
-    def __str__(self):
-        return "(" +str(self.id_cotizacion)+")"
+   # def __str__(self):
+    #    return "(" +str(self.id_cotizacion)+")Hola"
     class Meta:
         db_table = "cotizacion"
 

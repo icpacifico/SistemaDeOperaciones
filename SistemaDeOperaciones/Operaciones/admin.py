@@ -28,8 +28,6 @@ class VentaOpAdmin(admin.ModelAdmin):
     list_filter = ['id_venta', 'id_cliente']
     list_display = ['id_venta','id_vivienda', 'id_cliente','id_banco']
 
-
-
 admin.site.register(CategoriaEtapa)
 admin.site.register(Etapa)
 admin.site.register(Operacione)

@@ -69,10 +69,35 @@ class VentasAdmin(admin.ModelAdmin):
     )
 
 class ClienteAdmin(admin.ModelAdmin):
+
+
     search_fields = ['rut_cliente']
 
+
 class CotizacionAdmin(admin.ModelAdmin):
-    autocomplete_fields = ['id_cliente','id_vivienda']
+    @admin.action(description="Pasar a promesa")
+    def pasar_promesa(self, request, queryset):
+        for cotizacion in queryset:
+            # Obtiene todos los atributos del objeto Cotizacion
+            cotizacion_dict = cotizacion.__dict__
+
+            # Imprime los atributos
+            for key, value in cotizacion_dict.items():
+                print(f"{key}: {value}")
+
+            # También puedes realizar operaciones específicas con los atributos aquí
+            # ...
+
+    autocomplete_fields = ['id_cliente', 'id_vivienda']
+    actions = ["pasar_promesa"]
+
+
+
+
+
+
+
+
 
 admin.site.register(Profesion)
 admin.site.register(Cliente, ClienteAdmin)

@@ -17,8 +17,9 @@ class Condominio(models.Model):
 
 class Etapa(models.Model):
     id_etapa = models.AutoField(primary_key=True)
-    nombre_etapa = models.CharField(max_length=50)
     id_condominio = models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
+    nombre_etapa = models.CharField(max_length=50)
+
 
     def __str__(self):
         return "(" + str(self.id_condominio) + ")" + " - " + self.nombre_etapa
@@ -89,13 +90,13 @@ class Vivienda(models.Model):
     estado_vivienda = models.CharField(verbose_name="Estado vivienda", max_length=30, choices=IS_DISPONIBLE_CHOICES,
                                        default=disponible)
     piso = models.CharField(verbose_name="Piso", max_length=30, choices=PISO, default=uno)
-    nombre_vivienda = models.CharField(verbose_name="Nombre", max_length=100, null=True, blank=True)
+    nombre_vivienda = models.CharField(verbose_name="Número", max_length=100, null=True, blank=True)
     valor_vivienda = models.FloatField(verbose_name="Valor", null=True, blank=True)
     metros_vivienda = models.FloatField(verbose_name="Metros depto", null=True, blank=True)
     metros_terraza_vivienda = models.FloatField(verbose_name="Metros terraza", null=True, blank=True)
     metros_total_vivienda = models.FloatField(verbose_name="Metros total", null=True, blank=True)
-    bono_vivienda = models.FloatField(verbose_name="Bono", null=True, blank=True)
-    prorrateo_vivienda = models.FloatField(verbose_name="Prorrateo", null=True, blank=True)
+    bono_vivienda = models.FloatField(verbose_name="% Descuento", null=True, blank=True)
+    prorrateo_vivienda = models.FloatField(verbose_name="% Prorrateo", null=True, blank=True)
     rol_vivienda = models.CharField(verbose_name="Rol", max_length=100, null=True, blank=True)
 
     def __str__(self):
