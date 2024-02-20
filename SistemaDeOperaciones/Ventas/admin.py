@@ -91,15 +91,6 @@ class CotizacionAdmin(admin.ModelAdmin):
     autocomplete_fields = ['id_cliente', 'id_vivienda']
     actions = ["pasar_promesa"]
 
-
-
-
-
-
-
-
-
-admin.site.register(Profesion)
 admin.site.register(Cliente, ClienteAdmin)
 admin.site.register(Cotizacion,CotizacionAdmin)
 admin.site.register(Venta, VentasAdmin)
