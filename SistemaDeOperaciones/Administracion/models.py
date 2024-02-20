@@ -1,6 +1,6 @@
 from django.db import models
 from Proyectos.models import Condominio
-from SistemaDeOperaciones.SistemaDeOperaciones.funciones import validate_positive_integer
+from SistemaDeOperaciones.funciones import validate_positive_integer
 # Create your models here.
 class Nacionalidad(models.Model):
     id_nacionalidad = models.AutoField(primary_key=True)

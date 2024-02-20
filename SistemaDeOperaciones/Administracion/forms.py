@@ -1,5 +1,17 @@
 from django import forms
 from .models import Nacionalidad, Banco, ConjuntoParametros, Profesion
+from django.contrib.auth.forms import AuthenticationForm
+
+ 
+class FormularioLogin(AuthenticationForm):
+    def _init_(self, *args, **kwargs):
+        super(FormularioLogin, self)._init_(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Nombre de usuario'
+        self.fields['password'].widget.attrs['class'] = 'form-control'
+        self.fields['password'].widget.attrs['placeholder'] = 'Contraseña'
+
+
 
 # Formulario para Nacionalidad
 class NacionalidadForm(forms.ModelForm):

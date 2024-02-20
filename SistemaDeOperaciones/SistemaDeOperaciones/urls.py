@@ -16,7 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from Administracion.views import logoutUsuario, Login, Inicio
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
+    path('', Inicio.as_view(),name='index'),
+    # 
+    path('accounts/login/', Login.as_view(template_name="gui_pages/login.html"), name='login'),
+ 
+    path('logout/', login_required(logoutUsuario), name='logout'),
     path('admin/', admin.site.urls),
 ]

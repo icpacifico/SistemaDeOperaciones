@@ -1,8 +1,40 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
-from .models import Nacionalidad, Banco, ConjuntoParametros, Profesion
-# Create your views here.
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, FormView, TemplateView
+from .models import *
+from .forms import *
+from django.http import HttpResponseRedirect
+from django.contrib.auth import login, logout
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+from Administracion.forms import FormularioLogin
+
+class Inicio(TemplateView):
+    template_name = 'pages/index.html'
+ 
+ 
+class Login(FormView):
+    template_name = 'pages/login.html'
+    form_class = FormularioLogin
+    success_url = reverse_lazy('index')
+ 
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return super(Login, self).dispatch(request, *args, **kwargs)
+ 
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        return super(Login, self).form_valid(form)
+ 
+ 
+def logoutUsuario(request):
+    logout(request)
+    return HttpResponseRedirect('/accounts/login/')
 
 
 
@@ -17,7 +49,7 @@ class CrearNacionalidad(CreateView):
 class ListadoNacionalidad(ListView):
     model = Nacionalidad
     template_name = "administracion/gui_nacionalidad/listar_nacionalidad.html"
-    context_object_name = nacionalidades
+    context_object_name = "nacionalidades"
     queryset = Nacionalidad.objects.all()
 
 
