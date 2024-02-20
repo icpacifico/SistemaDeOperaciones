@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 class Inicio(TemplateView):
@@ -31,7 +32,7 @@ class Login(FormView):
 
 def logoutUsuario(request):
     logout(request)
-    return HttpResponseRedirect('/accounts/login/')
+    return HttpResponseRedirect('/account/login/')
 
 
 # Vistas basadas en clases de Nacionalidad
