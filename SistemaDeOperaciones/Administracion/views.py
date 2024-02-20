@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, TemplateView, FormView
 from .models import Nacionalidad, Banco, ConjuntoParametros, Profesion
 from . forms import *
 from django.contrib.auth import login, logout
@@ -45,7 +45,7 @@ class CrearNacionalidad(CreateView):
 class ListadoNacionalidad(ListView):
     model = Nacionalidad
     template_name = "administracion/gui_nacionalidad/listar_nacionalidad.html"
-    context_object_name = nacionalidades
+    context_object_name = "nacionalidades"
     queryset = Nacionalidad.objects.all()
 
 
