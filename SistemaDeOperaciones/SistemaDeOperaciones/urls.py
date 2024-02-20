@@ -18,12 +18,9 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.contrib.auth.decorators import login_required
 from Administracion.urls import *
-from Administracion.views import Login, Inicio, logoutUsuario
+from Administracion.views import Inicio
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('administracion/', include(('Administracion.urls', 'administracion'))),
-    path('', Inicio.as_view(),name='index'),
-    path('cuenta/login/', Login.as_view(template_name="pages/login.html"), name='login'),
-    path('logout/', login_required(logoutUsuario), name='logout'),
+    path('', include('Administracion.urls')),
 ]

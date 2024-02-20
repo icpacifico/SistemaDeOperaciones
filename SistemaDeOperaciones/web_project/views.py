@@ -5,7 +5,7 @@ from web_project.template_helpers.theme import TemplateHelper
 
 class SystemView(TemplateView):
     template_name = "pages/system/not-found.html"
-    status = ""
+    status = ''
 
     def get_context_data(self, **kwargs):
         # A function to init the global layout. It is defined in web_project/__init__.py file

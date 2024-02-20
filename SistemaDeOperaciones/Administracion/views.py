@@ -8,31 +8,29 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.http import HttpResponseRedirect
+from web_project import TemplateLayout
+from web_project.template_helpers.theme import TemplateHelper
 
 # Create your views here.
+
+class AuthView(TemplateView):
+    # Predefined function
+    def get_context_data(self, **kwargs):
+        # A function to init the global layout. It is defined in web_project/__init__.py file
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+
+        # Update the context
+        context.update(
+            {
+                "layout_path": TemplateHelper.set_layout("layout_blank.html", context),
+            }
+        )
+
+        return context
+
+
 class Inicio(TemplateView):
     template_name = 'pages/index.html'
-class Login(FormView):
-    template_name = 'pages/login.html'
-    form_class = FormularioLogin
-    success_url = reverse_lazy('index')
-
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return super(Login, self).dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        login(self.request, form.get_user())
-        return super(Login, self).form_valid(form)
-
-
-def logoutUsuario(request):
-    logout(request)
-    return HttpResponseRedirect('/account/login/')
 
 
 # Vistas basadas en clases de Nacionalidad

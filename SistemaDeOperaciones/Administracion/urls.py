@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required # Importar Login Regir
 
 
 urlpatterns = [
+    path("cuenta/login/", AuthView.as_view(template_name="login.html"), name="login"),
+    
     # Nacionalidad
     path('crear_nacionalidad/', login_required(CrearNacionalidad.as_view()), name = 'crear_nacionalidad'),
     path('listar_nacionalidad/', login_required(ListadoNacionalidad.as_view()), name = 'listar_nacionalidad'),
