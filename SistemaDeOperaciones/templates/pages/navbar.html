@@ -1,0 +1,345 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block navbar %}
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+    <div class="app-brand demo">
+      <a href="index.html" class="app-brand-link">
+        <span class="app-brand-logo demo me-1">
+          <span style="color: var(--bs-primary)">
+            <img src="{% static '/assets/img/illustrations/logoCrop.jpg'  %}" style="width:50px;height:50px;">
+           
+          </span>
+        </span>
+        <span class="app-brand-text demo menu-text fw-semibold ms-2">ICP</span>
+      </a>
+
+      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+        <i class="mdi menu-toggle-icon d-xl-block align-middle mdi-20px"></i>
+      </a>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    <ul class="menu-inner py-1">
+      <!-- Dashboards -->
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+          <div data-i18n="Dashboards">Dashboards</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="index.html" class="menu-link">
+              <div data-i18n="Analytics">Análisis</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-header fw-medium mt-4">
+        <span class="menu-header-text">Administración</span>
+      </li>
+      <!-- Apps -->
+
+      <!-- Pages -->
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-bank"></i>
+          <div data-i18n="Account Settings">Bancos</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="pages-account-settings-account.html" class="menu-link">
+              <div data-i18n="Account">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-account-settings-notifications.html" class="menu-link">
+              <div data-i18n="Notifications">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-flag-outline"></i>
+          <div data-i18n="Authentications">Nacionalidades</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="auth-login-basic.html" class="menu-link" target="_blank">
+              <div data-i18n="Basic">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="auth-register-basic.html" class="menu-link" target="_blank">
+              <div data-i18n="Basic">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-school-outline"></i>
+          <div data-i18n="Misc">Profesiones</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="pages-misc-error.html" class="menu-link">
+              <div data-i18n="Error">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-misc-under-maintenance.html" class="menu-link">
+              <div data-i18n="Under Maintenance">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Components -->
+      <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Operaciones</span></li>
+      <!-- Cards -->
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-layers-triple-outline"></i>
+          <div data-i18n="Misc">Etapas</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="pages-misc-error.html" class="menu-link">
+              <div data-i18n="Error">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-misc-under-maintenance.html" class="menu-link">
+              <div data-i18n="Under Maintenance">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- Forms & Tables -->
+      <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Proyectos</span></li>
+      <!-- Forms -->
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-warehouse"></i>
+          <div data-i18n="Form Elements">Bodegas</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-domain"></i>
+          <div data-i18n="Form Layouts">Condominios</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="form-layouts-vertical.html" class="menu-link">
+              <div data-i18n="Vertical Form">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="form-layouts-horizontal.html" class="menu-link">
+              <div data-i18n="Horizontal Form">Listar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="form-layouts-horizontal.html" class="menu-link">
+              <div data-i18n="Horizontal Form">Cargar</div>
+            </a>
+          </li>
+        </ul>
+      </li>    
+      <!-- Tables -->
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-car-back"></i>
+          <div data-i18n="Form Elements">Estacionamientos</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-layers-outline"></i>
+          <div data-i18n="Form Elements">Etapas</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-floor-plan"></i>
+          <div data-i18n="Form Elements">Modelos</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-office-building-outline"></i>
+          <div data-i18n="Form Elements">Torres</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+          <div data-i18n="Form Elements">Viviendas</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      
+      <!-- Misc -->
+      <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Ventas</span></li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-account-group-outline"></i>
+          <div data-i18n="Form Elements">Clientes</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-checkbox-outline"></i>
+          <div data-i18n="Form Elements">Cotización</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-checkbox-outline"></i>
+          <div data-i18n="Form Elements">Ventas</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi mdi-file-cancel-outline"></i>
+          <div data-i18n="Form Elements">Desistimientos</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-input-groups.html" class="menu-link">
+              <div data-i18n="Input groups">Listar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Agregar Tipo</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="forms-basic-inputs.html" class="menu-link">
+              <div data-i18n="Basic Inputs">Listar Tipos</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+  <!-- / Menu -->
+
+  {% endblock navbar %}
