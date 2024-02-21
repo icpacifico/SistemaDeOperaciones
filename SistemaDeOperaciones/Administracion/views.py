@@ -9,11 +9,19 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from Administracion.forms import FormularioLogin
+from django.contrib.auth.models import User
 
 class Inicio(TemplateView):
     template_name = 'pages/index.html'
- 
- 
+
+
+class ListadoUsuario(ListView):
+    model = User
+    template_name = "administracion/gui_usuarios/listar_usuarios.html"
+    context_object_name = "usuarios"
+    queryset = User.objects.all()
+
+
 class Login(FormView):
     template_name = 'pages/login.html'
     form_class = FormularioLogin

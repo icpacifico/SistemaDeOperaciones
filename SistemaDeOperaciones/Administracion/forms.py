@@ -20,7 +20,7 @@ class NacionalidadForm(forms.ModelForm):
         fields = ['nombre_nacionalidad']
         labels = {'nombre_nacionalidad': 'Nacionalidad'}
         widgets = {
-            'nombre_nacionalidad': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '', 'id': ''}),
+            'nombre_nacionalidad': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nacionalidad Ejemplo', 'id': 'asic-default-fullname'}),
         }
 
 # Formulario para Banco
@@ -30,7 +30,7 @@ class BancoForm(forms.ModelForm):
         fields = ['nombre_banco']
         labels = {'nombre_banco': 'Banco'}
         widgets = {
-            'nombre_banco': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '', 'id': ''}),
+            'nombre_banco': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Banco ejemplo', 'id': 'asic-default-fullname'}),
         }
 
 # Formulario para ConjuntoParametros
@@ -89,5 +89,5 @@ class ProfesionForm(forms.ModelForm):
         fields = ['nombre_profesion']
         labels = {'nombre_profesion': 'Profesión'}
         widgets = {
-            'nombre_profesion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '', 'id': ''}),
+            'nombre_profesion': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Profesión Ejemplo', 'id': 'asic-default-fullname'}),
         }
