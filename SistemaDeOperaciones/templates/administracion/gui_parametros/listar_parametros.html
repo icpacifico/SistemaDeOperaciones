@@ -1,10 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "pages/base.html" %}
 
-</body>
-</html>
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Parámetros /</span> Listado de Parámetros</h4>
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header">PARÁMETROS</h5>
+        <div class="table-responsive text-nowrap">
+            {% if parametros %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Condominio</th>
+                    <th>Factor</th>
+                    <th>Precio Dsct</th>
+                    <th>% Bono Precio</th>
+                    <th>% Promesa</th>
+                    <th>% Escritura</th>
+                    <th>% Comisión</th>
+                    <th>Monto (UF) Operaciones</th>
+                    <th>Reserva (UF)</th>
+                    <th>Monto a Prorratear</th>
+                    <th>Monto a Rec</th>
+                    <th>Fecha Rec</th>
+                    <th>$ Bodega</th>
+                    <th>$ Estacionamiento</th>
+                    <th>Fecha termino de ventas</th>
+                    <th>Dirección</th>
+                    <th>Banco Alzante</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for parametro in parametros %}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{parametro.id_conjunto_parametros}}</span>
+                    </td>
+
+                    <td>{{parametro.id_condominio}}</td>
+                    <td>{{parametro.factor_vendedor}}</td>
+                    <td>{{parametro.precio_dcto_depto}}</td>
+                    <td>{{parametro.bono_precio_porce}}</td>
+                    <td>{{parametro.porcen_promesa}}</td>
+                    <td>{{parametro.porcen_escritura}}</td>
+                    <td>{{parametro.porcen_comision_vendedor}}</td>
+                    <td>{{parametro.monto_escrt_operaciones}}</td>
+                    <td>{{parametro.monto_reserva}}</td>
+                    <td>{{parametro.monto_prorrateo}}</td>
+                    <td>{{parametro.monto_recuperar}}</td>
+                    <td>{{parametro.fecha_recuperacion}}</td>
+                    <td>{{parametro.valor_bodega}}</td>
+                    <td>{{parametro.valor_estacionamiento}}</td>
+                    <td>{{parametro.fecha_termino_venta}}</td>
+                    <td>{{parametro.direccion_condominio}}</td>
+                    <td>{{parametro.banco_alzante}}</td>
+
+
+                    <td><span class="badge rounded-pill bg-label-primary me-1">{{parametro.id_condominio}}</span></td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <h1>No existen parámetros aún</h1>
+                      {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

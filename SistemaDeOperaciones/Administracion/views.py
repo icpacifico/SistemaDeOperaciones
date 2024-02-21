@@ -87,22 +87,22 @@ class ActualizarBanco(UpdateView):
 class CrearConjuntoParametros(CreateView):
     model = ConjuntoParametros
     form_class = ConjuntoParametrosForm
-    template_name = "administracion/gui_conjunto_parametros/crear_conjunto_parametros.html"
-    success_url = reverse_lazy("administracion:listar_conjunto_parametros")
+    template_name = "administracion/gui_parametros/crear_parametros.html"
+    success_url = reverse_lazy("administracion:listar_parametros")
 
 
 class ListadoConjuntoParametros(ListView):
     model = ConjuntoParametros
-    template_name = "administracion/gui_conjunto_parametros/listar_conjunto_parametros.html"
-    context_object_name = "conjunto_parametros"
+    template_name = "administracion/gui_parametros/listar_parametros.html"
+    context_object_name = "parametros"
     queryset = ConjuntoParametros.objects.all()
 
 
 class ActualizarConjuntoParametros(UpdateView):
     model = ConjuntoParametros
     form_class = ConjuntoParametrosForm
-    template_name = "administracion/gui_conjunto_parametros/crear_conjunto_parametros.html"
-    success_url = reverse_lazy("administracion:listar_conjunto_parametros")
+    template_name = "administracion/gui_parametros/crear_parametros.html"
+    success_url = reverse_lazy("administracion:listar_parametros")
 
 
 

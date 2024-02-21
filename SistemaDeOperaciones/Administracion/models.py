@@ -38,7 +38,7 @@ class ConjuntoParametros(models.Model):
     fecha_recuperacion = models.DateField(verbose_name="Fecha Recuperación", null=False,blank=False)
     valor_bodega = models.IntegerField(verbose_name="$ Bodega", validators =[validate_positive_integer], null=False,blank=False)
     valor_estacionamiento = models.IntegerField(verbose_name="$ Estacionamiento", validators =[validate_positive_integer], null=False,blank=False)
-    fecha_termino_venta = models.DateField(verbose_name="Fecha termino de ventas", validators =[validate_positive_integer], null=False,blank=False)
+    fecha_termino_venta = models.DateField(verbose_name="Fecha termino de ventas", null=False,blank=False)
     direccion_condominio = models.CharField(max_length=100, verbose_name="Dirección Condominio", null=False,blank=False)
     banco_alzante = models.ForeignKey(Banco, verbose_name="Banco Alzante", on_delete=models.CASCADE, null=False,blank=False)
 

@@ -1,6 +1,6 @@
 from django.urls import path # Importar el path
 # Importar las vistas de views
-from .views import Nacionalidad, Banco, ConjuntoParametros, Profesion
+from .views import *
 from django.contrib.auth.decorators import login_required # Importar Login Regired para proteccion de urls
 
 
