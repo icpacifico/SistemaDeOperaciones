@@ -37,7 +37,7 @@ a.bg-primary:hover, a.bg-primary:focus {
 }
 
 .bg-label-primary {
-  background-color: #eee6ff !important;
+  background-color: #e9ffe6 !important;
   color: var(--primer_color_verde) !important;
 }
 
@@ -47,7 +47,7 @@ a.bg-primary:hover, a.bg-primary:focus {
 .pagination li.active > a:not(.page-link):focus {
   border-color: var(--primer_color_verde);
   background-color: var(--primer_color_verde);
-  color: #fff;
+  color: #ffffff;
 }
 .page-item.active .page-link.waves-effect .waves-ripple,
 .pagination li.active > a:not(.page-link).waves-effect .waves-ripple {
@@ -614,14 +614,14 @@ a:hover {
   border-color: #fff !important;
 }
 .bg-menu-theme .menu-item.active > .menu-link:not(.menu-toggle) {
-  background: linear-gradient(270deg, var(--primer_color_verde) 0%, #c4a5fe 100%);
+  background: linear-gradient(270deg, var(--primer_color_verde) 0%, var(--tercer_color_verde) 100%);
 }
 .bg-menu-theme.menu-horizontal .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle), .bg-menu-theme.menu-horizontal .menu-sub > .menu-item.active > .menu-link:not(.menu-toggle)::before {
   background: #f2ebff;
   color: var(--primer_color_verde) !important;
 }
 .bg-menu-theme.menu-horizontal .menu-inner > .menu-item.active > .menu-link.menu-toggle {
-  background: linear-gradient(270deg, var(--primer_color_verde) 0%, #c4a5fe 100%);
+  background: linear-gradient(270deg, var(--primer_color_verde) 0%, var(--tercer_color_verde) 100%);
 }
 .bg-menu-theme.menu-horizontal .menu-inner > .menu-item.active > .menu-link.menu-toggle, .bg-menu-theme.menu-horizontal .menu-inner > .menu-item.active > .menu-link.menu-toggle:after {
   color: #fff;
