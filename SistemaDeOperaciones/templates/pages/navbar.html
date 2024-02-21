@@ -98,8 +98,8 @@
       </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons mdi mdi-school-outline"></i>
-          <div data-i18n="Misc">Parametros</div>
+          <i class="menu-icon tf-icons mdi mdi-text-box-outline"></i>
+          <div data-i18n="Misc">Parametros Condominio</div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
@@ -110,6 +110,34 @@
           <li class="menu-item">
             <a href="{% url 'administracion:listar_parametros' %}" class="menu-link">
               <div data-i18n="Under Maintenance">Listar</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons mdi  mdi-account"></i>
+          <div data-i18n="Misc">Usuarios</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="pages-misc-error.html" class="menu-link">
+              <div data-i18n="Error">Agregar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-misc-under-maintenance.html" class="menu-link">
+              <div data-i18n="Under Maintenance">Listar</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-misc-error.html" class="menu-link">
+              <div data-i18n="Error">Agregar Grupo</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="pages-misc-error.html" class="menu-link">
+              <div data-i18n="Error">Listar Grupos</div>
             </a>
           </li>
         </ul>
@@ -293,7 +321,7 @@
       </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons mdi mdi-checkbox-outline"></i>
+          <i class="menu-icon tf-icons mdi mdi-clipboard-clock-outline"></i>
           <div data-i18n="Form Elements">Cotización</div>
         </a>
         <ul class="menu-sub">
@@ -311,7 +339,7 @@
       </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons mdi mdi-checkbox-outline"></i>
+          <i class="menu-icon tf-icons mdi mdi-clipboard-check-outline"></i>
           <div data-i18n="Form Elements">Ventas</div>
         </a>
         <ul class="menu-sub">
@@ -329,7 +357,7 @@
       </li>
       <li class="menu-item">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons mdi mdi-file-cancel-outline"></i>
+          <i class="menu-icon tf-icons mdi mdi-clipboard-remove-outline"></i>
           <div data-i18n="Form Elements">Desistimientos</div>
         </a>
         <ul class="menu-sub">
@@ -354,6 +382,9 @@
             </a>
           </li>
         </ul>
+      </li>
+      <li class="menu-header fw-medium mt-4">
+        <span class="menu-header-text"></span>
       </li>
     </ul>
   </aside>
