@@ -6,10 +6,10 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4">
         <a type="button" class="btn btn-info" style="float: right" href="{% url 'administracion:crear_parametros' %}">Agregar</a>
-        <span class="text-muted fw-light">Parámetros /</span> Listado de Parámetros</h4>
+        <span class="text-muted fw-light">Parámetros /</span> Listado Parámetros</h4>
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
-        <h5 class="card-header">PARÁMETROS</h5>
+        <h5 class="card-header fw-light">Parámetros</h5>
         <div class="table-responsive text-nowrap">
             {% if parametros %}
             <table class="table">
@@ -86,8 +86,22 @@
                 </tbody>
             </table>
             {% else %}
-            <h1>No existen parámetros aún</h1>
-                      {% endif%}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>ID Banco</th>
+                    <th>Nombre Banco</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0"> 
+                <tr>
+                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
         </div>
     </div>
     <!-- Bootstrap Table with Header - Light -->
