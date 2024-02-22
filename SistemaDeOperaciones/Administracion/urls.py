@@ -28,6 +28,6 @@ urlpatterns = [
     # Usuarios
     # path('crear_profesion/', login_required(CrearProfesion.as_view()), name='crear_profesion'),
     path('listar_usuario/', login_required(ListadoUsuario.as_view()), name='listar_usuario'),
-    # path('editar_profesion/<int:pk>', login_required(ActualizarProfesion.as_view()), name='editar_profesion'),
+    path('editar_usuario/<int:pk>', login_required(ActualizarUsuario.as_view()), name='editar_usuario'),
 
 ]

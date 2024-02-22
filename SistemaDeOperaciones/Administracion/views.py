@@ -10,6 +10,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from Administracion.forms import FormularioLogin
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserChangeForm
 
 class Inicio(TemplateView):
     template_name = 'pages/index.html'
@@ -21,6 +22,11 @@ class ListadoUsuario(ListView):
     context_object_name = "usuarios"
     queryset = User.objects.all()
 
+class ActualizarUsuario(UpdateView):
+    model = User
+    form_class = UserChangeForm
+    template_name = "administracion/gui_usuarios/perfil.html"
+    success_url = reverse_lazy("administracion:listar_usuarios")
 
 class Login(FormView):
     template_name = 'pages/login.html'
