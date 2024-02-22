@@ -1,0 +1,20 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Dashboard /</span> Reporte de Comisiones</h4>
+    <div class="row">
+        <h4 class="card-header"></h4>
+        <!-- Account -->
+        <iframe title="Reporte Comisiones y Bonos" width="800" height="836"
+                src="https://app.powerbi.com/view?r=eyJrIjoiNDUzNGZlNGQtOWE2Mi00MDNlLTk0OWEtOWNhM2VjMDU5ZWEzIiwidCI6IjFiZGE2NzE2LTA0YjItNDQxYi1hOWYyLTBjMTU0ODlkNGY2OCIsImMiOjR9"
+                frameborder="0" allowFullScreen="true"></iframe>
+        <!-- /Account -->
+    </div>
+</div>
+<!-- / Content -->
+
+{% endblock contenido %}

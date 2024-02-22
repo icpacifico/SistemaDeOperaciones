@@ -25,7 +25,7 @@
                                 alt="user-avatar"
                                 class="d-block w-px-120 h-px-120 rounded"
                                 id="uploadedAvatar"/>
-                        <div class="button-wrapper">
+                        <!--<div class="button-wrapper">
                             <label for="upload" class="btn btn-primary me-2 mb-3" tabindex="0">
                                 <span class="d-none d-sm-block">Actualizar Foto</span>
                                 <i class="mdi mdi-tray-arrow-up d-block d-sm-none"></i>
@@ -42,7 +42,7 @@
                             </button>
 
                             <div class="text-muted small">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <div class="card-body pt-2 mt-1">
@@ -56,15 +56,31 @@
                                             type="text"
                                             id="firstName"
                                             name="firstName"
-                                            value="{{user.first_name}}"
-                                            autofocus/>
-                                    <label for="firstName">Nombres</label>
+                                            value="{{user.username}}"
+                                            autofocus
+                                            readonly/>
+                                    <label for="firstName">Usuario</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
-                                    <input class="form-control" type="text" name="lastName" id="lastName" value="{{user.last_name}}"/>
-                                    <label for="lastName">Apellidos</label>
+                                    <input
+                                            class="form-control"
+                                            type="text"
+                                            id="firstName"
+                                            name="firstName"
+                                            value="{{user.email}}"
+                                            autofocus
+                                            readonly/>
+                                    <label for="firstName">Correo</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline">
+                                    <input class="form-control" type="text" name="lastName" id="lastName"
+                                           value="{{user.first_name}}"
+                                           readonly/>
+                                    <label for="lastName">Nombres</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -74,45 +90,10 @@
                                             type="text"
                                             id="email"
                                             name="email"
-                                            value="{{user.email}}"
-                                            placeholder="pepepollo@icpacifico.com"/>
-                                    <label for="email">E-mail</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating form-floating-outline">
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            id="organization"
-                                            value="{{user.password}}"
-                                            name="organization"/>
-                                    <label for="organization">Empresa</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group input-group-merge">
-                                    <div class="form-floating form-floating-outline">
-                                        <input
-                                                type="text"
-                                                id="phoneNumber"
-                                                name="phoneNumber"
-                                                class="form-control"
-                                                placeholder="202 555 0111"/>
-                                        <label for="phoneNumber">Teléfono</label>
-                                    </div>
-                                    <span class="input-group-text">CH (+569)</span>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating form-floating-outline">
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            id="address"
-                                            name="address"
-                                            placeholder="Address"/>
-                                    <label for="address">Dirección</label>
+                                            value="{{user.last_name}}"
+                                            placeholder="pepepollo@icpacifico.com"
+                                            readonly/>
+                                    <label for="email">Apellidos</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -122,26 +103,60 @@
                                             type="text"
                                             id="state"
                                             name="state"
-                                            placeholder="California"/>
+                                            value="{{user.is_active}}"
+                                            placeholder="California"
+                                            readonly/>
                                     <label for="state">Estado</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating form-floating-outline">
                                     <input
-                                            type="text"
                                             class="form-control"
-                                            id="zipCode"
-                                            name="zipCode"
-                                            placeholder="231465"
-                                            maxlength="6"/>
-                                    <label for="zipCode">Zip Codigo</label>
+                                            type="text"
+                                            id="state"
+                                            name="state"
+                                            value="{{user.is_staff}}"
+                                            placeholder="California"
+                                            readonly/>
+                                    <label for="state">Staff</label>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    <select
+                                            multiple
+                                            class="form-select h-px-100"
+                                            id="exampleFormControlSelect2"
+                                            aria-label="Multiple select example"
+                                            readonly>
+                                        {% for grupo in grupos %}
+                                        <option>{{ grupo.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="exampleFormControlSelect2">Grupos</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    <select
+                                            multiple
+                                            class="form-select h-px-100"
+                                            id="exampleFormControlSelect2"
+                                            aria-label="Multiple select example"
+                                            readonly>
+                                        {% for permiso in permisos_directos %}
+                                        <option>{{ permiso.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="exampleFormControlSelect2">Permisos</label>
+                                </div>
+                            </div>
+
+
                         </div>
                         <div class="mt-4">
-                            <button type="submit" class="btn btn-primary me-2">Guardar Cambios</button>
-                            <button type="reset" class="btn btn-outline-secondary">Cancelar</button>
+                            <a href="{%url 'index' %}" class="btn btn-outline-secondary">Regresar</a>
                         </div>
                     </form>
                 </div>

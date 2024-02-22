@@ -28,6 +28,8 @@ urlpatterns = [
     # Usuarios
     # path('crear_profesion/', login_required(CrearProfesion.as_view()), name='crear_profesion'),
     path('listar_usuario/', login_required(ListadoUsuario.as_view()), name='listar_usuario'),
-    path('editar_usuario/<int:pk>', login_required(ActualizarUsuario.as_view()), name='editar_usuario'),
+    path('usuario_info/<int:pk>/', login_required(UserInfoView.as_view()), name='usuario_info'),
+
+    path('rep_comisiones', login_required(reporte_comisiones), name='rep_comisiones'),
 
 ]

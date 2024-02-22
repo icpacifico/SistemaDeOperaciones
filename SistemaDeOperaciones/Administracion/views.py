@@ -9,24 +9,45 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from Administracion.forms import FormularioLogin
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission, Group
 from django.contrib.auth.forms import UserChangeForm
 
 class Inicio(TemplateView):
     template_name = 'pages/index.html'
 
-
+def reporte_comisiones(request):
+    return render(request, 'administracion/reportes/reporte_comisiones.html')
 class ListadoUsuario(ListView):
     model = User
     template_name = "administracion/gui_usuarios/listar_usuarios.html"
     context_object_name = "usuarios"
     queryset = User.objects.all()
 
-class ActualizarUsuario(UpdateView):
+class UserInfoView(DetailView):
     model = User
-    form_class = UserChangeForm
-    template_name = "administracion/gui_usuarios/perfil.html"
-    success_url = reverse_lazy("administracion:listar_usuarios")
+    template_name = 'administracion/gui_usuarios/perfil.html'
+    context_object_name = 'usuario'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Obtener el usuario
+        usuario = context['usuario']
+
+        # Obtener los grupos a los que pertenece el usuario
+        grupos_usuario = usuario.groups.all()
+
+        # Obtener los permisos directos del usuario
+        permisos_directos = usuario.user_permissions.all()
+
+        # Obtener los permisos a través de los grupos
+        permisos_grupos = Permission.objects.filter(group__in=grupos_usuario)
+
+        context['grupos'] = grupos_usuario
+        context['permisos_directos'] = permisos_directos
+        context['permisos_grupos'] = permisos_grupos
+
+        return context
 
 class Login(FormView):
     template_name = 'pages/login.html'
