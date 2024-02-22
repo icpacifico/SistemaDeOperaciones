@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Banco)
 admin.site.register(ConjuntoParametros)
 admin.site.register(Nacionalidad)
+admin.site.register(Profile)
