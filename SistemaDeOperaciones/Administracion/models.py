@@ -1,6 +1,16 @@
 from django.db import models
 from Proyectos.models import Condominio
 from SistemaDeOperaciones.funciones import validate_positive_integer
+from django.contrib.auth.models import User
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # Delete profile when user is deleted
+    image = models.ImageField(default='default.jpg', upload_to='foto_perfil')
+
+    def __str__(self):
+        return f'{self.user.username} Profile' #show how we want it to be displayed
+
 # Create your models here.
 class Nacionalidad(models.Model):
     id_nacionalidad = models.AutoField(primary_key=True)
