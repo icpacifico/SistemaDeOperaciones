@@ -1,9 +1,75 @@
-from django.shortcuts import render
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
-from .models import Condominio, Etapa, Torre, Modelo, Bodega, Estacionamiento, Vivienda
-from .forms import CondominioForm, EtapaForm, TorreForm, ModeloForm, BodegaForm, EstacionamientoForm, ViviendaForm
+from django.views.generic import (
+    ListView, CreateView, DeleteView, UpdateView, DetailView
+)
+import pandas as pd
+from .models import (
+    Condominio, Etapa, Torre, Modelo, Bodega, Estacionamiento, Vivienda
+)
+from .forms import (
+    CondominioForm, EtapaForm, TorreForm, ModeloForm,
+    BodegaForm, EstacionamientoForm, ViviendaForm, ImportViviendasForm
+)
+
+
 # Create your views here.
+def descargar_formato(request):
+    # Crea un DataFrame con las columnas que deseas en el formato del archivo Excel
+    columns = [
+        'id_torre', 'id_modelo', 'tipo_vivienda', 'ori_vivienda', 'estado_vivienda', 'piso',
+        'nombre_vivienda', 'valor_vivienda', 'metros_vivienda', 'metros_terraza_vivienda', 'metros_total_vivienda',
+        'bono_vivienda', 'prorrateo_vivienda', 'rol_vivienda'
+    ]
+    df = pd.DataFrame(columns=columns)
+    # Crea una respuesta HTTP con el archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=formato_carga.xlsx'
+    # Guarda el DataFrame en el archivo Excel
+    df.to_excel(response, index=False, engine='openpyxl')
+    return response
+
+
+def importar_viviendas(request):
+    if request.method == 'POST':
+        form = ImportViviendasForm(request.POST, request.FILES)
+        if form.is_valid():
+            archivo_excel = request.FILES['archivo_excel']
+            try:
+                # Leer el archivo Excel usando pandas
+                df = pd.read_excel(archivo_excel)
+
+                # Iterar sobre las filas del DataFrame y crear instancias de Cliente
+                for index, row in df.iterrows():
+                    Vivienda.objects.create(
+                        id_torre=row['id_torre'],
+                        id_modelo=row['id_modelo'],
+                        tipo_vivienda=row['tipo_vivienda'],
+                        ori_vivienda=row['ori_vivienda'],
+                        estado_vivienda=row['estado_vivienda'],
+                        piso=row['piso'],
+                        nombre_vivienda=row['nombre_vivienda'],
+                        valor_vivienda=row['valor_vivienda'],
+                        metros_vivienda=row['metros_vivienda'],
+                        metros_terraza_vivienda=row['metros_terraza_vivienda'],
+                        metros_total_vivienda=row['metros_total_vivienda'],
+                        bono_vivienda=row['bono_vivienda'],
+                        prorrateo_vivienda=row['prorrateo_vivienda'],
+                        rol_vivienda=row['rol_vivienda']
+
+                    )
+
+                # Redirigir al usuario con un mensaje de éxito
+                return redirect('listar_vivienda')  # Cambia 'clientes_lista' por la URL de tu lista de clientes
+            except Exception as e:
+                # Manejar cualquier error durante la importación
+                error_message = f"Error durante la importación: {str(e)}"
+                return render(request, 'importar_viviendas.html', {'form': form, 'error_message': error_message})
+    else:
+        form = ImportViviendasForm()
+
+    return render(request, 'proyectos/gui_condominio/importar_viviendas.html', {'form': form})
 
 
 class CrearCondominio(CreateView):
@@ -12,11 +78,13 @@ class CrearCondominio(CreateView):
     template_name = "proyectos/gui_condominio/crear_condominio.html"
     success_url = reverse_lazy("proyectos:listar_condominio")
 
+
 class ListadoCondominio(ListView):
     model = Condominio
     template_name = "proyectos/gui_condominio/listar_condominio.html"
     context_object_name = "condominios"
     queryset = Condominio.objects.all()
+
 
 class ActualizarCondominio(UpdateView):
     model = Condominio
@@ -24,11 +92,13 @@ class ActualizarCondominio(UpdateView):
     form_class = CondominioForm
     success_url = reverse_lazy("proyectos:listar_condominio")
 
+
 class CrearEtapa(CreateView):
     model = Etapa
     form_class = EtapaForm
     template_name = "proyectos/gui_etapa/crear_etapa.html"
     success_url = reverse_lazy("proyectos:listar_etapa")
+
 
 class ListadoEtapa(ListView):
     model = Etapa
@@ -36,11 +106,13 @@ class ListadoEtapa(ListView):
     context_object_name = "etapas"
     queryset = Etapa.objects.all()
 
+
 class ActualizarEtapa(UpdateView):
     model = Etapa
     template_name = "proyectos/gui_etapa/crear_etapa.html"
     form_class = EtapaForm
     success_url = reverse_lazy("proyectos:listar_etapa")
+
 
 class CrearTorre(CreateView):
     model = Torre
@@ -48,11 +120,13 @@ class CrearTorre(CreateView):
     template_name = "proyectos/gui_torre/crear_torre.html"
     success_url = reverse_lazy("proyectos:listar_torre")
 
+
 class ListadoTorre(ListView):
     model = Torre
     template_name = "proyectos/gui_torre/listar_torre.html"
     context_object_name = "torres"
     queryset = Torre.objects.all()
+
 
 class ActualizarTorre(UpdateView):
     model = Torre
@@ -60,11 +134,13 @@ class ActualizarTorre(UpdateView):
     form_class = TorreForm
     success_url = reverse_lazy("proyectos:listar_torre")
 
+
 class CrearModelo(CreateView):
     model = Modelo
     form_class = ModeloForm
     template_name = "proyectos/gui_modelo/crear_modelo.html"
     success_url = reverse_lazy("proyectos:listar_modelo")
+
 
 class ListadoModelo(ListView):
     model = Modelo
@@ -72,11 +148,13 @@ class ListadoModelo(ListView):
     context_object_name = "modelos"
     queryset = Modelo.objects.all()
 
+
 class ActualizarModelo(UpdateView):
     model = Modelo
     template_name = "proyectos/gui_modelo/crear_modelo.html"
     form_class = ModeloForm
     success_url = reverse_lazy("proyectos:listar_modelo")
+
 
 class CrearBodega(CreateView):
     model = Bodega
@@ -84,11 +162,13 @@ class CrearBodega(CreateView):
     template_name = "proyectos/gui_bodega/crear_bodega.html"
     success_url = reverse_lazy("proyectos:listar_bodega")
 
+
 class ListadoBodega(ListView):
     model = Bodega
     template_name = "proyectos/gui_bodega/listar_bodega.html"
     context_object_name = "bodegas"
     queryset = Bodega.objects.all()
+
 
 class ActualizarBodega(UpdateView):
     model = Bodega
@@ -96,11 +176,13 @@ class ActualizarBodega(UpdateView):
     form_class = BodegaForm
     success_url = reverse_lazy("proyectos:listar_bodega")
 
+
 class CrearEstacionamiento(CreateView):
     model = Estacionamiento
     form_class = EstacionamientoForm
     template_name = "proyectos/gui_estacionamiento/crear_estacionamiento.html"
     success_url = reverse_lazy("proyectos:listar_estacionamiento")
+
 
 class ListadoEstacionamiento(ListView):
     model = Estacionamiento
@@ -108,11 +190,13 @@ class ListadoEstacionamiento(ListView):
     context_object_name = "estacionamientos"
     queryset = Estacionamiento.objects.all()
 
+
 class ActualizarEstacionamiento(UpdateView):
     model = Estacionamiento
     template_name = "proyectos/gui_estacionamiento/crear_estacionamiento.html"
     form_class = EstacionamientoForm
     success_url = reverse_lazy("proyectos:listar_estacionamiento")
+
 
 class CrearVivienda(CreateView):
     model = Vivienda
@@ -120,11 +204,13 @@ class CrearVivienda(CreateView):
     template_name = "proyectos/gui_vivienda/crear_vivienda.html"
     success_url = reverse_lazy("proyectos:listar_vivienda")
 
+
 class ListadoVivienda(ListView):
     model = Vivienda
     template_name = "proyectos/gui_vivienda/listar_vivienda.html"
     context_object_name = "viviendas"
     queryset = Vivienda.objects.all()
+
 
 class ActualizarVivienda(UpdateView):
     model = Vivienda

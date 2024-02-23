@@ -1,6 +1,6 @@
 from django.urls import path # Importar el path
 # Importar las vistas de views
-from .views import CrearCondominio,ListadoCondominio,ActualizarCondominio,CrearEtapa,ListadoEtapa,ActualizarEtapa,CrearTorre,ListadoTorre,ActualizarTorre,CrearModelo,ListadoModelo,ActualizarModelo,CrearBodega,ListadoBodega,ActualizarBodega,CrearEstacionamiento,ListadoEstacionamiento,ActualizarEstacionamiento,CrearVivienda,ListadoVivienda,ActualizarVivienda
+from .views import *
 from django.contrib.auth.decorators import login_required # Importar Login Regired para proteccion de urls
 
 
@@ -46,4 +46,9 @@ urlpatterns = [
     path('listar_vivienda/', login_required(ListadoVivienda.as_view()), name='listar_vivienda'),
     path('editar_vivienda/<int:pk>/', login_required(ActualizarVivienda.as_view()), name='editar_vivienda'),
     #path('eliminar_vivienda/<int:pk>/', login_required(EliminarVivienda.as_view()), name='eliminar_vivienda'),
+
+    # CARGA MASIVA DE VIVIENDAS
+    path('download_format', login_required(descargar_formato), name='download_format'),
+    path('carga_proyecto', login_required(importar_viviendas), name='carga_proyecto'),
+
 ]

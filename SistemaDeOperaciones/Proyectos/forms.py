@@ -1,6 +1,8 @@
 from django import forms
 from .models import Condominio, Etapa, Torre, Modelo, Bodega, Estacionamiento, Vivienda
-
+from django.forms.widgets import ClearableFileInput, TextInput
+class ImportViviendasForm(forms.Form):
+    archivo_excel = forms.FileField( widget=ClearableFileInput(attrs={'class': 'form-control','type':'file' ,'id':'formFile' }),)
 class CondominioForm(forms.ModelForm):
     class Meta:
         model = Condominio
