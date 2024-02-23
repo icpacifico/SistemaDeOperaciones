@@ -22,6 +22,7 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     path('', login_required(Inicio.as_view()),name='index'),
     path('administracion/', include(('Administracion.urls', 'administracion'))),
+    path('proyectos/', include(('Proyectos.urls', 'proyectos'))),
     path('accounts/login/', Login.as_view(template_name="pages/login.html"), name='login'),
  
     path('logout/', login_required(logoutUsuario), name='logout'),

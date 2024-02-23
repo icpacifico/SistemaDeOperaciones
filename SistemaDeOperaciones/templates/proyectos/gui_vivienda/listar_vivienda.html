@@ -1,0 +1,110 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_vivienda' %}">Agregar</a>
+        <span class="text-muted fw-light">Viviendas /</span> Listado Viviendas</h4>
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header fw-light">Viviendas</h5>
+        <div class="table-responsive text-nowrap">
+            {% if viviendas %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>ID Vivienda</th>
+                    <th>N° Depto</th>
+                    <th>Torre</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Orientación</th>
+                    <th>Piso</th>
+                    <th>Valor (UF)</th>
+                    <th>Metros 2</th>
+                    <th>Metros Terraza</th>
+                    <th>Metros Totales</th>
+                    <th>Bono</th>
+                    <th>Prorrateo</th>
+                    <th>Rol Depto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for vivienda in viviendas %}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{vivienda.id_vivienda}}</span>
+                    </td>
+                    <td>{{vivienda.nombre_vivienda}}</td>
+                    <td>{{vivienda.id_torre}}</td>
+                    <td>{{vivienda.id_modelo}}</td>
+                    <td>{{vivienda.tipo_vivienda}}</td>
+                    <td>{{vivienda.ori_vivienda}}</td>
+                    <td>{{vivienda.piso}}</td>
+                    <td>{{vivienda.valor_vivienda}}</td>
+                    <td>{{vivienda.metros_vivienda}}</td>
+                    <td>{{vivienda.metros_terraza_vivienda}}</td>
+                    <td>{{vivienda.metros_total_vivienda}}</td>
+                    <td>{{vivienda.bono_vivienda}}</td>
+                    <td>{{vivienda.prorrateo_vivienda}}</td>
+                    <td>{{vivienda.rol_vivienda}}</td>
+                    <td><span class="badge rounded-pill bg-label-primary me-1">{{vivienda.estado_vivienda}}</span></td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'proyectos:editar_vivienda' vivienda.id_vivienda %}"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>ID Vivienda</th>
+                    <th>N° Depto</th>
+                    <th>Torre</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Orientación</th>
+                    <th>Piso</th>
+                    <th>Valor (UF)</th>
+                    <th>Metros 2</th>
+                    <th>Metros Terraza</th>
+                    <th>Metros Totales</th>
+                    <th>Bono</th>
+                    <th>Prorrateo</th>
+                    <th>Rol Depto</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr>
+                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

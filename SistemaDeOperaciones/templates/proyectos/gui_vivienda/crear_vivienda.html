@@ -1,0 +1,86 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Vivienda /</span>Agregar</h4>
+    <!-- Basic Layout -->
+    <div class="row">
+        <div class="col-xl">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Vivienda</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if error %}
+                        <h2>{{ error }}</h2>
+                        {% else %}
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.nombre_vivienda}}
+                            <label for="basic-default-fullname">N° Vivienda</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.id_torre}}
+                            <label for="basic-default-fullname">N° Torre</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.id_modelo}}
+                            <label for="basic-default-fullname">Modelo</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.tipo_vivienda}}
+                            <label for="basic-default-fullname">Tipo</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.ori_vivienda}}
+                            <label for="basic-default-fullname">Orientación</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.piso}}
+                            <label for="basic-default-fullname">Piso</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.valor_vivienda}}
+                            <label for="basic-default-fullname">Valor en UF</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.metros_vivienda}}
+                            <label for="basic-default-fullname">Metros Cuadrados</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.metros_terraza_vivienda}}
+                            <label for="basic-default-fullname">Tamaño Terraza</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.metros_total_vivienda}}
+                            <label for="basic-default-fullname">Metros totales</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.bono_vivienda}}
+                            <label for="basic-default-fullname">Bono</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.prorrateo_vivienda}}
+                            <label for="basic-default-fullname">Prorrateo</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.rol_vivienda}}
+                            <label for="basic-default-fullname">Rol vivienda</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.estado_vivienda}}
+                            <label for="basic-default-fullname">Estado</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <a href="{% url 'proyectos:listar_vivienda' %}" class="btn btn-dark">Cancelar</a>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

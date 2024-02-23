@@ -20,7 +20,7 @@ class ListadoCondominio(ListView):
 
 class ActualizarCondominio(UpdateView):
     model = Condominio
-    template_name = "proyectos/gui_condominio/editar_condominio.html"
+    template_name = "proyectos/gui_condominio/crear_condominio.html"
     form_class = CondominioForm
     success_url = reverse_lazy("proyectos:listar_condominio")
 
@@ -38,7 +38,7 @@ class ListadoEtapa(ListView):
 
 class ActualizarEtapa(UpdateView):
     model = Etapa
-    template_name = "proyectos/gui_etapa/editar_etapa.html"
+    template_name = "proyectos/gui_etapa/crear_etapa.html"
     form_class = EtapaForm
     success_url = reverse_lazy("proyectos:listar_etapa")
 
@@ -56,7 +56,7 @@ class ListadoTorre(ListView):
 
 class ActualizarTorre(UpdateView):
     model = Torre
-    template_name = "proyectos/gui_torre/editar_torre.html"
+    template_name = "proyectos/gui_torre/crear_torre.html"
     form_class = TorreForm
     success_url = reverse_lazy("proyectos:listar_torre")
 
@@ -74,7 +74,7 @@ class ListadoModelo(ListView):
 
 class ActualizarModelo(UpdateView):
     model = Modelo
-    template_name = "proyectos/gui_modelo/editar_modelo.html"
+    template_name = "proyectos/gui_modelo/crear_modelo.html"
     form_class = ModeloForm
     success_url = reverse_lazy("proyectos:listar_modelo")
 
@@ -92,7 +92,7 @@ class ListadoBodega(ListView):
 
 class ActualizarBodega(UpdateView):
     model = Bodega
-    template_name = "proyectos/gui_bodega/editar_bodega.html"
+    template_name = "proyectos/gui_bodega/crear_bodega.html"
     form_class = BodegaForm
     success_url = reverse_lazy("proyectos:listar_bodega")
 
@@ -110,7 +110,7 @@ class ListadoEstacionamiento(ListView):
 
 class ActualizarEstacionamiento(UpdateView):
     model = Estacionamiento
-    template_name = "proyectos/gui_estacionamiento/editar_estacionamiento.html"
+    template_name = "proyectos/gui_estacionamiento/crear_estacionamiento.html"
     form_class = EstacionamientoForm
     success_url = reverse_lazy("proyectos:listar_estacionamiento")
 
@@ -128,6 +128,6 @@ class ListadoVivienda(ListView):
 
 class ActualizarVivienda(UpdateView):
     model = Vivienda
-    template_name = "proyectos/gui_vivienda/editar_vivienda.html"
+    template_name = "proyectos/gui_vivienda/crear_vivienda.html"
     form_class = ViviendaForm
     success_url = reverse_lazy("proyectos:listar_vivienda")

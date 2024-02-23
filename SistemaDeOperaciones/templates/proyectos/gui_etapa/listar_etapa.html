@@ -5,35 +5,35 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4">
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_torre' %}">Agregar</a>
-        <span class="text-muted fw-light">Torres /</span> Listado Torres</h4>
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_etapa' %}">Agregar</a>
+        <span class="text-muted fw-light">Etapas /</span> Listado Etapas</h4>
 
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
-        <h5 class="card-header fw-light">Torres</h5>
+        <h5 class="card-header fw-light">Etapas</h5>
         <div class="table-responsive text-nowrap">
-            {% if torres %}
+            {% if etapas %}
             <table class="table">
                 <thead class="table-light">
                 <tr>
-                    <th>ID Torre</th>
-                    <th>N° Torre</th>
-                    <th>Etapa</th>
+                    <th>ID Etapa</th>
+                    <th>Nombre Etapa</th>
+                    <th>Condominio</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                {% for torre in torres %}
+                {% for etapa in etapas %}
                 <tr>
                     <td>
                         <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
-                        ><span class="fw-medium">{{torre.id_torre}}</span>
+                        ><span class="fw-medium">{{etapa.id_etapa_condominio}}</span>
                     </td>
 
-                    <td>{{torre.nombre_torre}}</td>
-                    <td>{{torre.id_etapa_condominio}}</td>
-                    <td><span class="badge rounded-pill bg-label-primary me-1">{{torre.estado_torre}}</span></td>
+                    <td>{{etapa.nombre_etapa}}</td>
+                    <td>{{etapa.id_condominio}}</td>
+                    <td><span class="badge rounded-pill bg-label-primary me-1">a</span></td>
 
                     <td>
                         <div class="dropdown">
@@ -41,7 +41,7 @@
                                 <i class="mdi mdi-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'proyectos:editar_torre' torre.id_torre %}"
+                                <a class="dropdown-item" href="{% url 'proyectos:editar_etapa' etapa.id_etapa %}"
                                 ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
                                 >
                                 <a class="dropdown-item" href="#"
@@ -58,9 +58,9 @@
             <table class="table" style="min-height:200px">
                 <thead class="table-light">
                 <tr>
-                    <th>ID Torre</th>
-                    <th>N° Torre</th>
-                    <th>Etapa</th>
+                    <th>ID Etapa</th>
+                    <th>Nombre Etapa</th>
+                    <th>Condominio</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>

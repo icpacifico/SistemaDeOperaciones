@@ -1,0 +1,84 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_bodega' %}">Agregar</a>
+        <span class="text-muted fw-light">Bodegas /</span> Listado Bodegas</h4>
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header fw-light">Bodegas</h5>
+        <div class="table-responsive text-nowrap">
+            {% if bodegas %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>ID Bodega</th>
+                    <th>N° Bodega</th>
+                    <th>Valor Bodega (UF)</th>
+                    <th>Rol Bodega</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for bodega in bodegas %}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{bodega.id_bodega}}</span>
+                    </td>
+
+                    <td>{{bodega.nombre_bodega}}</td>
+                    <td>{{bodega.valor_bodega}}</td>
+                    <td>{{bodega.rol_bodega}}</td>
+
+
+                    <td><span class="badge rounded-pill bg-label-primary me-1">{{bodega.estado_bodega}}</span></td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'proyectos:editar_bodega' bodega.id_bodega %}"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="#"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>ID Bodega</th>
+                    <th>N° Bodega</th>
+                    <th>Valor Bodega (UF)</th>
+                    <th>Rol Bodega</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr>
+                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

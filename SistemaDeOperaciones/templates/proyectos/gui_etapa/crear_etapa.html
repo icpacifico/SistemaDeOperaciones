@@ -5,14 +5,14 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Modelo /</span>Agregar</h4>
+    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Etapa /</span>Agregar</h4>
 
     <!-- Basic Layout -->
     <div class="row">
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Modelo</h5>
+                    <h5 class="mb-0">Etapa</h5>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -21,23 +21,15 @@
                       <h2>{{ error }}</h2>
                       {% else %}
                         <div class="form-floating form-floating-outline mb-4">
-                            {{form.nombre_modelo}}
-                            <label for="basic-default-fullname">Tipo Modelo</label>
+                            {{form.id_condominio}}
+                            <label for="basic-default-fullname">Condominio</label>
                         </div>
                         <div class="form-floating form-floating-outline mb-4">
-                            {{form.numero_cama_modelo}}
-                            <label for="basic-default-fullname">N° Habtaciones</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.numero_bagno_modelo}}
-                            <label for="basic-default-fullname">N° Baños</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.descripcion_modelo}}
-                            <label for="basic-default-fullname">Descripción</label>
+                            {{form.nombre_etapa}}
+                            <label for="basic-default-fullname">Nombre Etapa</label>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'proyectos:listar_modelo' %}" class="btn btn-dark">Cancelar</a>
+                        <a href="{% url 'proyectos:listar_etapa' %}" class="btn btn-dark">Cancelar</a>
                         {% endif %}
                     </form>
                 </div>
