@@ -4,15 +4,14 @@
 
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
-
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Crear/</span> Parámetros</h4>
-
-    <!-- Basic Layout -->
+    <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Parámetros /</span>
+        Agregar
+    </h4>
     <div class="row">
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Ingreso de datos</h5>
+                    <h3 class="mb-0 fw-normal">Parámetros</h3>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -20,82 +19,126 @@
                         {% if error %}
                       <h2>{{ error }}</h2>
                       {% else %}
-
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.id_condominio}}
-                            <label for="basic-default-fullname">Condominio</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{form.id_condominio}}   
+                                    <label for="floating-input">Condominio </label>    
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'administracion:crear_banco' %}">+</a>                    
+                                </div>                                      
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.factor_vendedor}}
+                                    <label for="floating-input">Factor</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.factor_vendedor}}
-                            <label for="basic-default-fullname">Factor</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.precio_dcto_depto}}
+                                    <label for="floating-input">$ Descuento Departamento</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.bono_precio_porce}}
+                                    <label for="floating-input">% Bono Precio</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.porcen_promesa}}
+                                    <label for="floating-input">% Promesa</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.porcen_escritura}}
+                                    <label for="floating-input">% Escritura</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.precio_dcto_depto}}
-                            <label for="basic-default-fullname">Precio descuento Depto</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.porcen_comision_vendedor}}
+                                    <label for="floating-input">% comisión Vendedor</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.monto_escrt_operaciones}}
+                                    <label for="floating-input">Monto Escritura Operaciones (UF)</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.monto_reserva}}
+                                    <label for="floating-input">Monto Reserva (UF)</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.monto_prorrateo}}
+                                    <label for="floating-input">Monto a Prorratear</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.bono_precio_porce}}
-                            <label for="basic-default-fullname">Porcentaje Bono Precio</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.monto_recuperar}}
+                                    <label for="floating-input">Monto a  Recuperar</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.fecha_recuperacion}}
+                                    <label for="floating-input">Fecha Recuperación</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.porcen_promesa}}
-                            <label for="basic-default-fullname">Porcentaje Promesa</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.valor_bodega}}
+                                    <label for="floating-input">$ Bodega</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.valor_estacionamiento}}
+                                    <label for="floating-input">$ Estacionamiento</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.fecha_termino_venta}}
+                                    <label for="floating-input">Fecha termino de ventas</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.porcen_escritura}}
-                            <label for="basic-default-fullname">Porcentaje Escritura</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.direccion_condominio}}
+                                    <label for="floating-input">Dirección Condominio</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{form.banco_alzante}}
+                                    <label for="floating-input">Banco Alzante</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'administracion:crear_banco' %}">+</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.porcen_comision_vendedor}}
-                            <label for="basic-default-fullname">% comisión Vendedor</label>
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'administracion:listar_parametros' %}" class="btn btn-dark">Cancelar</a>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.monto_escrt_operaciones}}
-                            <label for="basic-default-fullname">Monto Escritura Operaciones (UF)</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.monto_reserva}}
-                            <label for="basic-default-fullname">Monto Reserva (UF)</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.monto_prorrateo}}
-                            <label for="basic-default-fullname">Monto a Prorratear</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.monto_recuperar}}
-                            <label for="basic-default-fullname">Monto a  Recuperar</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.fecha_recuperacion}}
-                            <label for="basic-default-fullname">Fecha Recuperación</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.valor_bodega}}
-                            <label for="basic-default-fullname">$ Bodega</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.valor_estacionamiento}}
-                            <label for="basic-default-fullname">$ Estacionamiento</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.fecha_termino_venta}}
-                            <label for="basic-default-fullname">Fecha termino de ventas</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.direccion_condominio}}
-                            <label for="basic-default-fullname">Dirección Condominio</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.banco_alzante}}
-                            <label for="basic-default-fullname">Banco Alzante</label>
-                        </div>
-
-                         <!--<div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="basic-default-company" placeholder="Activo"/>
-                            <label for="basic-default-company">Estado</label>
-                        </div>-->
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'administracion:listar_parametros' %}" class="btn btn-dark">Cancelar</a>
                         {% endif %}
                     </form>
                 </div>
