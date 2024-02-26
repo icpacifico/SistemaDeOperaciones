@@ -1,6 +1,8 @@
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from openpyxl import Workbook
 from django.views.generic import (
     ListView, CreateView, DeleteView, UpdateView, DetailView
 )
@@ -12,9 +14,43 @@ from .forms import (
     CondominioForm, EtapaForm, TorreForm, ModeloForm,
     BodegaForm, EstacionamientoForm, ViviendaForm, ImportViviendasForm
 )
+from SistemaDeOperaciones.choices import *
 
 
 # Create your views here.
+
+def descargar_parametros(request):
+    # Crea un nuevo libro de Excel
+    wb = Workbook()
+
+    # Define modelos y sus nombres para hojas
+    modelos = [
+        (Torre, 'Torre'),
+        (Modelo, 'Modelo'),
+        (Bodega, 'Bodega'),
+        (Estacionamiento, 'Estacionamiento'),
+    ]
+
+    # Para cada modelo, agrega una hoja al libro y llena los datos
+    for modelo, nombre_hoja in modelos:
+        hoja = wb.create_sheet(title=nombre_hoja)
+        # Agrega dinámicamente encabezados de columnas desde el modelo
+        headers = [field.name for field in modelo._meta.fields]
+        hoja.append(headers)
+        # Agrega datos del modelo
+        objetos_modelo = modelo.objects.all()
+        for obj in objetos_modelo:
+            row_data = [getattr(obj, field.name) for field in modelo._meta.fields]
+            hoja.append(row_data)
+
+    # Configura la respuesta HTTP para devolver un archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=parametros.xlsx'
+
+    # Guarda el libro de Excel en la respuesta
+    wb.save(response)
+
+    return response
 def descargar_formato(request):
     # Crea un DataFrame con las columnas que deseas en el formato del archivo Excel
     columns = [
@@ -38,9 +74,10 @@ def importar_viviendas(request):
             archivo_excel = request.FILES['archivo_excel']
             try:
                 # Leer el archivo Excel usando pandas
-                df = pd.read_excel(archivo_excel)
+                df = pd.read_excel(archivo_excel, engine='openpyxl')
 
-                # Iterar sobre las filas del DataFrame y crear instancias de Cliente
+                # Iterar sobre las filas del DataFrame y crear instancias de Vivienda
+                viviendas = []
                 for index, row in df.iterrows():
                     Vivienda.objects.create(
                         id_torre=row['id_torre'],
@@ -57,19 +94,26 @@ def importar_viviendas(request):
                         bono_vivienda=row['bono_vivienda'],
                         prorrateo_vivienda=row['prorrateo_vivienda'],
                         rol_vivienda=row['rol_vivienda']
-
                     )
 
+                # Mensaje de éxito
+                success_message = f"Importación de datos exitosa. Se han cargado {len(viviendas)} registros."
+
                 # Redirigir al usuario con un mensaje de éxito
-                return redirect('listar_vivienda')  # Cambia 'clientes_lista' por la URL de tu lista de clientes
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                    return JsonResponse({'success_message': success_message})
+                else:
+                    return redirect('./listar_vivienda')
             except Exception as e:
                 # Manejar cualquier error durante la importación
                 error_message = f"Error durante la importación: {str(e)}"
-                return render(request, 'importar_viviendas.html', {'form': form, 'error_message': error_message})
+                return render(request, 'proyectos/gui_condominio/importar_viviendas.html', {'form': form, 'error_message': error_message})
     else:
         form = ImportViviendasForm()
 
     return render(request, 'proyectos/gui_condominio/importar_viviendas.html', {'form': form})
+
+
 
 
 class CrearCondominio(CreateView):

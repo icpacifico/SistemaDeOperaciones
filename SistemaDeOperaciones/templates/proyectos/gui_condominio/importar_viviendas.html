@@ -6,8 +6,12 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <h4 class="py-3 mb-4">
+        <div>
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:download_parameters' %}">Descargar
+            parámetros</a>
         <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:download_format' %}">Descargar
             Formato de carga</a>
+        </div>
         <span class="text-muted fw-light">Viviendas /</span>Cargar</h4>
 
     <!-- Basic Layout -->
@@ -18,14 +22,17 @@
                     <h5 class="mb-0">Condominio</h5>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{% url 'proyectos:carga_proyecto' %}">
+                    <form method="post" action="{% url 'proyectos:carga_proyecto' %}" enctype="multipart/form-data">
                         {% csrf_token %}
-                        {% if error %}
-                        <h2>{{ error }}</h2>
+                        {% if error_message %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error_message }}
+                        </div>
                         {% else %}
                         <div class="form-floating form-floating-outline mb-4">
-                            {{form.archivo_excel}}
+                            {{ form.as_p }}
                         </div>
+
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a href="{% url 'proyectos:listar_condominio' %}" class="btn btn-dark">Cancelar</a>
                         {% endif %}
@@ -35,4 +42,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Agrega este bloque de script para mostrar el mensaje si existe
+    document.addEventListener("DOMContentLoaded", function () {
+        // Verifica si existe el mensaje de éxito
+        var successMessage = "{{ success_message }}";
+        if (successMessage) {
+            alert(successMessage);  // Puedes reemplazar esto con un modal más elegante
+        }
+    });
+</script>
+
 {% endblock contenido %}

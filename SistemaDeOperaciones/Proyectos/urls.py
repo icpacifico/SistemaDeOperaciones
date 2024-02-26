@@ -48,7 +48,9 @@ urlpatterns = [
     #path('eliminar_vivienda/<int:pk>/', login_required(EliminarVivienda.as_view()), name='eliminar_vivienda'),
 
     # CARGA MASIVA DE VIVIENDAS
+    path('download_parameters', login_required(descargar_parametros), name='download_parameters'),
     path('download_format', login_required(descargar_formato), name='download_format'),
     path('carga_proyecto', login_required(importar_viviendas), name='carga_proyecto'),
+
 
 ]
