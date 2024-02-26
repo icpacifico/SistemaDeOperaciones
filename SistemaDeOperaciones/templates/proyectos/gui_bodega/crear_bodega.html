@@ -4,15 +4,13 @@
 
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
-
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Agregar/</span> Bodega</h4>
-
-    <!-- Basic Layout -->
+    <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Bodega /</span> 
+        Agregar</h4>
     <div class="row">
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Ingreso de datos</h5>
+                    <h3 class="mb-0 fw-normal">Bodega</h3>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -20,28 +18,36 @@
                         {% if error %}
                       <h2>{{ error }}</h2>
                       {% else %}
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.nombre_bodega}}
-                            <label for="basic-default-fullname">N° Bodega</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.nombre_bodega}}
+                                    <label for="floating-input">N° Bodega</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.valor_bodega}}
+                                    <label for="floating-input">Valor Bodega (UF)</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.rol_bodega}}
+                                    <label for="floating-input">Rol Bodega</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.estado_bodega}}
+                                    <label for="floating-input">Estado Bodega</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.valor_bodega}}
-                            <label for="basic-default-fullname">Valor Bodega (UF)</label>
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'proyectos:listar_bodega' %}" class="btn btn-dark">Cancelar</a>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.rol_bodega}}
-                            <label for="basic-default-fullname">Rol Bodega</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.estado_bodega}}
-                            <label for="basic-default-fullname">Estado Bodega</label>
-                        </div>
-                         <!--<div class="form-floating form-floating-outline mb-4">
-                            <input type="text" class="form-control" id="basic-default-company" placeholder="Activo"/>
-                            <label for="basic-default-company">Estado</label>
-                        </div>-->
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'proyectos:listar_bodega' %}" class="btn btn-dark">Cancelar</a>
                         {% endif %}
                     </form>
                 </div>

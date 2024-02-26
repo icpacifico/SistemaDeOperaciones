@@ -5,14 +5,14 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <h4 class="py-3 mb-4"><span class="text-muted fw-light">Estacionamiento /</span>Agregar</h4>
-
-    <!-- Basic Layout -->
+    <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Estacionamiento /</span>
+        Agregar
+    </h4>
     <div class="row">
         <div class="col-xl">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Estacionamiento</h5>
+                    <h5 class="mb-0 fw-normal">Estacionamiento</h5>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -20,24 +20,37 @@
                         {% if error %}
                       <h2>{{ error }}</h2>
                       {% else %}
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.id_etapa}}
-                            <label for="basic-default-fullname">Etapa</label>
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{form.id_etapa}}
+                                    <label for="basic-default-fullname">Etapa</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_etapa' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.nombre_estacionamiento}}
+                                    <label for="basic-default-fullname">N° Estacionamiento</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.valor_estacionamiento}}
+                                    <label for="basic-default-fullname">Valor Estacionamiento (UF)</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.estado_estacionamiento}}
+                                    <label for="basic-default-fullname">Estado</label>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.nombre_estacionamiento}}
-                            <label for="basic-default-fullname">N° Estacionamiento</label>
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'proyectos:listar_estacionamiento' %}" class="btn btn-dark">Cancelar</a>
                         </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.valor_estacionamiento}}
-                            <label for="basic-default-fullname">Valor Estacionamiento (UF)</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.estado_estacionamiento}}
-                            <label for="basic-default-fullname">Estado</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="{% url 'proyectos:listar_estacionamiento' %}" class="btn btn-dark">Cancelar</a>
                         {% endif %}
                     </form>
                 </div>
