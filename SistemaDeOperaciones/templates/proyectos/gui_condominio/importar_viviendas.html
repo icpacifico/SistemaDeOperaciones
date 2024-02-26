@@ -5,14 +5,18 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <h4 class="py-3 mb-4">
-        <div>
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:download_parameters' %}">Descargar
-            parámetros</a>
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:download_format' %}">Descargar
-            Formato de carga</a>
+    <h4 class="py-3 mb-4 fw-bold">
+        <div class="d-flex justify-content-end mb-4">
+            <a type="button" class="btn btn-info" href="{% url 'proyectos:download_parameters' %}">Descargar
+            parámetros
+            </a>
+            <a type="button" class="btn btn-info" style="margin-left:10px" href="{% url 'proyectos:download_format' %}">Descargar
+                Formato de carga
+            </a>
         </div>
-        <span class="text-muted fw-light">Viviendas /</span>Cargar</h4>
+        <span class="text-muted fw-light">Viviendas /</span>
+        Cargar
+    </h4>
 
     <!-- Basic Layout -->
     <div class="row">
