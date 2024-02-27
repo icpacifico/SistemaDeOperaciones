@@ -13,9 +13,9 @@ class CondominioForm(forms.ModelForm):
             'fecha_venta_condominio': 'Fecha Venta Condominio',
         }
         widgets = {
-            'estado_condominio': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_condominio': forms.TextInput(attrs={'class': 'form-control'}),
-            'fecha_venta_condominio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'estado_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado condominio'}),
+            'nombre_condominio': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre condominio'}),
+            'fecha_venta_condominio': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha venta'}),
         }
 
 class EtapaForm(forms.ModelForm):
@@ -27,8 +27,8 @@ class EtapaForm(forms.ModelForm):
             'nombre_etapa': 'Nombre',
         }
         widgets = {
-            'id_condominio': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_etapa': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Condominio'}),
+            'nombre_etapa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre etapa'}),
         }
 
 class TorreForm(forms.ModelForm):
@@ -41,9 +41,9 @@ class TorreForm(forms.ModelForm):
             'nombre_torre': 'Nombre',
         }
         widgets = {
-            'id_etapa_condominio': forms.Select(attrs={'class': 'form-select'}),
-            'estado_torre': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_torre': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_etapa_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Etapa torre'}),
+            'estado_torre': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado torre'}),
+            'nombre_torre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre torre'}),
         }
 
 class ModeloForm(forms.ModelForm):
@@ -58,11 +58,11 @@ class ModeloForm(forms.ModelForm):
             'descripcion_modelo': 'Descripción',
         }
         widgets = {
-            'estado_modelo': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_modelo': forms.TextInput(attrs={'class': 'form-control'}),
-            'numero_cama_modelo': forms.NumberInput(attrs={'class': 'form-control'}),
-            'numero_bagno_modelo': forms.NumberInput(attrs={'class': 'form-control'}),
-            'descripcion_modelo': forms.Textarea(attrs={'class': 'form-control'}),
+            'estado_modelo': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado modelo'}),
+            'nombre_modelo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre modelo'}),
+            'numero_cama_modelo': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad habitaciones'}),
+            'numero_bagno_modelo': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad baños'}),
+            'descripcion_modelo': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Descripción modelo'}),
         }
 
 class BodegaForm(forms.ModelForm):
@@ -76,10 +76,10 @@ class BodegaForm(forms.ModelForm):
             'rol_bodega': 'Rol',
         }
         widgets = {
-            'estado_bodega': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_bodega': forms.TextInput(attrs={'class': 'form-control'}),
-            'valor_bodega': forms.NumberInput(attrs={'class': 'form-control'}),
-            'rol_bodega': forms.TextInput(attrs={'class': 'form-control'}),
+            'estado_bodega': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado bodega'}),
+            'nombre_bodega': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° Bodega'}),
+            'valor_bodega': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor bodega (UF)'}),
+            'rol_bodega': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rol bodega'}),
         }
 
 class EstacionamientoForm(forms.ModelForm):
@@ -93,10 +93,10 @@ class EstacionamientoForm(forms.ModelForm):
             'valor_estacionamiento': 'Valor',
         }
         widgets = {
-            'id_etapa': forms.Select(attrs={'class': 'form-select'}),
-            'estado_estacionamiento': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_estacionamiento': forms.TextInput(attrs={'class': 'form-control'}),
-            'valor_estacionamiento': forms.NumberInput(attrs={'class': 'form-control'}),
+            'id_etapa': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Etapa'}),
+            'estado_estacionamiento': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado estacionamiento'}),
+            'nombre_estacionamiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° estacionamiento'}),
+            'valor_estacionamiento': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor estacionamiento (UF)'}),
         }
 
 class ViviendaForm(forms.ModelForm):
@@ -122,18 +122,18 @@ class ViviendaForm(forms.ModelForm):
             'rol_vivienda': 'Rol',
         }
         widgets = {
-            'id_torre': forms.Select(attrs={'class': 'form-select'}),
-            'id_modelo': forms.Select(attrs={'class': 'form-select'}),
-            'tipo_vivienda': forms.Select(attrs={'class': 'form-select'}),
-            'ori_vivienda': forms.Select(attrs={'class': 'form-select'}),
-            'estado_vivienda': forms.Select(attrs={'class': 'form-select'}),
-            'piso': forms.Select(attrs={'class': 'form-select'}),
-            'nombre_vivienda': forms.TextInput(attrs={'class': 'form-control'}),
-            'valor_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'metros_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'metros_terraza_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'metros_total_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'bono_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'prorrateo_vivienda': forms.NumberInput(attrs={'class': 'form-control'}),
-            'rol_vivienda': forms.TextInput(attrs={'class': 'form-control'}),
+            'id_torre': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Torre'}),
+            'id_modelo': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Modelo'}),
+            'tipo_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Tipo de vivienda'}),
+            'ori_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Orientación vivienda'}),
+            'estado_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado vivienda'}),
+            'piso': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Piso vivienda'}),
+            'nombre_vivienda': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° vivienda'}),
+            'valor_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor Vivienda (UF)'}),
+            'metros_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Metros habitables'}),
+            'metros_terraza_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Metros terraza'}),
+            'metros_total_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Metros totales vivienda'}),
+            'bono_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Bono vivienda'}),
+            'prorrateo_vivienda': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Prorrateo vivienda'}),
+            'rol_vivienda': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rol vivienda'}),
         }
