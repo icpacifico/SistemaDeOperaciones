@@ -1,0 +1,104 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right"
+           href="{% url 'ventas:crear_cotizacion' %}">Agregar</a>
+        <span class="text-muted fw-light">Cotizaciones /</span> Listado Cotizaciones</h4>
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header fw-light">Cotizaciones</h5>
+        <div class="table-responsive text-nowrap">
+            {% if cotizaciones %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Vivienda</th>
+                    <th>Cliente</th>
+                    <th>Fecha Cotización</th>
+                    <th>Fecha Promesa</th>
+                    <th>Porcentaje Crédito</th>
+                    <th>Número Cotización</th>
+                    <th>Canal Cotización</th>
+                    <th>Preaprobación Cotización</th>
+                    <th>Renta Cotización</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for cotizacion in cotizaciones%}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{cotizacion.id_cotizacion}}</span>
+                    </td>
+
+                    <td>{{ cotizacion.id_vivienda }}</td>
+                    <td>{{ cotizacion.id_cliente }}</td>
+                    <td>{{ cotizacion.fecha_cotizacion }}</td>
+                    <td>{{ cotizacion.fecha_promesa_cotizacion }}</td>
+                    <td>{{ cotizacion.procentaje_credito_cotizacion }}</td>
+                    <td>{{ cotizacion.numero_cotizacion }}</td>
+                    <td>{{ cotizacion.canal_cotizacion }}</td>
+                    <td>{{ cotizacion.preaprobacion_cotizacion }}</td>
+                    <td>{{ cotizacion.renta_cotizacion }}</td>
+
+
+                    <td><span class="badge rounded-pill bg-label-primary me-1">{{cotizacion.estado_cotizacion}}</span></td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'ventas:editar_cotizacion' cotizacion.id_cotizacion %}"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Vivienda</th>
+                    <th>Cliente</th>
+                    <th>Fecha Cotización</th>
+                    <th>Fecha Promesa</th>
+                    <th>Porcentaje Crédito</th>
+                    <th>Número Cotización</th>
+                    <th>Canal Cotización</th>
+                    <th>Preaprobación Cotización</th>
+                    <th>Renta Cotización</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr>
+                    <td colspan='4' align='center'><span class="border-info me-1"><i
+                            class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

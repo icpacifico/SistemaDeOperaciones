@@ -1,0 +1,78 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'ventas:crear_desistimiento' %}">Agregar</a>
+        <span class="text-muted fw-light">Desistimientos /</span> Listado Desistimientos</h4>
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header fw-light">Desistimientos</h5>
+        <div class="table-responsive text-nowrap">
+            {% if desistimientos %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Venta</th>
+                    <th>Tipo</th>
+                    <th>Comentario</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for desistimiento in desistimientos %}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{desistimiento.id_desistimiento}}</span>
+                    </td>
+
+                    <td>{{desistimiento.id_venta}}</td>
+                    <td>{{desistimiento.id_tipodesistimiento}}</td>
+                    <td>{{desistimiento.comentario_desistimiento}}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'ventas:editar_desistimiento' desistimiento.id_desistimiento %}"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Venta</th>
+                    <th>Tipo</th>
+                    <th>Comentario</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0"> 
+                <tr>
+                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

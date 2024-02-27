@@ -1,0 +1,203 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right"
+           href="{% url 'ventas:crear_cotizacion' %}">Agregar</a>
+        <span class="text-muted fw-light">Ventas /</span> Listado Ventas</h4>
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+        <h5 class="card-header fw-light">Ventas</h5>
+        <div class="table-responsive text-nowrap">
+            {% if ventas %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>Cotización</th>
+                    <th>Vivienda</th>
+                    <th>Vendedor</th>
+                    <th>Cliente</th>
+                    <th>Banco</th>
+                    <th>Forma Pago</th>
+                    <th>Pie Abono Venta</th>
+                    <th>Tipo Pago</th>
+                    <th>Fecha Venta</th>
+                    <th>Fecha Promesa Venta</th>
+                    <th>Monto Reserva Venta</th>
+                    <th>Descuento Manual Venta</th>
+                    <th>Descuento Precio Venta</th>
+                    <th>Descuento Adicional Venta</th>
+                    <th>Descuento Venta</th>
+                    <th>Pie Cancelado Venta</th>
+                    <th>Pie Cobrar Venta</th>
+                    <th>Monto Estacionamiento Venta</th>
+                    <th>Monto Bodega Venta</th>
+                    <th>Monto Vivienda Venta</th>
+                    <th>Monto Vivienda Ingreso Venta</th>
+                    <th>Monto Venta</th>
+                    <th>Factor Categoria Venta</th>
+                    <th>Porcentaje Comision Venta</th>
+                    <th>Promesa Porcentaje Comision Reparto Venta</th>
+                    <th>Promesa Monto Comision Venta</th>
+                    <th>Escritura Porcentaje Comision Reparto Venta</th>
+                    <th>Escritura Monto Comision Venta</th>
+                    <th>Total Comision Venta</th>
+                    <th>Bono Vivienda Venta</th>
+                    <th>Porcentaje Bono Precio Venta</th>
+                    <th>Promesa Bono Precio Venta</th>
+                    <th>Escritura Bono Precio Venta</th>
+                    <th>Total Bono Precio Venta</th>
+                    <th>Numero Compra Venta</th>
+                    <th>Cotización Venta</th>
+                    <th>Monto Crédito Venta</th>
+                    <th>Monto Crédito Real Venta</th>
+                    <th>Pie Real Venta</th>
+                    <th>Valor Factor Venta</th>
+                    <th>Escritura Monto Comisión Operación Venta</th>
+                    <th>Fecha Escritura Venta</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for venta in ventas%}
+                <tr>
+                    <td>
+                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{venta.id_venta}}</span>
+                    </td>
+
+                    <td>{{ venta.id_cotizacion }}</td>
+                    <td>{{ venta.id_vivienda }}</td>
+                    <td>{{ venta.id_vendedor }}</td>
+                    <td>{{ venta.id_cliente }}</td>
+                    <td>{{ venta.id_banco }}</td>
+                    <td>{{ venta.forma_pago }}</td>
+                    <td>{{ venta.pie_abono_ven }}</td>
+                    <td>{{ venta.tipo_pago }}</td>
+                    <td>{{ venta.fecha_ven }}</td>
+                    <td>{{ venta.fecha_promesa_ven }}</td>
+                    <td>{{ venta.monto_reserva_ven }}</td>
+                    <td>{{ venta.descuento_manual_ven }}</td>
+                    <td>{{ venta.descuento_precio_ven }}</td>
+                    <td>{{ venta.descuento_adicional_ven }}</td>
+                    <td>{{ venta.descuento_ven }}</td>
+                    <td>{{ venta.pie_cancelado_ven }}</td>
+                    <td>{{ venta.pie_cobrar_ven }}</td>
+                    <td>{{ venta.monto_estacionamiento_ven }}</td>
+                    <td>{{ venta.monto_bodega_ven }}</td>
+                    <td>{{ venta.monto_vivienda_ven }}</td>
+                    <td>{{ venta.monto_vivienda_ingreso_ven }}</td>
+                    <td>{{ venta.monto_ven }}</td>
+                    <td>{{ venta.factor_categoria_ven }}</td>
+                    <td>{{ venta.porcentaje_comision_ven }}</td>
+                    <td>{{ venta.promesa_porcentaje_comision_reparto_ven }}</td>
+                    <td>{{ venta.promesa_monto_comision_ven }}</td>
+                    <td>{{ venta.escritura_porcentaje_comision_reparto_ven }}</td>
+                    <td>{{ venta.escritura_monto_comision_ven }}</td>
+                    <td>{{ venta.total_comision_ven }}</td>
+                    <td>{{ venta.bono_vivienda_ven }}</td>
+                    <td>{{ venta.porcentaje_bono_precio_ven }}</td>
+                    <td>{{ venta.promesa_bono_precio_ven }}</td>
+                    <td>{{ venta.escritura_bono_precio_ven }}</td>
+                    <td>{{ venta.total_bono_precio_ven }}</td>
+                    <td>{{ venta.numero_compra_ven }}</td>
+                    <td>{{ venta.cotizacion_ven }}</td>
+                    <td>{{ venta.monto_credito_ven }}</td>
+                    <td>{{ venta.monto_credito_real_ven }}</td>
+                    <td>{{ venta.pie_real_ven }}</td>
+                    <td>{{ venta.valor_factor_ven }}</td>
+                    <td>{{ venta.escritura_monto_comision_operacion_ven }}</td>
+                    <td>{{ venta.fecha_escritura_ven }}</td>
+
+
+                    <td><span class="badge rounded-pill bg-label-primary me-1">{{venta.estado_ven}}</span>
+                    </td>
+
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   href="{% url 'ventas:editar_venta' venta.id_venta %}"
+                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
+                                >
+                                <a class="dropdown-item" href="javascript:void(0);"
+                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
+                                >
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>Cotización</th>
+                    <th>Vivienda</th>
+                    <th>Vendedor</th>
+                    <th>Cliente</th>
+                    <th>Banco</th>
+                    <th>Forma Pago</th>
+                    <th>Pie Abono Venta</th>
+                    <th>Tipo Pago</th>
+                    <th>Fecha Venta</th>
+                    <th>Fecha Promesa Venta</th>
+                    <th>Monto Reserva Venta</th>
+                    <th>Descuento Manual Venta</th>
+                    <th>Descuento Precio Venta</th>
+                    <th>Descuento Adicional Venta</th>
+                    <th>Descuento Venta</th>
+                    <th>Pie Cancelado Venta</th>
+                    <th>Pie Cobrar Venta</th>
+                    <th>Monto Estacionamiento Venta</th>
+                    <th>Monto Bodega Venta</th>
+                    <th>Monto Vivienda Venta</th>
+                    <th>Monto Vivienda Ingreso Venta</th>
+                    <th>Monto Venta</th>
+                    <th>Factor Categoria Venta</th>
+                    <th>Porcentaje Comision Venta</th>
+                    <th>Promesa Porcentaje Comision Reparto Venta</th>
+                    <th>Promesa Monto Comision Venta</th>
+                    <th>Escritura Porcentaje Comision Reparto Venta</th>
+                    <th>Escritura Monto Comision Venta</th>
+                    <th>Total Comision Venta</th>
+                    <th>Bono Vivienda Venta</th>
+                    <th>Porcentaje Bono Precio Venta</th>
+                    <th>Promesa Bono Precio Venta</th>
+                    <th>Escritura Bono Precio Venta</th>
+                    <th>Total Bono Precio Venta</th>
+                    <th>Numero Compra Venta</th>
+                    <th>Cotización Venta</th>
+                    <th>Monto Crédito Venta</th>
+                    <th>Monto Crédito Real Venta</th>
+                    <th>Pie Real Venta</th>
+                    <th>Valor Factor Venta</th>
+                    <th>Escritura Monto Comisión Operación Venta</th>
+                    <th>Fecha Escritura Venta</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr>
+                    <td colspan='4' align='center'><span class="border-info me-1"><i
+                            class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+</div>
+{% endblock contenido %}

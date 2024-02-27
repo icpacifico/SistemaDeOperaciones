@@ -1,7 +1,15 @@
-from django.urls import path # Importar el path
-# Importar las vistas de views
-from .views import *
-from django.contrib.auth.decorators import login_required # Importar Login Regired para proteccion de urls
+from django.urls import path
+from django.contrib.auth.decorators import login_required
+from .views import (
+    CrearCondominio, ListadoCondominio, ActualizarCondominio,
+    CrearEtapa, ListadoEtapa, ActualizarEtapa,
+    CrearTorre, ListadoTorre, ActualizarTorre,
+    CrearModelo, ListadoModelo, ActualizarModelo,
+    CrearBodega, ListadoBodega, ActualizarBodega,
+    CrearEstacionamiento, ListadoEstacionamiento, ActualizarEstacionamiento,
+    CrearVivienda, ListadoVivienda, ActualizarVivienda,
+    descargar_parametros, descargar_formato, importar_viviendas
+)
 
 
 urlpatterns = [

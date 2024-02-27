@@ -7,7 +7,6 @@ from SistemaDeOperaciones.choices import *
 # Create your models here.
 
 
-
 class Cliente(models.Model):
     id_cliente = models.CharField(primary_key=True, max_length=9, verbose_name="Rut")
     id_nacionalidad = models.ForeignKey(Nacionalidad, verbose_name="Nacionalidad",

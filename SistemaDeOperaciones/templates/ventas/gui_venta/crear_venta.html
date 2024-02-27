@@ -1,0 +1,419 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <h4 class="py-3 mb-4 fw-bold">
+        <span class="text-muted fw-light">Venta /</span>
+        Agregar
+    </h4>
+    <div class="row">
+        <div class="col-xl" align="center">
+            <div class="card mb-4" style="max-width:900px">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0 fw-normal">Venta</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if error %}
+                        <h2>{{ error }}</h2>
+                        {% else %}
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.id_cotizacion }}
+                                <label for="basic-default-fullname">Cotización</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.id_vivienda }}
+                                <label for="basic-default-fullname">Vivienda</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.id_vendedor }}
+                                <label for="basic-default-fullname">Vendedor</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.id_cliente }}
+                                <label for="basic-default-fullname">Cliente</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.id_banco }}
+                                <label for="basic-default-fullname">Banco</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.forma_pago }}
+                                <label for="basic-default-fullname">Forma Pago</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.pie_abono_ven }}
+                                <label for="basic-default-fullname">Pie Abono Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.tipo_pago }}
+                                <label for="basic-default-fullname">Tipo Pago</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.estado_ven }}
+                                <label for="basic-default-fullname">Estado Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.fecha_ven }}
+                                <label for="basic-default-fullname">Fecha Venta</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.fecha_promesa_ven }}
+                                <label for="basic-default-fullname">Fecha Promesa Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_reserva_ven }}
+                                <label for="basic-default-fullname">Monto Reserva Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.descuento_manual_ven }}
+                                <label for="basic-default-fullname">Descuento Manual Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.descuento_precio_ven }}
+                                <label for="basic-default-fullname">Descuento Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.descuento_adicional_ven }}
+                                <label for="basic-default-fullname">Descuento Adicional Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.descuento_ven }}
+                                <label for="basic-default-fullname">Descuento Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.pie_cancelado_ven }}
+                                <label for="basic-default-fullname">Pie Cancelado Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.pie_cobrar_ven }}
+                                <label for="basic-default-fullname">Pie Cobrar Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_estacionamiento_ven }}
+                                <label for="basic-default-fullname">Monto Estacionamiento Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_bodega_ven }}
+                                <label for="basic-default-fullname">Monto Bodega Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_vivienda_ven }}
+                                <label for="basic-default-fullname">Monto Vivienda Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_vivienda_ingreso_ven }}
+                                <label for="basic-default-fullname">Monto Vivienda Ingreso Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_ven }}
+                                <label for="basic-default-fullname">Monto Venta</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.factor_categoria_ven }}
+                                <label for="basic-default-fullname">Factor Categoria Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.porcentaje_comision_ven }}
+                                <label for="basic-default-fullname">Porcentaje Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_porcentaje_comision_reparto_ven }}
+                                <label for="basic-default-fullname">Promesa Porcentaje Comision Reparto Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_monto_comision_ven }}
+                                <label for="basic-default-fullname">Promesa Monto Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_porcentaje_comision_reparto_ven }}
+                                <label for="basic-default-fullname">Escritura Porcentaje Comision Reparto Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_monto_comision_ven }}
+                                <label for="basic-default-fullname">Escritura Monto Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.total_comision_ven }}
+                                <label for="basic-default-fullname">Total Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.bono_vivienda_ven }}
+                                <label for="basic-default-fullname">Bono Vivienda Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.porcentaje_bono_precio_ven }}
+                                <label for="basic-default-fullname">Porcentaje Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_bono_precio_ven }}
+                                <label for="basic-default-fullname">Promesa Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_bono_precio_ven }}
+                                <label for="basic-default-fullname">Escritura Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.total_bono_precio_ven }}
+                                <label for="basic-default-fullname">Total Bono Precio Venta</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.factor_categoria_ven }}
+                                <label for="basic-default-fullname">Factor Categoria Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.porcentaje_comision_ven }}
+                                <label for="basic-default-fullname">Porcentaje Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_porcentaje_comision_reparto_ven }}
+                                <label for="basic-default-fullname">Promesa Porcentaje Comision Reparto Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_monto_comision_ven }}
+                                <label for="basic-default-fullname">Promesa Monto Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_porcentaje_comision_reparto_ven }}
+                                <label for="basic-default-fullname">Escritura Porcentaje Comision Reparto Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_monto_comision_ven }}
+                                <label for="basic-default-fullname">Escritura Monto Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.total_comision_ven }}
+                                <label for="basic-default-fullname">Total Comision Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.bono_vivienda_ven }}
+                                <label for="basic-default-fullname">Bono Vivienda Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.porcentaje_bono_precio_ven }}
+                                <label for="basic-default-fullname">Porcentaje Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.promesa_bono_precio_ven }}
+                                <label for="basic-default-fullname">Promesa Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_bono_precio_ven }}
+                                <label for="basic-default-fullname">Escritura Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.total_bono_precio_ven }}
+                                <label for="basic-default-fullname">Total Bono Precio Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.numero_compra_ven }}
+                                <label for="basic-default-fullname">Numero Compra Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.cotizacion_ven }}
+                                <label for="basic-default-fullname">Cotización Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_credito_ven }}
+                                <label for="basic-default-fullname">Monto Crédito Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.monto_credito_real_ven }}
+                                <label for="basic-default-fullname">Monto Crédito Real Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.pie_real_ven }}
+                                <label for="basic-default-fullname">Pie Real Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.valor_factor_ven }}
+                                <label for="basic-default-fullname">Valor Factor Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.escritura_monto_comision_operacion_ven }}
+                                <label for="basic-default-fullname">Escritura Monto Comisión Operación Venta</label>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{ form.fecha_escritura_ven }}
+                                <label for="basic-default-fullname">Fecha Escritura Venta</label>
+                            </div>
+                        </div>
+
+
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'ventas:listar_venta' %}"
+                               class="btn btn-dark">Cancelar</a>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
