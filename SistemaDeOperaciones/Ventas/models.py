@@ -9,7 +9,7 @@ from SistemaDeOperaciones.choices import *
 
 
 class Cliente(models.Model):
-    id_cliente = models.AutoField(primary_key=True)
+    id_cliente = models.CharField(primary_key=True, max_length=9, verbose_name="Rut")
     id_nacionalidad = models.ForeignKey(Nacionalidad, verbose_name="Nacionalidad",
                                         on_delete=models.CASCADE)  # PENDIENTE
     region = models.CharField(verbose_name="Región", max_length=31, choices=REGIONES_CHOICES, default=iv_reg_coquimbo)
@@ -61,9 +61,9 @@ class Cotizacion(models.Model):
 class Venta(models.Model):
     id_venta = models.AutoField(primary_key=True)
     id_cotizacion = models.ForeignKey(Cotizacion, on_delete=models.CASCADE)
-    #id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
-    # id_vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
-    #id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    id_vivienda = models.CharField(verbose_name="Vivienda", max_length=2,) # ForeignKey(Vivienda, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
+    id_vendedor = models.CharField(verbose_name="Vendedor", max_length=2,) # ForeignKey(Vendedor, on_delete=models.CASCADE) #TODO: Esta en cotizacion ver si es posible visualizar desde FK
+    id_cliente = models.CharField(verbose_name="Cliente", max_length=2,) # ForeignKey(Cliente, on_delete=models.CASCADE)
     id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE) # PENDIENTE
     # id_pie_ven = models.ForeignKey(PieVenta, on_delete=models.CASCADE)
     forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=credito)
