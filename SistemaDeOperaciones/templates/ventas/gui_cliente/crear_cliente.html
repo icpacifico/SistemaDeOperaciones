@@ -6,14 +6,14 @@
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <h4 class="py-3 mb-4 fw-bold">
-        <span class="text-muted fw-light">Banco /</span>
+        <span class="text-muted fw-light">Cliente /</span>
         Agregar
     </h4>
     <div class="row">
         <div class="col-xl" align="center">
-            <div class="card mb-4" style="max-width:900px">
+            <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0 fw-normal">Banco</h3>
+                    <h3 class="mb-0 fw-normal">Cliente</h3>
                 </div>
                 <div class="card-body">
                     <form method="post">
@@ -21,144 +21,139 @@
                         {% if error %}
                         <h2>{{ error }}</h2>
                         {% else %}
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.id_nacionalidad }}
-                                <label for="basic-default-fullname">Nacionalidad</label>
+                        <div class="row gx-5">                        
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.id_cliente }}
+                                    <label for="basic-default-fullname">Rut Cliente</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{ form.id_nacionalidad }}
+                                    <label for="basic-default-fullname">Nacionalidad</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'administracion:crear_nacionalidad' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.estado_cliente }}
+                                    <label for="basic-default-fullname">Estado Cliente</label>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.region }}
-                                <label for="basic-default-fullname">Región</label>
+                        <div class="row gx-5"> 
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.nombre_cliente }}
+                                    <label for="basic-default-fullname">Primer Nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.nombre2_cliente }}
+                                    <label for="basic-default-fullname">Segundo Nombre</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.apellido_paterno_cliente }}
+                                    <label for="basic-default-fullname">Apellido Paterno</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.apellido_materno_cliente }}
+                                    <label for="basic-default-fullname">Apellido Materno</label>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.genero }}
-                                <label for="basic-default-fullname">Género</label>
+                        <div class="row gx-5">                        
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.fecha_nacimiento_cliente }}
+                                    <label for="basic-default-fullname">Fecha Nacimiento</label>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.genero }}
+                                    <label for="basic-default-fullname">Género</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.estado_civil }}
+                                    <label for="basic-default-fullname">Estado Civil</label>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.estado_civil }}
-                                <label for="basic-default-fullname">Estado Civil</label>
+                        <div class="row gx-5"> 
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.fono_cliente }}
+                                    <label for="basic-default-fullname">Fono 1</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.fono2_cliente }}
+                                    <label for="basic-default-fullname">Fono 2</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.correo_cliente }}
+                                    <label for="basic-default-fullname">Correo 1</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.correo2_cliente }}
+                                    <label for="basic-default-fullname">Correo 2</label>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.id_profesion }}
-                                <label for="basic-default-fullname">Profesión</label>
+                        <div class="row gx-5">     
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{ form.id_profesion }}
+                                    <label for="basic-default-fullname">Profesión</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'administracion:crear_profesion' %}">+</a>                    
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.estado_cliente }}
-                                <label for="basic-default-fullname">Estado Cliente</label>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.pasaporte_cliente }}
+                                    <label for="basic-default-fullname">Pasaporte Cliente</label>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.rut_cliente }}
-                                <label for="basic-default-fullname">Rut Cliente</label>
+                        </div> 
+                        
+                        <div class="row gx-5">
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.region }}
+                                    <label for="basic-default-fullname">Región</label>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.pasaporte_cliente }}
-                                <label for="basic-default-fullname">Pasaporte Cliente</label>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.direccion_cliente }}
+                                    <label for="basic-default-fullname">Dirección</label>
+                                </div>
                             </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.direccion_trabajo_cliente }}
+                                    <label for="basic-default-fullname">Dirección Trabajo</label>
+                                </div>
+                            </div>                      
                         </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.nombre_cliente }}
-                                <label for="basic-default-fullname">1er Nombre</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.nombre2_cliente }}
-                                <label for="basic-default-fullname">2do Nombre</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.apellido_paterno_cliente }}
-                                <label for="basic-default-fullname">1er Apellido</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.apellido_materno_cliente }}
-                                <label for="basic-default-fullname">2do Apellido</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.fono_cliente }}
-                                <label for="basic-default-fullname">Fono 1</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.fono2_cliente }}
-                                <label for="basic-default-fullname">Fono 2</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.correo_cliente }}
-                                <label for="basic-default-fullname">Correo 1</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.correo2_cliente }}
-                                <label for="basic-default-fullname">Correo 2</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.direccion_cliente }}
-                                <label for="basic-default-fullname">Dirección</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.direccion_trabajo_cliente }}
-                                <label for="basic-default-fullname">Dirección Trabajo</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md">
-                            <div class="form-floating form-floating-outline mb-4">
-                                {{ form.fecha_nacimiento_cliente }}
-                                <label for="basic-default-fullname">Fecha Nacimiento</label>
-                            </div>
-                        </div>
-
-
                         <div align="left">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a style="margin-left:10px" href="{% url 'administracion:listar_banco' %}"
+                            <a style="margin-left:10px" href="{% url 'ventas:listar_cliente' %}"
                                class="btn btn-dark">Cancelar</a>
                         </div>
                         {% endif %}

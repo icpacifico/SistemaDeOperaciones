@@ -18,7 +18,7 @@ class Cliente(models.Model):
     id_profesion = models.ForeignKey(Profesion, verbose_name="Profesión", on_delete=models.CASCADE)  # PENDIENTE
     estado_cliente = models.CharField(verbose_name="Estado", max_length=50, choices=IS_ACTIVE_CHOICES,
                                           default=is_active)
-    rut_cliente = models.CharField(verbose_name="Rut cliente", max_length=18, null=True, blank=True)
+    #rut_cliente = models.CharField(verbose_name="Rut cliente", max_length=18, null=True, blank=True)
     pasaporte_cliente = models.CharField(verbose_name="Pasaporte cliente", max_length=50, null=True, blank=True)
     nombre_cliente = models.CharField(verbose_name="1er Nombre", max_length=150, null=True, blank=True)
     nombre2_cliente = models.CharField(verbose_name="2do Nombre", max_length=150, null=True, blank=True)

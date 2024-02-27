@@ -5,20 +5,21 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = [
-            'id_nacionalidad', 'region', 'genero', 'estado_civil', 'id_profesion',
-            'estado_cliente', 'rut_cliente', 'pasaporte_cliente', 'nombre_cliente',
+            'id_cliente','id_nacionalidad', 'region', 'genero', 'estado_civil', 'id_profesion',
+            'estado_cliente', 'pasaporte_cliente', 'nombre_cliente',
             'nombre2_cliente', 'apellido_paterno_cliente', 'apellido_materno_cliente',
             'fono_cliente', 'fono2_cliente', 'correo_cliente', 'correo2_cliente',
             'direccion_cliente', 'direccion_trabajo_cliente', 'fecha_nacimiento_cliente'
         ]
         labels = {
+            'id_cliente': 'Rut Cliente',
             'id_nacionalidad': 'Nacionalidad',
             'region': 'Región',
             'genero': 'Género',
             'estado_civil': 'Estado Civil',
             'id_profesion': 'Profesión',
             'estado_cliente': 'Estado',
-            'rut_cliente': 'Rut cliente',
+            #'rut_cliente': 'Rut cliente',
             'pasaporte_cliente': 'Pasaporte cliente',
             'nombre_cliente': '1er Nombre',
             'nombre2_cliente': '2do Nombre',
@@ -33,13 +34,14 @@ class ClienteForm(forms.ModelForm):
             'fecha_nacimiento_cliente': 'Fecha nacimiento',
         }
         widgets = {
+            'id_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut'}),
             'id_nacionalidad': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Nacionalidad'}),
             'region': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Región'}),
             'genero': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Género'}),
             'estado_civil': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Civil'}),
             'id_profesion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Profesión'}),
             'estado_cliente': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado'}),
-            'rut_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut cliente'}),
+            #'rut_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut cliente'}),
             'pasaporte_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pasaporte cliente'}),
             'nombre_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '1er Nombre'}),
             'nombre2_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '2do Nombre'}),
@@ -51,7 +53,7 @@ class ClienteForm(forms.ModelForm):
             'correo2_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Correo 2'}),
             'direccion_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección'}),
             'direccion_trabajo_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección trabajo'}),
-            'fecha_nacimiento_cliente': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Fecha nacimiento'}),
+            'fecha_nacimiento_cliente': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha nacimiento'}),
         }
 
 

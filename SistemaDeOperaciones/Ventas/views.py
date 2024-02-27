@@ -12,7 +12,7 @@ class CrearCliente(CreateView):
     model = Cliente
     form_class = ClienteForm
     template_name = "ventas/gui_cliente/crear_cliente.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
-    success_url = reverse_lazy("ventas:listar_clientes")  # Reemplaza "tu_app" y "listar_clientes" con tus nombres de aplicación y URL
+    success_url = reverse_lazy("ventas:listar_cliente")  # Reemplaza "tu_app" y "listar_clientes" con tus nombres de aplicación y URL
 
 class ListadoClientes(ListView):
     model = Cliente
