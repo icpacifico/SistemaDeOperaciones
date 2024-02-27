@@ -34,14 +34,14 @@
           <i class="menu-icon tf-icons mdi mdi-chart-box-outline"></i>
           <div data-i18n="Dashboards">Dashboards</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu1">
           <li class="menu-item">
             <a href="index.html" class="menu-link">
               <div data-i18n="Analytics">Análisis</div>
             </a>
           </li>
         </ul>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu2">
           <li class="menu-item">
             <a href="{% url 'administracion:rep_comisiones' %}" class="menu-link">
               <div data-i18n="Analytics">Rep. Comisiones</div>
@@ -60,7 +60,7 @@
           <i class="menu-icon tf-icons mdi mdi-bank"></i>
           <div data-i18n="Account Settings">Bancos</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu3">
           <li class="menu-item">
             <a href="{% url 'administracion:crear_banco' %}" class="menu-link">
               <div data-i18n="Account">Agregar</div>
@@ -78,7 +78,7 @@
           <i class="menu-icon tf-icons mdi mdi-flag-outline"></i>
           <div data-i18n="Authentications">Nacionalidades</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu4">
           <li class="menu-item">
             <a href="{% url 'administracion:crear_nacionalidad' %}" class="menu-link">
               <div data-i18n="Basic">Agregar</div>
@@ -96,7 +96,7 @@
           <i class="menu-icon tf-icons mdi mdi-school-outline"></i>
           <div data-i18n="Misc">Profesiones</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu5">
           <li class="menu-item">
             <a href="{% url 'administracion:crear_profesion' %}" class="menu-link">
               <div data-i18n="Error">Agregar</div>
@@ -114,7 +114,7 @@
           <i class="menu-icon tf-icons mdi mdi-text-box-outline"></i>
           <div data-i18n="Misc">Parametros Condominio</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu6">
           <li class="menu-item">
             <a href="{% url 'administracion:crear_parametros' %}" class="menu-link">
               <div data-i18n="Error">Agregar</div>
@@ -132,7 +132,7 @@
           <i class="menu-icon tf-icons mdi  mdi-account"></i>
           <div data-i18n="Misc">Usuarios</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu7">
           <li class="menu-item">
             <a href="pages-misc-error.html" class="menu-link">
               <div data-i18n="Error">Agregar</div>
@@ -163,7 +163,7 @@
           <i class="menu-icon tf-icons mdi mdi-layers-triple-outline"></i>
           <div data-i18n="Misc">Etapas</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu8">
           <li class="menu-item">
             <a href="pages-misc-error.html" class="menu-link">
               <div data-i18n="Error">Agregar</div>
@@ -184,7 +184,7 @@
           <i class="menu-icon tf-icons mdi mdi-warehouse"></i>
           <div data-i18n="Form Elements">Bodegas</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu9">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_bodega' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -202,7 +202,7 @@
           <i class="menu-icon tf-icons mdi mdi-domain"></i>
           <div data-i18n="Form Layouts">Condominios</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu10">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_condominio' %}" class="menu-link">
               <div data-i18n="Vertical Form">Agregar</div>
@@ -226,7 +226,7 @@
           <i class="menu-icon tf-icons mdi mdi-car-back"></i>
           <div data-i18n="Form Elements">Estacionamientos</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu11">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_estacionamiento' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -244,7 +244,7 @@
           <i class="menu-icon tf-icons mdi mdi-layers-outline"></i>
           <div data-i18n="Form Elements">Etapas</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu12">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_etapa' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -262,7 +262,7 @@
           <i class="menu-icon tf-icons mdi mdi-floor-plan"></i>
           <div data-i18n="Form Elements">Modelos</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu13">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_modelo' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -280,7 +280,7 @@
           <i class="menu-icon tf-icons mdi mdi-office-building-outline"></i>
           <div data-i18n="Form Elements">Torres</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu14">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_torre' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -298,7 +298,7 @@
           <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
           <div data-i18n="Form Elements">Viviendas</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu15">
           <li class="menu-item">
             <a href="{% url 'proyectos:crear_vivienda' %}" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -319,7 +319,7 @@
           <i class="menu-icon tf-icons mdi mdi-account-group-outline"></i>
           <div data-i18n="Form Elements">Clientes</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu16">
           <li class="menu-item">
             <a href="forms-basic-inputs.html" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -337,7 +337,7 @@
           <i class="menu-icon tf-icons mdi mdi-clipboard-clock-outline"></i>
           <div data-i18n="Form Elements">Cotización</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu17">
           <li class="menu-item">
             <a href="forms-basic-inputs.html" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -355,7 +355,7 @@
           <i class="menu-icon tf-icons mdi mdi-clipboard-check-outline"></i>
           <div data-i18n="Form Elements">Ventas</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu18">
           <li class="menu-item">
             <a href="forms-basic-inputs.html" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
@@ -373,7 +373,7 @@
           <i class="menu-icon tf-icons mdi mdi-clipboard-remove-outline"></i>
           <div data-i18n="Form Elements">Desistimientos</div>
         </a>
-        <ul class="menu-sub">
+        <ul class="menu-sub" id="submenu19">
           <li class="menu-item">
             <a href="forms-basic-inputs.html" class="menu-link">
               <div data-i18n="Basic Inputs">Agregar</div>
