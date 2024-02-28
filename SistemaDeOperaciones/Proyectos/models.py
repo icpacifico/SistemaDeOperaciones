@@ -106,7 +106,7 @@ class Vivienda(models.Model):
     rol_vivienda = models.CharField(verbose_name="Rol", max_length=100)
 
     def __str__(self):
-        return " Depto: " + self.nombre_vivienda + " - Torre: " + self.id_torre.nombre_torre + " - Etapa: " + self.id_torre.id_etapa.nombre_etapa + " - Condominio: " + self.id_torre.id_etapa.id_condominio.nombre_condominio
+        return " Depto: " + self.nombre_vivienda + " - Torre: " + self.id_torre.nombre_torre + " - Etapa: " + self.id_torre.id_etapa_condominio.nombre_etapa + " - Condominio: " + self.id_torre.id_etapa_condominio.id_condominio.nombre_condominio
 
     class Meta:
         db_table = "vivienda"

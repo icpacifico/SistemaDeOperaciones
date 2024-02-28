@@ -1,0 +1,149 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+    <div class="row invoice-preview">
+        <!-- Invoice -->
+        <div class="card invoice-preview-card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
+                    <div class="mb-xl-0 pb-3">
+                        <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
+                            <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
+                        </div>
+                        <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+
+                    </div>
+                    <div>
+                        <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA #86423</h4>
+                        <div class="mb-1">
+                            <span>Fecha de venta:</span>
+                            <span>04 de marzo 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <div class="my-3">
+                        <h6>Datos departamento:</h6>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="pe-3">N° Departamento:</td>
+                                <td># 303</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">N° Torre</td>
+                                <td># 1</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Piso:</td>
+                                <td># 3</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Estacionamiento:</td>
+                                <td># 24</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Bodega:</td>
+                                <td># 1</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="my-3 me-3">
+                        <h6>Datos cliente:</h6>
+                        <p class="mb-1">Nombre: Thomas shelby</p>
+                        <p class="mb-1">Rut: 10.123.321-4</p>
+                        <p class="mb-1">Correo: peakyFBlinders@gmail.com</p>
+                        <p class="mb-1">Teléfono: 718-986-6062</p>
+                    </div>
+
+                </div>
+            </div>
+            <hr class="my-0">
+            <!-- Bootstrap Table with Header - Dark -->
+            <div class="card-body">
+                <h5 class="card-header">Datos venta</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Forma de pago</th>
+                            <th>Dscto al pie</th>
+                            <th>Monto Reserva</th>
+                            <th>Dscto manual</th>
+                            <th>Pie Cancelado</th>
+                            <th>Valor Vnta</th>
+                            <th>Crédito H</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        <tr>
+                            <td>Crédito</td>
+                            <td>No</td>
+                            <td>UF 10</td>
+                            <td>UF 300</td>
+                            <td>UF 485</td>
+                            <td>UF 2.768</td>
+                            <td>UF 2.273</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <!--/ Bootstrap Table with Header Dark -->
+
+            <hr class="my-0">
+            <div class="card-body">
+                <h5 class="card-header">Datos comisiones</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead class="table-info">
+                        <tr>
+                            <th>% Reparto Promesa</th>
+                            <th>Comisión Promesa</th>
+                            <th>% Reparto Escritura</th>
+                            <th>Comisión Escritura</th>
+                            <th>Total Comisión</th>
+
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        <tr>
+                            <td>60%</td>
+                            <td>UF 4.98</td>
+                            <td>40%</td>
+                            <td>UF 3.32</td>
+                            <td>UF 8.30</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <hr class="my-0">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <span class="fw-medium">Note:</span>
+                        <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
+              projects. Thank You!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock contenido %}

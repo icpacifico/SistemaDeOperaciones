@@ -5,7 +5,7 @@ from .views import (
     CrearCotizacion, ListadoCotizaciones, ActualizarCotizacion,
     CrearVenta, ListadoVentas, ActualizarVenta,
     CrearTipoDesistimiento, ListarTiposDesistimiento, ActualizarTipoDesistimiento,
-    CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,
+    CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,detalle_venta
 )
 
 app_name = 'ventas'
@@ -25,6 +25,7 @@ urlpatterns = [
     path('crear_venta/', login_required(CrearVenta.as_view()), name='crear_venta'),
     path('listar_venta/', login_required(ListadoVentas.as_view()), name='listar_venta'),
     path('editar_venta/<int:pk>/', login_required(ActualizarVenta.as_view()), name='editar_venta'),
+    path('detalle_venta/<int:id_venta>/', login_required(detalle_venta), name='detalle_venta'),
 
     # Tipos de Desistimiento
     path('crear_tipodesistimiento/', login_required(CrearTipoDesistimiento.as_view()), name='crear_tipodesistimiento'),

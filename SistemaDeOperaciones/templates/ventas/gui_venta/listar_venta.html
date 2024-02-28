@@ -9,7 +9,7 @@
            href="{% url 'ventas:crear_cotizacion' %}">Agregar</a>
         <span class="text-muted fw-light">Ventas /</span> Listado Ventas</h4>
 
-    <!-- Bootstrap Table with Header - Light -->
+    <!-- Bootstrap Table with Header - Light -- >
     <div class="card">
         <h5 class="card-header fw-light">Ventas</h5>
         <div class="table-responsive text-nowrap">
@@ -17,6 +17,7 @@
             <table class="table">
                 <thead class="table-light">
                 <tr>
+                    <th>Id</th>
                     <th>Cotización</th>
                     <th>Vivienda</th>
                     <th>Vendedor</th>
@@ -124,7 +125,7 @@
                                 <i class="mdi mdi-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item"href="#">
+                                <a class="dropdown-item" href="{% url 'ventas:detalle_venta' id_venta=venta.id_venta %}">
                                     <i class="mdi mdi-pencil-outline me-1"></i>Detalle
                                 </a>
                                 <a class="dropdown-item" href="{% url 'ventas:editar_venta' venta.id_venta %}">
