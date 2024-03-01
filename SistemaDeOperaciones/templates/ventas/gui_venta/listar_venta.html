@@ -130,10 +130,10 @@
                                 <a class="dropdown-item" href="{% url 'ventas:editar_venta' venta.id_venta %}">
                                     <i class="mdi mdi-trash-can-outline me-1"></i> Editar
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'ventas:crear_pago' id_venta=venta.id_venta %}">
                                     <i class="mdi mdi-pencil-outline me-1"></i> Registrar pago
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'ventas:detalle_pagos' id_venta=venta.id_venta %}">
                                     <i class="mdi mdi-trash-can-outline me-1"></i> Listado detalle
                                 </a>
                                 <a class="dropdown-item" href="#">

@@ -3,7 +3,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView
 from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
-
+from Contabilidad.forms import PagoForm
+from Contabilidad.models import Pago
 
 # Create your views here.
 
@@ -130,12 +131,24 @@ def detalle_venta(request, id_venta):
     return render(request, 'ventas/gui_venta/detalle_venta.html', {'venta': venta})
 
 
-def registrar_pago_venta(request):
-    pass
+def registrar_pago_venta(request, id_venta):
+    datos =  Venta.objects.filter(id_venta=id_venta)
+    if request.method == 'POST':
+        form = PagoForm(request.POST)
+        if form.is_valid():
+            # Guardar el pago en la base de datos si el formulario es válido
+            pago = form.save()
+            # Puedes redirigir a una página de detalles del pago, por ejemplo
+            return redirect('contabilidad/gui_pagos/listar_pago.html')
+    else:
+        form = PagoForm()
+
+    return render(request, 'contabilidad/gui_pagos/crear_pago.html', {'form': form, 'id_venta':id_venta, 'datos':datos})
 
 
-def listado_detalle_venta(request):
-    pass
+def listado_detalle_venta(request, id_venta):
+    datos =  Pago.objects.filter(id_venta=id_venta)
+    return render(request,'contabilidad/gui_pagos/listar_pago.html', {'datos':datos} )
 
 
 def informe_pagos_venta(request):

@@ -1,0 +1,167 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row invoice-preview">
+        <!-- Invoice -->
+        <div class="card invoice-preview-card">
+
+            <h4 class="py-3 mb-4 fw-bold">
+                <span class="text-muted fw-light">Pago /</span>
+                Detalle
+            </h4>
+
+            <div class="card-body">
+                <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
+                    <div class="mb-xl-0 pb-3">
+                        <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
+                            <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
+                        </div>
+                        <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+
+                    </div>
+                    <div>
+                        {% for dato in datos %}
+                        <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{dato.id_venta}}</h4>
+                        {% endfor %}
+                        <div class="mb-1">
+                            <span>Fecha de venta:</span>
+                            <span>04 de marzo 2024</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-0">
+            <div class="card-body">
+                <div class="d-flex justify-content-between flex-wrap">
+                    <div class="my-3">
+                        <h6>Datos departamento:</h6>
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td class="pe-3">N° Departamento:</td>
+                                <td># 303</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">N° Torre</td>
+                                <td># 1</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Piso:</td>
+                                <td># 3</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Estacionamiento:</td>
+                                <td># 24</td>
+                            </tr>
+                            <tr>
+                                <td class="pe-3">Bodega:</td>
+                                <td># 1</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="my-3 me-3">
+                        <h6>Datos cliente:</h6>
+                        <p class="mb-1">Nombre: Thomas shelby</p>
+                        <p class="mb-1">Rut: 10.123.321-4</p>
+                        <p class="mb-1">Correo: peakyFBlinders@gmail.com</p>
+                        <p class="mb-1">Teléfono: 718-986-6062</p>
+                    </div>
+
+
+                </div>
+            </div>
+            <hr class="my-0">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0 fw-normal">Pago</h3>
+            </div>
+            <!-- Bootstrap Table with Header - Dark -->
+            <div class="card-body">
+                <h5 class="card-header">Datos venta</h5>
+                <div class="table-responsive text-nowrap">
+                    {% if datos %}
+                    <table class="table">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>Cátegoria</th>
+                            <th>Banco</th>
+                            <th>Forma de Pago</th>
+                            <th>Fecha</th>
+                            <th>Fecha real</th>
+                            <th>Documento</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        {% for dato in datos %}
+                        <tr>
+                            <td>{{dato.categoria_pago}}</td>
+                            <td>{{dato.id_banco}}</td>
+                            <td>{{dato.forma_pago}}</td>
+                            <td>{{dato.fecha_pago}}</td>
+                            <td>{{dato.fecha_real_pago}}</td>
+                            <td>{{dato.numero_documento}}</td>
+                            <td>{{dato.monto_pago}}</td>
+                            <td>{{dato.estado_pago}}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                        <i class="mdi mdi-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-pencil-outline me-1"></i> Editar
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-trash-can-outline me-1"></i> Eliminar
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-pencil-outline me-1"></i> Pagar
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-trash-can-outline me-1"></i> Protestar
+                                        </a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <table class="table" style="min-height:200px">
+                        <thead class="table-light">
+                        <tr>
+                            <th>Cátegoria</th>
+                            <th>Banco</th>
+                            <th>Forma de Pago</th>
+                            <th>Fecha</th>
+                            <th>Fecha real</th>
+                            <th>Documento</th>
+                            <th>Monto</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        <tr>
+                            <td colspan='4' align='center'><span class="border-info me-1"><i
+                                    class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock contenido %}

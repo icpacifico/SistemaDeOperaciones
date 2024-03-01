@@ -1,0 +1,148 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <h4 class="py-3 mb-4 fw-bold">
+        <span class="text-muted fw-light">Pago /</span>
+        Agregar
+    </h4>
+    <div class="row">
+        <div class="col-xl" align="center">
+            <div class="card mb-4" style="max-width:900px">
+
+                <div class="row invoice-preview">
+                    <!-- Invoice -->
+                    <div class="card invoice-preview-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
+                                <div class="mb-xl-0 pb-3">
+                                    <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
+                                        <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
+                                    </div>
+                                    <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+
+                                </div>
+                                <div>
+                                    <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{datos.id_venta}}</h4>
+                                    <div class="mb-1">
+                                        <span>Fecha de venta:</span>
+                                        <span>04 de marzo 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between flex-wrap">
+                                <div class="my-3">
+                                    <h6>Datos departamento:</h6>
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td class="pe-3">N° Departamento:</td>
+                                            <td># 303</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pe-3">N° Torre</td>
+                                            <td># 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pe-3">Piso:</td>
+                                            <td># 3</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pe-3">Estacionamiento:</td>
+                                            <td># 24</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pe-3">Bodega:</td>
+                                            <td># 1</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="my-3 me-3">
+                                    <h6>Datos cliente:</h6>
+                                    <p class="mb-1">Nombre: Thomas shelby</p>
+                                    <p class="mb-1">Rut: 10.123.321-4</p>
+                                    <p class="mb-1">Correo: peakyFBlinders@gmail.com</p>
+                                    <p class="mb-1">Teléfono: 718-986-6062</p>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <hr class="my-0">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0 fw-normal">Pago</h3>
+                </div>
+<div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if error %}
+                        <h2>{{ error }}</h2>
+                        {% else %}
+                        <input type="hidden" name="id_venta" value="{{ id_venta }}">
+
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.forma_pago}}
+                            <label for="floating-input">Forma de Pago</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.id_banco}}
+                            <label for="floating-input">Banco</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.categoria_pago}}
+                            <label for="floating-input">Categoria pago</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.estado_pago}}
+                            <label for="floating-input">Estado Pago</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.numero_documento}}
+                            <label for="floating-input">N° Documento</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.numero_serie}}
+                            <label for="floating-input">N° Serie</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.fecha_pago}}
+                            <label for="floating-input">Fecha de Pago</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.fecha_real_pago}}
+                            <label for="floating-input">Fecha Real</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.monto_pago}}
+                            <label for="floating-input">Monto</label>
+                        </div>
+                        <div class="form-floating form-floating-outline mb-4">
+                            {{form.descripcion}}
+                            <label for="floating-input">Descripción</label>
+                        </div>
+
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'administracion:listar_banco' %}"
+                               class="btn btn-dark">Cancelar</a>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
