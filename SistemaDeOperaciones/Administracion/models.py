@@ -24,7 +24,7 @@ class Nacionalidad(models.Model):
 
 class Banco(models.Model):
     id_banco = models.AutoField(primary_key=True)
-    nombre_banco =  models.CharField(verbose_name="Banco", max_length=50, null=False,blank=False)
+    nombre_banco =  models.CharField(unique=True, verbose_name="Banco", max_length=50, null=False,blank=False)
     def __str__(self):
         return "("+str(self.id_banco)+")" + " " +self.nombre_banco
 

@@ -79,6 +79,12 @@ class CrearNacionalidad(CreateView):
     form_class = NacionalidadForm
     template_name = "administracion/gui_nacionalidad/crear_nacionalidad.html"
     success_url = reverse_lazy("administracion:listar_nacionalidad")
+    def form_valid(self, form):
+        nombre_nacionalidad = form.cleaned_data['nombre_nacionalidad']
+        if Nacionalidad.objects.filter(nombre_nacionalidad=nombre_nacionalidad).exists():
+            form.add_error('nombre_nacionalidad', 'Nacionalidad with this name already exists.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
 
 
 class ListadoNacionalidad(ListView):
@@ -101,7 +107,12 @@ class CrearBanco(CreateView):
     form_class = BancoForm  # Asegúrate de tener el formulario correspondiente
     template_name = "administracion/gui_banco/crear_banco.html"
     success_url = reverse_lazy("administracion:listar_banco")
-
+    def form_valid(self, form):
+        nombre_banco = form.cleaned_data['nombre_banco']
+        if Banco.objects.filter(nombre_banco=nombre_banco).exists():
+            form.add_error('nombre_banco', 'Banco with this name already exists.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
 
 class ListadoBanco(ListView):
     model = Banco
@@ -147,6 +158,12 @@ class CrearProfesion(CreateView):
     form_class = ProfesionForm
     template_name = "administracion/gui_profesion/crear_profesion.html"
     success_url = reverse_lazy("administracion:listar_profesion")
+    def form_valid(self, form):
+        nombre_profesion = form.cleaned_data['nombre_profesion']
+        if Profesion.objects.filter(nombre_profesion=nombre_profesion).exists():
+            form.add_error('nombre_profesion', 'Profesion with this name already exists.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
 
 
 class ListadoProfesion(ListView):

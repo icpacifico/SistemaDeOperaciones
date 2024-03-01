@@ -32,6 +32,12 @@ class BancoForm(forms.ModelForm):
         widgets = {
             'nombre_banco': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Banco ejemplo', 'id': 'asic-default-fullname'}),
         }
+    def clean_nombre_banco(self):
+        nombre_banco_ = self.cleaned_data['nombre_banco']
+        # Check if a Banco with the same nombre_banco already exists
+        if Banco.objects.filter(nombre_banco=nombre_banco_).exists():
+            raise forms.ValidationError("Banco with this name already exists.")
+        return nombre_banco_
 
 # Formulario para ConjuntoParametros
 class ConjuntoParametrosForm(forms.ModelForm):

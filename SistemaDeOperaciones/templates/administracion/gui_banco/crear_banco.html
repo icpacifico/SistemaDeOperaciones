@@ -21,15 +21,28 @@
                         {% if error %}
                         <h2>{{ error }}</h2>
                         {% else %}
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.nombre_banco}}
-                            <label for="floating-input">Nombre</label>
-                        </div>
-                        <div align="left">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a style="margin-left:10px" href="{% url 'administracion:listar_banco' %}"
-                               class="btn btn-dark">Cancelar</a>
-                        </div>
+                            <div class="form-floating form-floating-outline mb-4">
+                                {{form.nombre_banco}}
+                                <label for="floating-input">Nombre</label>
+                            </div>
+                            {% if form.errors %}
+                            <div class="errors">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert">
+                                            El banco que intento ingresar ya existe, favor verifique e inténtelo de nuevo.
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div align="left">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <a style="margin-left:10px" href="{% url 'administracion:listar_banco' %}"
+                                class="btn btn-dark">Cancelar
+                                </a>
+                            </div>
                         {% endif %}
                     </form>
                 </div>

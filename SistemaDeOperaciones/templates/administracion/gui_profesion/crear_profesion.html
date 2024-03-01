@@ -24,9 +24,19 @@
                             {{form.nombre_profesion}}
                             <label for="basic-default-fullname">Nombre</label>
                         </div>
+                        <div class="errors">
+                            {% for field in form %}
+                                {% for error in field.errors %}
+                                    <div class="alert alert-danger alert-dismissible" role="alert">
+                                        La profesión que intento ingresar ya existe, favor verifique e inténtelo de nuevo.
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
                         <div align="left" >
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a style="margin-left:10px" href="{% url 'administracion:listar_nacionalidad' %}" class="btn btn-dark">Cancelar</a>
+                            <a style="margin-left:10px" href="{% url 'administracion:listar_profesion' %}" class="btn btn-dark">Cancelar</a>
                         </div>
                         {% endif %}
                     </form>
