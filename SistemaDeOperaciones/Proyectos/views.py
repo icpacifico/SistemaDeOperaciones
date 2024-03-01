@@ -107,11 +107,11 @@ def importar_viviendas(request):
             except Exception as e:
                 # Manejar cualquier error durante la importación
                 error_message = f"Error durante la importación: {str(e)}"
-                return render(request, 'proyectos/gui_condominio/importar_viviendas.html', {'form': form, 'error_message': error_message})
+                return render(request, 'proyectos/gui_vivienda/importar_viviendas.html', {'form': form, 'error_message': error_message})
     else:
         form = ImportViviendasForm()
 
-    return render(request, 'proyectos/gui_condominio/importar_viviendas.html', {'form': form})
+    return render(request, 'proyectos/gui_vivienda/importar_viviendas.html', {'form': form})
 
 
 
