@@ -94,8 +94,12 @@
                 <li class="nav-item lh-1 me-3">
 
                 </li>
-                <!-- User -->
-
+                <!-- User -->     
+                <li>
+                  <div id="ufValue" class="alert alert-dark mt-3 me-3" role="alert">
+                    Valor UF = $ ---------
+                  </div>
+                </li>
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a
                     class="nav-link dropdown-toggle hide-arrow p-0"
@@ -215,5 +219,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <script>
+      fetch('https://mindicador.cl/api')
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById('ufValue').textContent = `Valor UF = $ ${new Intl.NumberFormat('es-CL').format(data.uf.valor)}`;
+          })
+          .catch(error => {
+              console.error('Error fetching UF value:', error);
+              document.getElementById('ufValue').textContent = 'Error fetching UF value';
+          });
+    </script>
   </body>
 </html>
