@@ -18,6 +18,7 @@
                 <tr>
                     <th>ID Torre</th>
                     <th>N° Torre</th>
+                    <th>Condominio</th>
                     <th>Etapa</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -27,14 +28,13 @@
                 {% for torre in torres %}
                 <tr>
                     <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
                         ><span class="fw-medium">{{torre.id_torre}}</span>
                     </td>
-
                     <td>{{torre.nombre_torre}}</td>
-                    <td>{{torre.id_etapa_condominio}}</td>
+                    <td>{{torre.id_etapa_condominio.id_condominio.nombre_condominio}}</td>
+                    <td>{{torre.id_etapa_condominio.nombre_etapa}}</td>
                     <td><span class="badge rounded-pill bg-label-primary me-1">{{torre.estado_torre}}</span></td>
-
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -60,6 +60,7 @@
                 <tr>
                     <th>ID Torre</th>
                     <th>N° Torre</th>
+                    <th>Condominio</th>
                     <th>Etapa</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -67,7 +68,7 @@
                 </thead>
                 <tbody class="table-border-bottom-0">
                 <tr>
-                    <td colspan='5' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                    <td colspan='6' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
                 </tr>
                 </tbody>
             </table>

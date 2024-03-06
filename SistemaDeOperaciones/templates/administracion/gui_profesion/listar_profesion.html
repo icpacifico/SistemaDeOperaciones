@@ -17,7 +17,6 @@
                 <tr>
                     <th>ID Profesion</th>
                     <th>Profesión</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -25,14 +24,11 @@
                 {% for profesion in profesiones %}
                 <tr>
                     <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
-                        ><span class="fw-medium">{{profesion.nombre_profesion}}</span>
+                        <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{profesion.id_profesion}}</span>
                     </td>
 
                     <td>{{profesion.nombre_profesion}}</td>
-
-
-                    <td><span class="badge rounded-pill bg-label-primary me-1">{{profesion.nombre_profesion}}</span></td>
 
                     <td>
                         <div class="dropdown">
@@ -59,13 +55,12 @@
                 <tr>
                     <th>ID Banco</th>
                     <th>Nombre Banco</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0"> 
                 <tr>
-                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                    <td colspan='3' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
                 </tr>
                 </tbody>
             </table>

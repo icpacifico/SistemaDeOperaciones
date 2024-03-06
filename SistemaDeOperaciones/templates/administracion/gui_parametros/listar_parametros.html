@@ -33,7 +33,6 @@
                     <th>Fecha termino de ventas</th> {% endcomment %}
                     <th>Dirección</th>
                     <th>Banco Alzante</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -60,11 +59,7 @@
                     {% comment %} <td>{{parametro.valor_estacionamiento}}</td> {% endcomment %}
                     {% comment %} <td>{{parametro.fecha_termino_venta}}</td> {% endcomment %}
                     <td>{{parametro.direccion_condominio}}</td>
-                    <td>{{parametro.banco_alzante}}</td>
-
-
-                    <td><span class="badge rounded-pill bg-label-primary me-1">{{parametro.id_condominio}}</span></td>
-
+                    <td>{{parametro.banco_alzante.nombre_banco}}</td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

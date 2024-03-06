@@ -13,22 +13,24 @@
         <h5 class="card-header fw-light">Viviendas</h5>
         <div class="table-responsive text-nowrap">
             {% if viviendas %}
-            <table class="table">
+            <table class="table table-sm">
                 <thead class="table-light">
                 <tr>
                     <th>ID Vivienda</th>
                     <th>N° Depto</th>
+                    <th>Condominio</th>
+                    <th>Etapa</th>
                     <th>Torre</th>
                     <th>Modelo</th>
                     <th>Tipo</th>
                     <th>Orientación</th>
                     <th>Piso</th>
                     <th>Valor (UF)</th>
-                    <th>Metros 2</th>
+                    {% comment %} <th>Metros 2</th>
                     <th>Metros Terraza</th>
                     <th>Metros Totales</th>
                     <th>Bono</th>
-                    <th>Prorrateo</th>
+                    <th>Prorrateo</th> {% endcomment %}
                     <th>Rol Depto</th>
                     <th>Estado</th>
                     <th>Acciones</th>
@@ -38,21 +40,23 @@
                 {% for vivienda in viviendas %}
                 <tr>
                     <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
                         ><span class="fw-medium">{{vivienda.id_vivienda}}</span>
                     </td>
                     <td>{{vivienda.nombre_vivienda}}</td>
-                    <td>{{vivienda.id_torre}}</td>
-                    <td>{{vivienda.id_modelo}}</td>
+                    <td>{{vivienda.id_torre.id_etapa_condominio.id_condominio.nombre_condominio}}</td>
+                    <td>{{vivienda.id_torre.id_etapa_condominio.nombre_etapa}}</td>
+                    <td>{{vivienda.id_torre.nombre_torre}}</td>
+                    <td>{{vivienda.id_modelo.nombre_modelo}}</td>
                     <td>{{vivienda.tipo_vivienda}}</td>
                     <td>{{vivienda.ori_vivienda}}</td>
                     <td>{{vivienda.piso}}</td>
                     <td>{{vivienda.valor_vivienda}}</td>
-                    <td>{{vivienda.metros_vivienda}}</td>
+                    {% comment %} <td>{{vivienda.metros_vivienda}}</td>
                     <td>{{vivienda.metros_terraza_vivienda}}</td>
                     <td>{{vivienda.metros_total_vivienda}}</td>
                     <td>{{vivienda.bono_vivienda}}</td>
-                    <td>{{vivienda.prorrateo_vivienda}}</td>
+                    <td>{{vivienda.prorrateo_vivienda}}</td> {% endcomment %}
                     <td>{{vivienda.rol_vivienda}}</td>
                     <td><span class="badge rounded-pill bg-label-primary me-1">{{vivienda.estado_vivienda}}</span></td>
                     <td>

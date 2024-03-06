@@ -19,7 +19,6 @@
                     <th>ID Etapa</th>
                     <th>Nombre Etapa</th>
                     <th>Nombre Condominio</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -27,14 +26,11 @@
                 {% for etapa in etapas %}
                 <tr>
                     <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                        <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
                         ><span class="fw-medium">{{etapa.id_etapa_condominio}}</span>
                     </td>
-
                     <td>{{etapa.nombre_etapa}}</td>
                     <td>{{etapa.id_condominio.nombre_condominio}}</td>
-                    <td><span class="badge rounded-pill bg-label-primary me-1">a</span></td>
-
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -61,13 +57,12 @@
                     <th>ID Etapa</th>
                     <th>Nombre Etapa</th>
                     <th>Condominio</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                 <tr>
-                    <td colspan='5' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
                 </tr>
                 </tbody>
             </table>
