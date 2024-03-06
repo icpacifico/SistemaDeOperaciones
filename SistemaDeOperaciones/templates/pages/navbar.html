@@ -22,21 +22,16 @@
       <span class="app-brand-logo demo me-1">
         <span style="color: var(--bs-primary)">
           <img src="{% static '/assets/img/illustrations/logoCrop.jpg'  %}" style="width:50px;height:50px;">
-          
         </span>
       </span>
       <span class="app-brand-text demo menu-text fw-semibold ms-2">ICP</span>
     </a>
-
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
       <i class="mdi menu-toggle-icon d-xl-block align-middle mdi-20px"></i>
     </a>
   </div>
-
   <div class="menu-inner-shadow"></div>
-
   <ul class="menu-inner py-1 overflow-auto">
-    <!-- Dashboards -->
     <li class="menu-item">
       <a href="{% url 'index' %}" class="menu-link">
         <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
@@ -68,9 +63,6 @@
     <li class="menu-header fw-medium mt-4">
       <span class="menu-header-text">Administración</span>
     </li>
-    <!-- Apps -->
-
-    <!-- Pages -->
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-bank"></i>
@@ -202,29 +194,7 @@
         </li>
       </ul>
     </li>
-    <!-- Forms & Tables -->
     <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Proyectos</span></li>
-    <!-- Forms -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons mdi mdi-warehouse"></i>
-        <div data-i18n="Form Elements">Bodegas</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="{% url 'proyectos:crear_bodega' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Basic Inputs">Agregar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% url 'proyectos:listar_bodega' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Input groups">Listar</div>
-          </a>
-        </li>
-      </ul>
-    </li>
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-domain"></i>
@@ -245,27 +215,6 @@
         </li>
       </ul>
     </li>    
-    <!-- Tables -->
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons mdi mdi-car-back"></i>
-        <div data-i18n="Form Elements">Estacionamientos</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="{% url 'proyectos:crear_estacionamiento' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Basic Inputs">Agregar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% url 'proyectos:listar_estacionamiento' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Input groups">Listar</div>
-          </a>
-        </li>
-      </ul>
-    </li>
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-layers-outline"></i>
@@ -288,26 +237,6 @@
     </li>
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
-        <i class="menu-icon tf-icons mdi mdi-floor-plan"></i>
-        <div data-i18n="Form Elements">Modelos</div>
-      </a>
-      <ul class="menu-sub">
-        <li class="menu-item">
-          <a href="{% url 'proyectos:crear_modelo' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Basic Inputs">Agregar</div>
-          </a>
-        </li>
-        <li class="menu-item">
-          <a href="{% url 'proyectos:listar_modelo' %}" class="menu-link">
-            <div class="circulo"></div>
-            <div data-i18n="Input groups">Listar</div>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li class="menu-item">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-office-building-outline"></i>
         <div data-i18n="Form Elements">Torres</div>
       </a>
@@ -320,6 +249,26 @@
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_torre' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Input groups">Listar</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-floor-plan"></i>
+        <div data-i18n="Form Elements">Modelos</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{% url 'proyectos:crear_modelo' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Basic Inputs">Agregar</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'proyectos:listar_modelo' %}" class="menu-link">
             <div class="circulo"></div>
             <div data-i18n="Input groups">Listar</div>
           </a>
@@ -352,6 +301,50 @@
         </li>
       </ul>
     </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-warehouse"></i>
+        <div data-i18n="Form Elements">Bodegas</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{% url 'proyectos:crear_bodega' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Basic Inputs">Agregar</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'proyectos:listar_bodega' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Input groups">Listar</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-car-back"></i>
+        <div data-i18n="Form Elements">Estacionamientos</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{% url 'proyectos:crear_estacionamiento' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Basic Inputs">Agregar</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'proyectos:listar_estacionamiento' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Input groups">Listar</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    
+   
+    
+    
     
     <!-- Misc -->
     <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Ventas</span></li>
@@ -453,5 +446,21 @@
   </ul>
 </aside>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var menuInner = document.querySelector('.menu-inner');
+
+      // Restore scroll position
+      var scrollPosition = localStorage.getItem('menuScrollPosition');
+      if (scrollPosition) {
+          menuInner.scrollTop = parseInt(scrollPosition);
+      }
+
+      // Store scroll position when it changes
+      menuInner.addEventListener('scroll', function() {
+          localStorage.setItem('menuScrollPosition', this.scrollTop.toString());
+      });
+  });
+</script>
 
 {% endblock navbar %}
