@@ -148,12 +148,19 @@ def registrar_pago_venta(request, id_venta):
 
 def listado_detalle_venta(request, id_venta):
     datos =  Pago.objects.filter(id_venta=id_venta)
-    return render(request,'contabilidad/gui_pagos/listar_pago.html', {'datos':datos} )
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request,'contabilidad/gui_pagos/listar_pago.html', {'datos':datos, 'id_venta':id_venta} )
 
 
-def informe_pagos_venta(request):
-    pass
+def informe_pagos_venta(request,id_venta):
+    datos =  Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'contabilidad/gui_pagos/detalle_pago.html', {'datos':datos, 'id_venta':id_venta, 'datos_venta':datos_venta})
 
+def informe_pagos_venta_print(request,id_venta):
+    datos =  Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'contabilidad/gui_pagos/detalle_pago_print.html', {'datos':datos, 'id_venta':id_venta, 'datos_venta':datos_venta})
 
 def carta_cierre_negocios_venta(request):
     pass

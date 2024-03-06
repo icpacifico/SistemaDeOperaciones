@@ -26,7 +26,7 @@
 
                                 </div>
                                 <div>
-                                    <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{datos.id_venta}}</h4>
+                                    <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{id_venta}}</h4>
                                     <div class="mb-1">
                                         <span>Fecha de venta:</span>
                                         <span>04 de marzo 2024</span>
@@ -130,7 +130,7 @@
 
                         <div align="left">
                             <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a style="margin-left:10px" href="{% url 'administracion:listar_banco' %}"
+                            <a style="margin-left:10px" href="{% url 'ventas:listar_venta' %}"
                                class="btn btn-dark">Cancelar</a>
                         </div>
                         {% endif %}

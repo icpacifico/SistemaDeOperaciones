@@ -1,0 +1,402 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row invoice-preview">
+        <!-- Invoice -->
+        <div class="col-xl-9 col-md-8 col-12 mb-md-0 mb-4">
+            <div class="card invoice-preview-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
+                        <div class="mb-xl-0 pb-3">
+                            <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
+                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
+                            </div>
+                            <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+
+                        </div>
+                        <div>
+                            <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{id_venta}}</h4>
+                            <div class="mb-1">
+                                <span>Fecha de venta:</span>
+                                <span>04 de marzo 2024</span>
+                            </div>
+                            <div>
+                                <span>Fecha Arqueo:</span>
+                                <span>04 de marzo 2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <div class="my-3">
+                            {% for venta in datos_venta %}
+                            <h6>Datos departamento:</h6>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td class="pe-3">N° Departamento:</td>
+                                    <td>{{ venta.id_cotizacion.id_vivienda.nombre_vivienda }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="pe-3">N° Torre</td>
+                                    <td>{{ venta.id_cotizacion.id_vivienda.id_torre.nombre_torre }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="pe-3">Piso:</td>
+                                    <td>{{ venta.id_cotizacion.id_vivienda.piso }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            {% endfor %}
+                        </div>
+                        <div class="my-3 me-3">
+                            <h6>Datos cliente:</h6>
+                            {% for venta in datos_venta %}
+                            <p class="mb-1">Nombre: {{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</p>
+                            <p class="mb-1">Rut: {{ venta.id_cotizacion.id_cliente.id_cliente}}</p>
+                            <p class="mb-1">Correo: {{ venta.id_cotizacion.id_cliente.correo_cliente}}</p>
+                            <p class="mb-1">Teléfono: (+56) {{ venta.id_cotizacion.id_cliente.fono_cliente}}</p>
+                            {% endfor%}
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0 fw-normal">Arqueo contable</h3>
+                </div>
+                <!-- Bootstrap Table with Header - Dark -->
+                <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                        {% if datos %}
+                        <table class="table">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Abono $CLP</th>
+                                <th>Abono UF</th>
+                                <th>Fecha Cobro</th>
+                                <th>Estado Cobro</th>
+                                <th>Valor UF pago efectivo</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            {% for dato in datos %}
+                            <tr>
+                                <td>{{dato.categoria_pago}}</td>
+                                <td>{{dato.id_banco}}</td>
+                                <td>{{dato.forma_pago}}</td>
+                                <td>{{dato.fecha_pago}}</td>
+                                <td>{{dato.fecha_pago}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <table class="table" style="min-height:200px">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Abono $CLP</th>
+                                <th>Abono UF</th>
+                                <th>Fecha Cobro</th>
+                                <th>Estado Cobro</th>
+                                <th>Valor UF pago efectivo</th>
+                            </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            <tr>
+                                <td colspan='4' align='center'><span class="border-info me-1"><i
+                                        class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% endif%}
+                    </div>
+                </div>
+                <hr class="my-0">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <div class="my-3">
+                            <h6>Fondo Puesta en Marcha (FPM):</h6>
+                            <div class="table-responsive text-nowrap">
+                                {% if datos %}
+                                <table class="table">
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th>Monto $CLP</th>
+                                        <th>Fecha Pago</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                    {% for dato in datos %}
+                                    <tr>
+                                        <td>{{dato.categoria_pago}}</td>
+                                        <td>{{dato.id_banco}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                <table class="table" style="min-height:200px">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th>Monto $CLP</th>
+                                        <th>Fecha Pago</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                    <tr>
+                                        <td colspan='4' align='center'><span class="border-info me-1"><i
+                                                class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                {% endif%}
+                            </div>
+                        </div>
+                        <div class="my-3 me-3">
+                            <h6>Fondo gastos OOPP Constado:</h6>
+                            <div class="table-responsive text-nowrap">
+                                {% if datos %}
+                                <table class="table">
+                                    <thead class="table-dark">
+                                    <tr>
+                                        <th>Monto $CLP</th>
+                                        <th>Fecha Pago</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                    {% for dato in datos %}
+                                    <tr>
+                                        <td>{{dato.categoria_pago}}</td>
+                                        <td>{{dato.id_banco}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                <table class="table" style="min-height:200px">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th>Monto $CLP</th>
+                                        <th>Fecha Pago</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                    <tr>
+                                        <td colspan='4' align='center'><span class="border-info me-1"><i
+                                                class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                {% endif%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-md-0 mb-3">
+                            <div>
+                                <p class="mb-2">
+                                    <span class="me-1 text-heading">Jefa de Operaciones:</span>
+                                    <span>Sara Araya Bugueño</span>
+                                </p>
+                                <span>Thanks for your business</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-md-end mt-2">
+                            <div class="invoice-calculations">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Valor Depto:</span>
+                                    <h6 class="mb-0 pt-1">UF 3.600,00</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Pie Cancelado:</span>
+                                    <h6 class="mb-0 pt-1">UF 147.78</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Abono Inmobiliaria:</span>
+                                    <h6 class="mb-0 pt-1">UF 1.070,00</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Saldo Pie:</span>
+                                    <h6 class="mb-0 pt-1">UF 222,22</h6>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Crédito Hipotecario:</span>
+                                    <h6 class="mb-0 pt-1">UF 2.160,00</h6>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total:</span>
+                                    <h6 class="mb-0 pt-1">UF 2.530,00</h6>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between">
+                                    <span>Valor Final Inmobiliaria:</span>
+                                    <h6 class="mb-0 pt-1">UF 2.530,00</h6>
+                                </div>
+                            </div>
+                            <div id="extwaiokist" style="display:none" v="pdbbg" q="926b5c29" c="135.0" i="142"
+                                 u="19.76" s="03052403" sg="svr_09102316-ga_03052403-bai_02292418" d="1" w="false" e=""
+                                 a="2" m="BMe=" vn="1gtra">
+                                <div id="extwaigglbit" style="display:none" v="pdbbg" q="926b5c29" c="135.0" i="142"
+                                     u="19.76" s="03052403" sg="svr_09102316-ga_03052403-bai_02292418" d="1" w="false"
+                                     e="" a="2" m="BMe="></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="my-0">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="fw-medium">Note:</span>
+                            <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
+              projects. Thank You!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Invoice -->
+
+        <!-- Invoice Actions -->
+        <div class="col-xl-3 col-md-4 col-12 invoice-actions">
+            <div class="card">
+                <div class="card-body">
+                    <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light"
+                            data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
+                        <span class="d-flex align-items-center justify-content-center text-nowrap"><i
+                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>Send Invoice</span>
+                    </button>
+                    <button class="btn btn-outline-secondary d-grid w-100 mb-3 waves-effect">
+                        Download
+                    </button>
+                    <a class="btn btn-outline-secondary d-grid w-100 mb-3 waves-effect" target="_blank"
+                       href="{% url 'ventas:informe_pagos_print' id_venta=id_venta %}">
+                        Print
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /Invoice Actions -->
+    </div>
+
+    <!-- Offcanvas -->
+    <!-- Send Invoice Sidebar -->
+    <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
+        <div class="offcanvas-header mb-3">
+            <h5 class="offcanvas-title">Send Invoice</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body flex-grow-1">
+            <form>
+                <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com"
+                           placeholder="company@email.com">
+                    <label for="invoice-from">From</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com"
+                           placeholder="company@email.com">
+                    <label for="invoice-to">To</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <input type="text" class="form-control" id="invoice-subject"
+                           value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods">
+                    <label for="invoice-subject">Subject</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+        <textarea class="form-control" name="invoice-message" id="invoice-message" style="height: 190px;">Dear Queen Consolidated,
+          Thank you for your business, always a pleasure to work with you!
+          We have generated a new invoice in the amount of $95.59
+          We would appreciate payment of this invoice by 05/11/2021</textarea>
+                    <label for="invoice-message">Message</label>
+                </div>
+                <div class="mb-4">
+        <span class="badge bg-label-primary rounded-pill">
+          <i class="mdi mdi-link-variant mdi-14px me-1"></i>
+          <span class="align-middle">Invoice Attached</span>
+        </span>
+                </div>
+                <div class="mb-3 d-flex flex-wrap">
+                    <button type="button" class="btn btn-primary me-3 waves-effect waves-light"
+                            data-bs-dismiss="offcanvas">Send
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Send Invoice Sidebar -->
+
+    <!-- Add Payment Sidebar -->
+    <div class="offcanvas offcanvas-end" id="addPaymentOffcanvas" aria-hidden="true">
+        <div class="offcanvas-header mb-3">
+            <h5 class="offcanvas-title">Add Payment</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body flex-grow-1">
+            <div class="d-flex justify-content-between bg-lighter p-2 mb-3">
+                <p class="mb-0">Invoice Balance:</p>
+                <p class="fw-medium mb-0">$5000.00</p>
+            </div>
+            <form>
+                <div class="input-group input-group-merge mb-4">
+                    <span class="input-group-text">$</span>
+                    <div class="form-floating form-floating-outline">
+                        <input type="text" id="invoiceAmount" name="invoiceAmount" class="form-control invoice-amount"
+                               placeholder="100">
+                        <label for="invoiceAmount">Payment Amount</label>
+                    </div>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <input id="payment-date" class="form-control invoice-date flatpickr-input" type="text"
+                           readonly="readonly">
+                    <label for="payment-date">Payment Date</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <select class="form-select" id="payment-method">
+                        <option value="" selected="" disabled="">Select payment method</option>
+                        <option value="Cash">Cash</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Paypal">Paypal</option>
+                    </select>
+                    <label for="payment-method">Payment Method</label>
+                </div>
+                <div class="form-floating form-floating-outline mb-4">
+                    <textarea class="form-control" id="payment-note" style="height: 62px;"></textarea>
+                    <label for="payment-note">Internal Payment Note</label>
+                </div>
+                <div class="mb-3 d-flex flex-wrap">
+                    <button type="button" class="btn btn-primary me-3 waves-effect waves-light"
+                            data-bs-dismiss="offcanvas">Send
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Add Payment Sidebar -->
+
+    <!-- /Offcanvas -->
+
+
+</div>
+{% endblock contenido %}
