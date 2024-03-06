@@ -17,7 +17,6 @@
                 <tr>
                     <th>ID Nacionalidad</th>
                     <th>Nacionalidad</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
@@ -25,15 +24,12 @@
                 {% for nacionalidad in nacionalidades %}
                 <tr>
                     <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
-                        ><span class="fw-medium">{{nacionalidad.nombre_nacionalidad}}</span>
+                        <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
+                        ><span class="fw-medium">{{nacionalidad.id_nacionalidad}}</span>
                     </td>
-
-                    <td>{{nacionalidad.nombre_nacionalidad}}</td>
-
-
-                    <td><span class="badge rounded-pill bg-label-primary me-1">{{nacionalidad.nombre_nacionalidad}}</span></td>
-
+                    <td>
+                        {{nacionalidad.nombre_nacionalidad}}
+                    </td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

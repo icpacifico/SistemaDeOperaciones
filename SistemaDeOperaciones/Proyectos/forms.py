@@ -68,14 +68,16 @@ class ModeloForm(forms.ModelForm):
 class BodegaForm(forms.ModelForm):
     class Meta:
         model = Bodega
-        fields = ['estado_bodega', 'nombre_bodega', 'valor_bodega', 'rol_bodega']
+        fields = ['id_vivienda','estado_bodega', 'nombre_bodega', 'valor_bodega', 'rol_bodega']
         labels = {
+            'id_vivienda': 'Vivienda',
             'estado_bodega': 'Estado',
             'nombre_bodega': 'Nombre',
             'valor_bodega': 'Valor',
             'rol_bodega': 'Rol',
         }
         widgets = {
+            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda'}),
             'estado_bodega': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado bodega'}),
             'nombre_bodega': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° Bodega'}),
             'valor_bodega': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor bodega (UF)'}),
@@ -85,15 +87,15 @@ class BodegaForm(forms.ModelForm):
 class EstacionamientoForm(forms.ModelForm):
     class Meta:
         model = Estacionamiento
-        fields = ['id_etapa', 'estado_estacionamiento', 'nombre_estacionamiento', 'valor_estacionamiento']
+        fields = ['id_vivienda', 'estado_estacionamiento', 'nombre_estacionamiento', 'valor_estacionamiento']
         labels = {
-            'id_etapa': 'Etapa',
+            'id_vivienda': 'Vivienda',
             'estado_estacionamiento': 'Estado',
             'nombre_estacionamiento': 'Nombre',
             'valor_estacionamiento': 'Valor',
         }
         widgets = {
-            'id_etapa': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Etapa'}),
+            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda'}),
             'estado_estacionamiento': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado estacionamiento'}),
             'nombre_estacionamiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° estacionamiento'}),
             'valor_estacionamiento': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor estacionamiento (UF)'}),

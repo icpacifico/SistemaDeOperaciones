@@ -20,6 +20,13 @@
                       {% else %}
                         <div class="row gx-5">
                             <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    {{form.id_vivienda}}
+                                    <label for="basic-default-fullname">Vivienda</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_vivienda' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{form.nombre_bodega}}
                                     <label for="floating-input">N° Bodega</label>
@@ -30,7 +37,9 @@
                                     {{form.valor_bodega}}
                                     <label for="floating-input">Valor Bodega (UF)</label>
                                 </div>
-                            </div>
+                            </div>                      
+                        </div>
+                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{form.rol_bodega}}
@@ -44,6 +53,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div align="left">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <a style="margin-left:10px" href="{% url 'proyectos:listar_bodega' %}" class="btn btn-dark">Cancelar</a>

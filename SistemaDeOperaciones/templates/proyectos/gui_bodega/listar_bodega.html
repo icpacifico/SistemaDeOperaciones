@@ -20,6 +20,7 @@
                     <th>N° Bodega</th>
                     <th>Valor Bodega (UF)</th>
                     <th>Rol Bodega</th>
+                    <th>Vivienda</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
@@ -33,9 +34,10 @@
                     </td>
 
                     <td>{{bodega.nombre_bodega}}</td>
+                    
                     <td>{{bodega.valor_bodega}}</td>
                     <td>{{bodega.rol_bodega}}</td>
-
+                    <td>{{bodega.id_vivienda}}</td>
 
                     <td><span class="badge rounded-pill bg-label-primary me-1">{{bodega.estado_bodega}}</span></td>
 
@@ -66,13 +68,14 @@
                     <th>N° Bodega</th>
                     <th>Valor Bodega (UF)</th>
                     <th>Rol Bodega</th>
+                    <th>Vivienda</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                 <tr>
-                    <td colspan='6' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                    <td colspan='7' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
                 </tr>
                 </tbody>
             </table>
