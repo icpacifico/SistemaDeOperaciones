@@ -1,10 +1,16 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, ListView, UpdateView, View
 from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
 from Contabilidad.models import Pago
+import os
+from django.conf import settings
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from django.contrib.staticfiles import finders
 
 # Create your views here.
 
@@ -162,6 +168,53 @@ def informe_pagos_venta_print(request,id_venta):
     datos_venta = Venta.objects.filter(id_venta=id_venta)
     return render(request, 'contabilidad/gui_pagos/detalle_pago_print.html', {'datos':datos, 'id_venta':id_venta, 'datos_venta':datos_venta})
 
+
+class PagosInvoicePdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+
+            template = get_template('contabilidad/gui_pagos/prueba_pdf.html')
+            context = {'datos':datos, 'id_venta':self.kwargs['id_venta'], 'datos_venta':datos_venta, 'icon':'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 def carta_cierre_negocios_venta(request):
     pass
 

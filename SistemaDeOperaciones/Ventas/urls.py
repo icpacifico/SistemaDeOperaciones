@@ -6,7 +6,7 @@ from .views import (
     CrearVenta, ListadoVentas, ActualizarVenta,
     CrearTipoDesistimiento, ListarTiposDesistimiento, ActualizarTipoDesistimiento,
     CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,detalle_venta, registrar_pago_venta,
-    listado_detalle_venta, informe_pagos_venta, informe_pagos_venta_print
+    listado_detalle_venta, informe_pagos_venta, informe_pagos_venta_print, PagosInvoicePdf
 )
 
 app_name = 'ventas'
@@ -32,6 +32,7 @@ urlpatterns = [
     path('detalle_pagos/<int:id_venta>/', login_required(listado_detalle_venta), name='detalle_pagos'),
     path('informe_pagos/<int:id_venta>/', login_required(informe_pagos_venta), name='informe_pagos'),
     path('informe_pagos_print/<int:id_venta>/', login_required(informe_pagos_venta_print), name='informe_pagos_print'),
+    path('pagos_invoice_pdf/<int:id_venta>/', login_required(PagosInvoicePdf.as_view()), name='pagos_invoice_pdf'),
 
     # Tipos de Desistimiento
     path('crear_tipodesistimiento/', login_required(CrearTipoDesistimiento.as_view()), name='crear_tipodesistimiento'),
