@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
-from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento
+from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
 from Contabilidad.models import Pago
@@ -11,6 +11,7 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+from datetime import datetime
 
 # Create your views here.
 
@@ -237,3 +238,16 @@ def fpm_venta(request):
 
 def desistir_venta(request):
     pass
+
+"""def pasar_reserva(request, id_venta):
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    cotizacion_no = datos_venta.id_cotizacion
+    datos_cotizacion= Cotizacion.objects.filter(id_cotizacon=cotizacion_no)
+    cliente_id = datos_venta.id_cliente
+    datos_cliente = Cotizacion.objects.filter(id_cliente=cliente_id)
+
+    nueva_reserva = Reserva(negocio=id_venta, referencia = datos_cotizacion.id_cotizacion, fecha_creacion=datetime.now(),fecha_aprovacion="", cliente = str(datos_cliente.id_cliente.nombre_cliente+" "+datos_cliente.id_cliente.apellido_paterno_cliente),
+                            no_recibo = "", fono=datos_cliente.fono_cliente, correo=datos_cliente.correo_cliente)
+    nueva_reserva.save()
+    return ()"""
+
