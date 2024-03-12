@@ -158,12 +158,14 @@ class Reserva(models.Model):
     id_reserva = models.AutoField(primary_key=True)
     negocio = models.CharField(max_length=10)
     referencia = models.CharField(max_length=10)
-    fecha_creación = models.DateField()
+    fecha_creación = models.DateField(null=True, blank=True)
     fecha_aprobación = models.DateField()
-    cliente =  models.CharField(max_length=10)
-    no_recibo =  models.IntegerField()
-    fono =  models.CharField(max_length=10)
-    correo =  models.EmailField()
+    cliente = models.CharField(max_length=10)
+    no_recibo = models.IntegerField()
+    fono = models.CharField(max_length=10)
+    correo = models.EmailField()
+    proyecto = models.CharField(max_length=10)
+    estado_reserva = models.CharField(max_length=10)
 
     def __str__(self):
         return "(" +str(self.id_reserva)+")"+"-"+self.referencia

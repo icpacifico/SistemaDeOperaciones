@@ -61,7 +61,7 @@
                                 <a class="dropdown-item" href="{% url 'ventas:editar_cotizacion' cotizacion.id_cotizacion %}">
                                     <i class="mdi mdi-pencil-outline me-1"></i> Editar
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{% url 'ventas:pasar_reserva' id_cotizacion=cotizacion.id_cotizacion %}">
                                     <i class="mdi mdi-pencil-outline me-1"></i> Reservar
                                 </a>
                                 <a class="dropdown-item" href="#">

@@ -390,6 +390,26 @@
     </li>
     <li class="menu-item">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-account-group-outline"></i>
+        <div data-i18n="Form Elements">Reservas</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="#" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Basic Inputs">Agregar</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'ventas:listar_reserva' %}" class="menu-link">
+            <div class="circulo"></div>
+            <div data-i18n="Input groups">Listar</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-clipboard-check-outline"></i>
         <div data-i18n="Form Elements">Ventas</div>
       </a>

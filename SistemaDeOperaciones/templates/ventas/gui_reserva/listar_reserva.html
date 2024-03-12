@@ -1,0 +1,92 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="py-3 mb-4">
+        <a type="button" class="btn btn-info" style="float: right"
+           href="#}">Agregar</a>
+        <span class="text-muted fw-light">Reservas /</span> Listado Reservas</h4>
+
+    <div class="card">
+        <h5 class="card-header fw-light">Reservas</h5>
+        <div class="table-responsive text-nowrap">
+            {% if reservas %}
+            <table class="table">
+                <thead class="table-light">
+                <tr>
+                    <th>Proyecto</th>
+                    <th>N° Reserva</th>
+                    <th>Fecha</th>
+                    <th>RUT-DNI</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Es Modificada</th>
+                    <th>N° Reserva Origen</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                {% for reserva in reservas %}
+                <tr>
+                    <td>{{ reserva.proyecto }}</td>
+                    <td>{{ reserva.id_reserva }}</td>
+                    <td>{{ reserva.fecha_creación }}</td>
+                    <td>RUT-DNI</td>
+                    <td>{{ reserva.cliente }}</td>
+                    <td>{{ reserva.estado_reserva}}</td>
+                    <td>Modificada</td>
+                    <td>Reserva Origen</td>
+                    <td>
+                        <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-dots-vertical"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{% url 'ventas:detalle_reserva' id_reserva=reserva.id_reserva %}">
+                                    <i class="mdi mdi-pencil-outline me-1"></i>Ver Detalle
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-trash-can-outline me-1"></i> Editar
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-pencil-outline me-1"></i> Registrar pago
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="mdi mdi-trash-can-outline me-1"></i> Listado detalle
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <table class="table" style="min-height:200px">
+                <thead class="table-light">
+                <tr>
+                    <th>Proyecto</th>
+                    <th>N° Reserva</th>
+                    <th>Fecha</th>
+                    <th>RUT-DNI</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Es Modificada</th>
+                    <th>N° Reserva Origen</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                <tr>
+                    <td colspan='4' align='center'><span class="border-info me-1"><i
+                            class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
+                </tr>
+                </tbody>
+            </table>
+            {% endif%}
+        </div>
+    </div>
+</div>
+{% endblock contenido %}

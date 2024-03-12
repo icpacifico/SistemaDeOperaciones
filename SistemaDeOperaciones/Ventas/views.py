@@ -130,6 +130,16 @@ class ActualizarDesistimiento(UpdateView):
     success_url = reverse_lazy(
         "ventas:listar_desistimiento")  # Reemplaza "tu_app" y "listar_desistimientos" con tus nombres de aplicación y URL
 
+class ListarReservas(ListView):
+    model = Reserva
+    template_name = "ventas/gui_reserva/listar_reserva.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
+    context_object_name = "reservas"
+    queryset = Reserva.objects.all()
+
+def detalle_reserva(request, id_reserva):
+    detalle = get_object_or_404(Reserva, id_reserva=id_reserva)
+    return render(request, 'ventas/gui_reserva/detalle_reserva.html', {'detalle': detalle})
+
 
 # Acciones de Ventas
 
@@ -216,38 +226,50 @@ class PagosInvoicePdf(View):
         except:
             pass
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
-def carta_cierre_negocios_venta(request):
+def carta_cierre_negocios_venta(request,id_venta): # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def entrega_documentos_venta(request):
+def entrega_documentos_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def despacho_promesa_venta(request):
+def despacho_promesa_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def carta_oferta_venta(request):
+def carta_oferta_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def fpm_venta(request):
+def fpm_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def desistir_venta(request):
+def desistir_venta(request,id_venta):# ESTA VISTA ES PARA CAMBIAR EL ESTADO DE LA VENTA A DESISTIMIENTO
     pass
 
-"""def pasar_reserva(request, id_venta):
-    datos_venta = Venta.objects.filter(id_venta=id_venta)
-    cotizacion_no = datos_venta.id_cotizacion
-    datos_cotizacion= Cotizacion.objects.filter(id_cotizacon=cotizacion_no)
-    cliente_id = datos_venta.id_cliente
+def pasar_reserva(request, id_cotizacion):
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+    # cotizacion_no = datos_venta.id_cotizacion
+    datos_cotizacion= Cotizacion.objects.filter(id_cotizacon=id_cotizacion)
+    cliente_id = datos_cotizacion.id_cliente
     datos_cliente = Cotizacion.objects.filter(id_cliente=cliente_id)
+    datos_reserva = Reserva.objects.all()
+    recibo =len(datos_reserva)+1
 
-    nueva_reserva = Reserva(negocio=id_venta, referencia = datos_cotizacion.id_cotizacion, fecha_creacion=datetime.now(),fecha_aprovacion="", cliente = str(datos_cliente.id_cliente.nombre_cliente+" "+datos_cliente.id_cliente.apellido_paterno_cliente),
-                            no_recibo = "", fono=datos_cliente.fono_cliente, correo=datos_cliente.correo_cliente)
+    nueva_reserva = Reserva(negocio=id_cotizacion,
+                            referencia = datos_cotizacion.id_cotizacion,
+                            fecha_creacion=datetime.now(),
+                            fecha_aprovacion="",
+                            cliente = str(datos_cliente.id_cliente.nombre_cliente+" "+datos_cliente.id_cliente.apellido_paterno_cliente),
+                            no_recibo = recibo,
+                            fono=datos_cliente.fono_cliente,
+                            correo=datos_cliente.correo_cliente,
+                            proyecto = "DV",
+                            estado_reserva = "Pendiente")
     nueva_reserva.save()
-    return ()"""
+    """ACÁ FALTARÍA CREAR EL CODIGO PARA LA CREACIÓN DE LA VENTA EN PARALELO A LA RESERVA
+    TOMANDO TODOS LOS DATOS DE LA COTIZACIÓN Y CALCULANDO LOS DEMÁS ATRIBUTOS DEL MODELO DE VENTAS"""
+    return ()
 
