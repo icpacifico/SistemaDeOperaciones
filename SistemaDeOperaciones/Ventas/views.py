@@ -13,6 +13,7 @@ from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from datetime import datetime
 
+
 # Create your views here.
 
 
@@ -130,11 +131,13 @@ class ActualizarDesistimiento(UpdateView):
     success_url = reverse_lazy(
         "ventas:listar_desistimiento")  # Reemplaza "tu_app" y "listar_desistimientos" con tus nombres de aplicación y URL
 
+
 class ListarReservas(ListView):
     model = Reserva
     template_name = "ventas/gui_reserva/listar_reserva.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
     context_object_name = "reservas"
     queryset = Reserva.objects.all()
+
 
 def detalle_reserva(request, id_reserva):
     detalle = get_object_or_404(Reserva, id_reserva=id_reserva)
@@ -149,7 +152,7 @@ def detalle_venta(request, id_venta):
 
 
 def registrar_pago_venta(request, id_venta):
-    datos =  Venta.objects.filter(id_venta=id_venta)
+    datos = Venta.objects.filter(id_venta=id_venta)
     if request.method == 'POST':
         form = PagoForm(request.POST)
         if form.is_valid():
@@ -160,24 +163,28 @@ def registrar_pago_venta(request, id_venta):
     else:
         form = PagoForm()
 
-    return render(request, 'contabilidad/gui_pagos/crear_pago.html', {'form': form, 'id_venta':id_venta, 'datos':datos})
+    return render(request, 'contabilidad/gui_pagos/crear_pago.html',
+                  {'form': form, 'id_venta': id_venta, 'datos': datos})
 
 
 def listado_detalle_venta(request, id_venta):
-    datos =  Pago.objects.filter(id_venta=id_venta)
+    datos = Pago.objects.filter(id_venta=id_venta)
     datos_venta = Venta.objects.filter(id_venta=id_venta)
-    return render(request,'contabilidad/gui_pagos/listar_pago.html', {'datos':datos, 'id_venta':id_venta} )
+    return render(request, 'contabilidad/gui_pagos/listar_pago.html', {'datos': datos, 'id_venta': id_venta})
 
 
-def informe_pagos_venta(request,id_venta):
-    datos =  Pago.objects.filter(id_venta=id_venta)
+def informe_pagos_venta(request, id_venta):
+    datos = Pago.objects.filter(id_venta=id_venta)
     datos_venta = Venta.objects.filter(id_venta=id_venta)
-    return render(request, 'contabilidad/gui_pagos/detalle_pago.html', {'datos':datos, 'id_venta':id_venta, 'datos_venta':datos_venta})
+    return render(request, 'contabilidad/gui_pagos/detalle_pago.html',
+                  {'datos': datos, 'id_venta': id_venta, 'datos_venta': datos_venta})
 
-def informe_pagos_venta_print(request,id_venta):
-    datos =  Pago.objects.filter(id_venta=id_venta)
+
+def informe_pagos_venta_print(request, id_venta):
+    datos = Pago.objects.filter(id_venta=id_venta)
     datos_venta = Venta.objects.filter(id_venta=id_venta)
-    return render(request, 'contabilidad/gui_pagos/detalle_pago_print.html', {'datos':datos, 'id_venta':id_venta, 'datos_venta':datos_venta})
+    return render(request, 'contabilidad/gui_pagos/detalle_pago_print.html',
+                  {'datos': datos, 'id_venta': id_venta, 'datos_venta': datos_venta})
 
 
 class PagosInvoicePdf(View):
@@ -214,7 +221,8 @@ class PagosInvoicePdf(View):
             datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
 
             template = get_template('contabilidad/gui_pagos/prueba_pdf.html')
-            context = {'datos':datos, 'id_venta':self.kwargs['id_venta'], 'datos_venta':datos_venta, 'icon':'static/assets/img/illustrations/logo-horizontal.gif'}
+            context = {'datos': datos, 'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
             html = template.render(context)
             response = HttpResponse(content_type='application/pdf')
             # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
@@ -226,50 +234,98 @@ class PagosInvoicePdf(View):
         except:
             pass
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
-def carta_cierre_negocios_venta(request,id_venta): # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+
+
+def carta_cierre_negocios_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def entrega_documentos_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+def entrega_documentos_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def despacho_promesa_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+def despacho_promesa_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def carta_oferta_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+def carta_oferta_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def fpm_venta(request,id_venta):# ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+def fpm_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
 
 
-def desistir_venta(request,id_venta):# ESTA VISTA ES PARA CAMBIAR EL ESTADO DE LA VENTA A DESISTIMIENTO
+def desistir_venta(request, id_venta):  # ESTA VISTA ES PARA CAMBIAR EL ESTADO DE LA VENTA A DESISTIMIENTO
     pass
+
 
 def pasar_reserva(request, id_cotizacion):
     # datos_venta = Venta.objects.filter(id_venta=id_venta)
     # cotizacion_no = datos_venta.id_cotizacion
-    datos_cotizacion= Cotizacion.objects.filter(id_cotizacon=id_cotizacion)
+    datos_cotizacion = Cotizacion.objects.filter(id_cotizacon=id_cotizacion)
     cliente_id = datos_cotizacion.id_cliente
     datos_cliente = Cotizacion.objects.filter(id_cliente=cliente_id)
     datos_reserva = Reserva.objects.all()
-    recibo =len(datos_reserva)+1
+    recibo = len(datos_reserva) + 1
 
     nueva_reserva = Reserva(negocio=id_cotizacion,
-                            referencia = datos_cotizacion.id_cotizacion,
+                            referencia=datos_cotizacion.id_cotizacion,
                             fecha_creacion=datetime.now(),
                             fecha_aprovacion="",
-                            cliente = str(datos_cliente.id_cliente.nombre_cliente+" "+datos_cliente.id_cliente.apellido_paterno_cliente),
-                            no_recibo = recibo,
+                            cliente=str(
+                                datos_cliente.id_cliente.nombre_cliente + " " + datos_cliente.id_cliente.apellido_paterno_cliente),
+                            no_recibo=recibo,
                             fono=datos_cliente.fono_cliente,
                             correo=datos_cliente.correo_cliente,
-                            proyecto = "DV",
-                            estado_reserva = "Pendiente")
+                            proyecto="DV",
+                            estado_reserva="Pendiente")
     nueva_reserva.save()
     """ACÁ FALTARÍA CREAR EL CODIGO PARA LA CREACIÓN DE LA VENTA EN PARALELO A LA RESERVA
-    TOMANDO TODOS LOS DATOS DE LA COTIZACIÓN Y CALCULANDO LOS DEMÁS ATRIBUTOS DEL MODELO DE VENTAS"""
+    TOMANDO TODOS LOS DATOS DE LA COTIZACIÓN Y CALCULANDO LOS DEMÁS ATRIBUTOS DEL MODELO DE VENTAS
+   nueva_venta = Venta(id_cotizacion=id_cotizacion,
+                        id_vivienda=datos_cotizacion.id_vivienda,
+                        id_vendedor="",
+                        id_cliente=datos_cotizacion.id_cliente,
+                        id_banco="",
+                        forma_pago="",
+                        pie_abono_ven="",
+                        tipo_pago="",
+                        estado_ven="",
+                        fecha_ven="",
+                        fecha_promesa_ven="",
+                        monto_reserva_ven="",
+                        descuento_manual_ven="",
+                        descuento_precio_ven="",
+                        descuento_adicional_ven="",
+                        descuento_ven="",
+                        pie_cancelado_ven="",
+                        pie_cobrar_ven="",
+                        monto_estacionamiento_ven="",
+                        monto_bodega_ven="",
+                        monto_vivienda_ven="",
+                        monto_vivienda_ingreso_ven="",
+                        monto_ven="",
+                        factor_categoria_ven="",
+                        porcentaje_comision_ven="",
+                        promesa_porcentaje_comision_reparto_ven="",
+                        promesa_monto_comision_ven="",
+                        escritura_porcentaje_comision_reparto_ven="",
+                        escritura_monto_comision_ven="",
+                        total_comision_ven="",
+                        bono_vivienda_ven="",
+                        porcentaje_bono_precio_ven="",
+                        promesa_bono_precio_ven="",
+                        escritura_bono_precio_ven="",
+                        total_bono_precio_ven="",
+                        numero_compra_ven="",
+                        cotizacion_ven="",
+                        monto_credito_ven="",
+                        monto_credito_real_ven="",
+                        pie_real_ven="",
+                        valor_factor_ven="",
+                        escritura_monto_comision_operacion_ven="",
+                        fecha_escritura_ven=""
+                        )
     return ()
-
+"""

@@ -16,28 +16,30 @@
             <table class="table">
                 <thead class="table-light">
                 <tr>
-                    <th>Proyecto</th>
-                    <th>N° Reserva</th>
-                    <th>Fecha</th>
-                    <th>RUT-DNI</th>
+                    <th>Reserva N°</th>
+                    <th>Negocio</th>
+                    <th>Referencia</th>
+                    <th>F. Creación</th>
+                    <th>F. Aprobación</th>
                     <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Es Modificada</th>
-                    <th>N° Reserva Origen</th>
+                    <th>N° Recibo</th>
+                    <th>Fono</th>
+                    <th>Email</th>
                     <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
                 {% for reserva in detalle %}
                 <tr>
-                    <td>{{ reserva.proyecto }}</td>
                     <td>{{ reserva.id_reserva }}</td>
+                    <td>{{ reserva.negocio }}</td>
+                    <td>{{ reserva.referencia }}</td>
                     <td>{{ reserva.fecha_creación }}</td>
-                    <td>RUT-DNI</td>
+                    <td>{{ reserva.fecha_aprobación }}</td>
                     <td>{{ reserva.cliente }}</td>
-                    <td>{{ reserva.estado_reserva}}</td>
-                    <td>Modificada</td>
-                    <td>Reserva Origen</td>
+                    <td>{{ reserva.no_recibo}}</td>
+                    <td>{{ reserva.cliente.fono_cliente }}</td>
+                    <td>{{ reserva.cliente.correo_cliente }}</td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
