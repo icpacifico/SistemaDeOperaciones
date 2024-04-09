@@ -327,5 +327,6 @@ def pasar_reserva(request, id_cotizacion):
                         escritura_monto_comision_operacion_ven="",
                         fecha_escritura_ven=""
                         )
+                        nueva_venta.save()
     return ()
 """

@@ -160,7 +160,7 @@ class Reserva(models.Model):
     referencia = models.CharField(max_length=10)
     fecha_creación = models.DateField(null=True, blank=True)
     fecha_aprobación = models.DateField()
-    cliente = models.CharField(max_length=10)
+    cliente = models.CharField(max_length=10) 
     no_recibo = models.IntegerField()
     fono = models.CharField(max_length=10)
     correo = models.EmailField()
