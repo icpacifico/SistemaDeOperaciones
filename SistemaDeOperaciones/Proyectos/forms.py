@@ -49,8 +49,9 @@ class TorreForm(forms.ModelForm):
 class ModeloForm(forms.ModelForm):
     class Meta:
         model = Modelo
-        fields = ['estado_modelo', 'nombre_modelo', 'numero_cama_modelo', 'numero_bagno_modelo', 'descripcion_modelo']
+        fields = ['id_condominio','estado_modelo', 'nombre_modelo', 'numero_cama_modelo', 'numero_bagno_modelo', 'descripcion_modelo']
         labels = {
+            'id_condominio': 'Condominio',
             'estado_modelo': 'Estado',
             'nombre_modelo': 'Nombre',
             'numero_cama_modelo': 'N° camas',
@@ -58,6 +59,7 @@ class ModeloForm(forms.ModelForm):
             'descripcion_modelo': 'Descripción',
         }
         widgets = {
+            'id_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Condominio'}),
             'estado_modelo': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado modelo'}),
             'nombre_modelo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre modelo'}),
             'numero_cama_modelo': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad habitaciones'}),

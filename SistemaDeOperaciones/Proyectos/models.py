@@ -43,6 +43,7 @@ class Torre(models.Model):
 
 class Modelo(models.Model):
     id_modelo = models.AutoField(primary_key=True)
+    id_condominio = models.ForeignKey(Condominio, verbose_name="Condominio", on_delete=models.CASCADE)
     estado_modelo = models.CharField(verbose_name="Estado",max_length=30, choices=IS_DISPONIBLE_CHOICES, default=disponible)
     nombre_modelo = models.CharField(verbose_name="Nombre", max_length=100)
     numero_cama_modelo = models.IntegerField(verbose_name="N° camas", validators = [validar_positivo])

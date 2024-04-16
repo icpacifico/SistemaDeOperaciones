@@ -4334,9 +4334,6 @@ textarea.form-control-lg {
   border-color: var(--bs-pagination-disabled-border-color);
 }
 
-.page-item:not(:first-child) .page-link {
-  margin-left: 0.344rem;
-}
 .page-item .page-link {
   border-radius: var(--bs-pagination-border-radius);
 }
