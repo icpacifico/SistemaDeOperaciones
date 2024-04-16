@@ -1,1 +1,1 @@
-new DataTable('#example-table-bd');
+new DataTable('#example-table-bd',{language: {url: '//cdn.datatables.net/plug-ins/2.0.4/i18n/es-ES.json',},});
