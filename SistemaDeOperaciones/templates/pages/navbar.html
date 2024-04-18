@@ -3,19 +3,6 @@
 
 {% block navbar %}
 
-<style>
-  .circulo {
-    content: "";
-    height: 11.67px;
-    width: 11.67px;
-    border-radius: 50rem;
-    display:flex;
-    position: relative;
-    margin-inline: 10px;
-    border: 1px solid #89868d;
-  }
-</style>
-
 <aside id="layout-menu" class="layout-menu menu-doc menu menu-vertical bg-menu-theme">
   <div class="app-brand demo">
     <a href="{% url 'index' %}" class="app-brand-link">
@@ -46,7 +33,7 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="index.html" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Analytics">Análisis</div>
           </a>
         </li>
@@ -54,7 +41,7 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'administracion:rep_comisiones' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Analytics">Rep. Comisiones</div>
           </a>
         </li>
@@ -71,13 +58,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'administracion:crear_banco' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div>Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'administracion:listar_banco' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div>Listar</div>
           </a>
         </li>
@@ -91,13 +78,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'administracion:crear_nacionalidad' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div>Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'administracion:listar_nacionalidad' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div>Listar</div>
           </a>
         </li>
@@ -111,13 +98,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'administracion:crear_profesion' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Agregar">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'administracion:listar_profesion' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Listar">Listar</div>
           </a>
         </li>
@@ -131,13 +118,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'administracion:crear_parametros' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Agregar">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'administracion:listar_parametros' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Listar">Listar</div>
           </a>
         </li>
@@ -182,13 +169,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="pages-misc-error.html" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Error">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="pages-misc-under-maintenance.html" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Under Maintenance">Listar</div>
           </a>
         </li>
@@ -203,13 +190,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_condominio' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Vertical Form">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_condominio' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Horizontal Form">Listar</div>
           </a>
         </li>
@@ -223,13 +210,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_etapa' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_etapa' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -243,13 +230,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_torre' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_torre' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -263,13 +250,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_modelo' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_modelo' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -283,19 +270,19 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_vivienda' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_vivienda' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:carga_proyecto' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Horizontal Form">Cargar</div>
           </a>
         </li>
@@ -309,13 +296,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_bodega' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_bodega' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -329,13 +316,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'proyectos:crear_estacionamiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'proyectos:listar_estacionamiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -356,13 +343,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'ventas:crear_cliente' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_cliente' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -376,13 +363,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'ventas:crear_cotizacion' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_cotizacion' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -396,13 +383,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="#" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_reserva' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -416,13 +403,13 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'ventas:crear_venta' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_venta' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
@@ -436,25 +423,25 @@
       <ul class="menu-sub">
         <li class="menu-item">
           <a href="{% url 'ventas:crear_desistimiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_desistimiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Input groups">Listar</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:crear_tipodesistimiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Agregar Tipo</div>
           </a>
         </li>
         <li class="menu-item">
           <a href="{% url 'ventas:listar_tipodesistimiento' %}" class="menu-link">
-            <div class="circulo"></div>
+          
             <div data-i18n="Basic Inputs">Listar Tipos</div>
           </a>
         </li>

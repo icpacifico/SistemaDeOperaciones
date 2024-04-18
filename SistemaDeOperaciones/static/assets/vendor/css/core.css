@@ -4268,26 +4268,26 @@ textarea.form-control-lg {
 }
 
 .pagination {
-  --bs-pagination-padding-x: 0.3125rem;
-  --bs-pagination-padding-y: 0.469rem;
+  --bs-pagination-padding-x: 0.5rem;
+  --bs-pagination-padding-y: 0.481rem;
   --bs-pagination-font-size: 0.9375rem;
-  --bs-pagination-color: #544f5a;
-  --bs-pagination-bg: transparent;
+  --bs-pagination-color: #433c50;
+  --bs-pagination-bg: #eeeeef;
   --bs-pagination-border-width: var(--bs-border-width);
-  --bs-pagination-border-color: #d4d3d5;
+  --bs-pagination-border-color: #c0bec5;
   --bs-pagination-border-radius: 50%;
-  --bs-pagination-hover-color: #544f5a;
-  --bs-pagination-hover-bg: #f7f7f7;
-  --bs-pagination-hover-border-color: #d4d3d5;
-  --bs-pagination-focus-color: #544f5a;
-  --bs-pagination-focus-bg: #f7f7f7;
-  --bs-pagination-focus-box-shadow: none;
-  --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #9055fd;
-  --bs-pagination-active-border-color: #9055fd;
-  --bs-pagination-disabled-color: #b4b2b7;
-  --bs-pagination-disabled-bg: #f7f7f7;
-  --bs-pagination-disabled-border-color: #e7e7e8;
+  --bs-pagination-hover-color: #433c50;
+  --bs-pagination-hover-bg: #f2f2f3;
+  --bs-pagination-hover-border-color: #c0bec5;
+    --bs-pagination-focus-color: #433c50;
+    --bs-pagination-focus-bg: #f2f2f3;
+    --bs-pagination-focus-box-shadow: none;
+    --bs-pagination-active-color: #fff;
+    --bs-pagination-active-bg: #8c57ff;
+    --bs-pagination-active-border-color: #8c57ff;
+    --bs-pagination-disabled-color: #433c50;
+    --bs-pagination-disabled-bg: #eeeeef;
+    --bs-pagination-disabled-border-color: #c0bec5;
   display: flex;
   padding-left: 0;
   list-style: none;
@@ -4336,6 +4336,11 @@ textarea.form-control-lg {
 
 .page-item .page-link {
   border-radius: var(--bs-pagination-border-radius);
+}
+
+.page-item .page-link:hover,.page-item .page-link:focus,.pagination li>a:not(.page-link):hover,.pagination li>a:not(.page-link):focus {
+  background-color: #cdfdcb;
+  color: #4ddb4d
 }
 
 .pagination-lg {
@@ -6990,7 +6995,7 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
 }
 
 .container-p-y:not([class^=pt-]):not([class*=" pt-"]) {
-  padding-top: 1.5rem !important;
+  padding-top: 0.5rem !important;
 }
 .container-p-y:not([class^=pb-]):not([class*=" pb-"]) {
   padding-bottom: 1.5rem !important;

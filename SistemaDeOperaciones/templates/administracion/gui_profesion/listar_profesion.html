@@ -38,18 +38,17 @@
                         </td>
                         <td>{{profesion.nombre_profesion}}</td>
                         <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                    <i class="mdi mdi-dots-vertical"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url 'administracion:editar_profesion' profesion.id_profesion %}"
-                                    ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
-                                    >
-                                    <a class="dropdown-item" href="javascript:void(0);"
-                                    ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
-                                    >
-                                </div>
+                            <div class="d-flex justify-content-evenly">
+                                <a href="{% url 'administracion:editar_profesion' profesion.id_profesion %}">
+                                    <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                                        <span class="mdi mdi-pencil-outline"></span>               
+                                    </button>
+                                </a>
+                                <a href="#">
+                                    <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                                        <span class="mdi mdi-trash-can-outline"></span>
+                                    </button>
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -59,23 +58,7 @@
                 </div>
             </div>
         </div>
-        {% else %}
-            <table class="table" style="min-height:200px">
-                <thead class="table-light">
-                <tr>
-                    <th>ID Banco</th>
-                    <th>Nombre Banco</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0"> 
-                <tr>
-                    <td colspan='3' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
-                </tr>
-                </tbody>
-            </table>
         {% endif%}
-        </div>
     </div>
 </div>
 

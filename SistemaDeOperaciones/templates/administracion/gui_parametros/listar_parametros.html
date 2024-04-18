@@ -54,19 +54,18 @@
                   <td>{{parametro.direccion_condominio}}</td>
                   <td>{{parametro.banco_alzante.nombre_banco}}</td>
                   <td>
-                      <div class="dropdown">
-                          <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="mdi mdi-dots-vertical"></i>
+                    <div class="d-flex justify-content-evenly">
+                      <a href="{% url 'administracion:editar_parametros' parametro.id_conjunto_parametros %}">
+                          <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                              <span class="mdi mdi-pencil-outline"></span>               
                           </button>
-                          <div class="dropdown-menu">
-                              <a class="dropdown-item" href="{% url 'administracion:editar_parametros' parametro.id_conjunto_parametros %}"
-                              ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
-                              >
-                              <a class="dropdown-item" href="javascript:void(0);"
-                              ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
-                              >
-                          </div>
-                      </div>
+                      </a>
+                      <a href="#">
+                          <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                              <span class="mdi mdi-trash-can-outline"></span>
+                          </button>
+                      </a>
+                    </div>
                   </td>
               </tr>
               {% endfor %}
