@@ -8,48 +8,47 @@
     <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_estacionamiento' %}">Agregar</a>
     <span class="text-muted fw-light">Estacionamientos /</span> Listado Estacionamientos</h4>
     <div class="card">
-        {% if estacionamientos %}
         <div id="example" class="dt-container" style="margin: 20px;">
             <div class="dt-layout-row dt-layout-table">
                 <div class="dt-layout-cell table-responsive text-nowrap">
                     <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
-                          <thead class="table-light">
+                        <thead>
                         <tr>
                             <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">ID</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">ID</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">N° Estacionamiento</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">N° Estacionamiento</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Valor Estacionamiento (UF)</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Valor Estacionamiento (UF)</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">N° Depto</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">N° Depto</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Torre</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Torre</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Etapa</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Etapa</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Condominio</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Condominio</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Estado</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Estado</span>
+                                <span class="dt-column-order"></span>
                             </th>
                             <th data-dt-column="9" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
-                            <span class="dt-column-title" role="button">Acciones</span>
-                            <span class="dt-column-order"></span>
+                                <span class="dt-column-title" role="button">Acciones</span>
+                                <span class="dt-column-order"></span>
                             </th>
                         </tr>
                         </thead>
@@ -88,10 +87,9 @@
                 </div>
             </div>
         </div>
-        {% endif%}
     </div>
 </div>
-
+ 
 <script src="{% static 'js/custom.js' %}"></script>
 
 {% endblock contenido %}

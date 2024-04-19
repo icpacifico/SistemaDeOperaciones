@@ -11,113 +11,117 @@
 
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
-        <h5 class="card-header fw-light">Clientes</h5>
-        <div class="table-responsive text-nowrap">
-            {% if clientes %}
-            <table class="table">
-                <thead class="table-light">
-                <tr>
-                    <th>Rut</th>
-                    <th>ID Nacionalidad</th>
-                    <th>Región</th>
-                    <th>Género</th>
-                    <th>Estado Civil</th>
-                    <th>ID Profesión</th>
-                    <th>Pasaporte Cliente</th>
-                    <th>Primer Nombre</th>
-                    <th>Segundo Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Fono 1</th>
-                    <th>Fono 2</th>
-                    <th>Correo 1</th>
-                    <th>Correo 2</th>
-                    <th>Dirección</th>
-                    <th>Dirección Trabajo</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                {% for cliente in clientes%}
-                <tr>
-                    <td>
-                        <span class="fw-medium">{{cliente.id_cliente}}</span>
-                    </td>
-                    <td>{{ cliente.id_nacionalidad }}</td>
-                    <td>{{ cliente.region }}</td>
-                    <td>{{ cliente.genero }}</td>
-                    <td>{{ cliente.estado_civil }}</td>
-                    <td>{{ cliente.id_profesion }}</td>
-                    <td>{{ cliente.pasaporte_cliente }}</td>
-                    <td>{{ cliente.nombre_cliente }}</td>
-                    <td>{{ cliente.nombre2_cliente }}</td>
-                    <td>{{ cliente.apellido_paterno_cliente }}</td>
-                    <td>{{ cliente.apellido_materno_cliente }}</td>
-                    <td>{{ cliente.fono_cliente }}</td>
-                    <td>{{ cliente.fono2_cliente }}</td>
-                    <td>{{ cliente.correo_cliente }}</td>
-                    <td>{{ cliente.correo2_cliente }}</td>
-                    <td>{{ cliente.direccion_cliente }}</td>
-                    <td>{{ cliente.direccion_trabajo_cliente }}</td>
-                    <td>{{ cliente.fecha_nacimiento_cliente }}</td>
-                    <td><span class="badge rounded-pill bg-label-primary me-1">{{cliente.estado_cliente}}</span></td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="mdi mdi-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'ventas:editar_cliente' cliente.id_cliente %}"
-                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
-                                >
-                                <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
-                                >
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <table class="table" style="min-height:200px">
-                <thead class="table-light">
-                <tr>
-                    <th>Rut</th>
-                    <th>ID Nacionalidad</th>
-                    <th>Región</th>
-                    <th>Género</th>
-                    <th>Estado Civil</th>
-                    <th>ID Profesión</th>
-                    <th>Pasaporte Cliente</th>
-                    <th>Primer Nombre</th>
-                    <th>Segundo Nombre</th>
-                    <th>Apellido Paterno</th>
-                    <th>Apellido Materno</th>
-                    <th>Fono 1</th>
-                    <th>Fono 2</th>
-                    <th>Correo 1</th>
-                    <th>Correo 2</th>
-                    <th>Dirección</th>
-                    <th>Dirección Trabajo</th>
-                    <th>Fecha Nacimiento</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                <tr>
-                    <td colspan='4' align='center'><span class="border-info me-1"><i
-                            class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
-                </tr>
-                </tbody>
-            </table>
-            {% endif%}
+        <div id="example" class="dt-container" style="margin: 20px;">
+            <div class="dt-layout-row dt-layout-table">
+                <div class="dt-layout-cell table-responsive text-nowrap">
+                    <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
+                        <thead>
+                        <tr>
+                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Rut</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Nombre Completo</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Nacionalidad</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Región</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Género</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Estado Civil</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Profesión</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Pasaporte Cliente</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Fono</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Correo</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="10" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Dirección</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Dirección Trabajo</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="12" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Fecha Nacimiento</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="13" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Estado</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="14" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                <span class="dt-column-title" role="button">Acciones</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        {% for cliente in clientes%}
+                        <tr>
+                            <td>
+                                <span class="fw-medium">{{cliente.id_cliente}}</span>
+                            </td>
+                            <td>{{ cliente.nombreCompleto }}</td>
+                            <td>{{ cliente.id_nacionalidad }}</td>
+                            <td>{{ cliente.region }}</td>
+                            <td>{{ cliente.genero }}</td>
+                            <td>{{ cliente.estado_civil }}</td>
+                            <td>{{ cliente.id_profesion.nombre_profesion }}</td>
+                            <td>{{ cliente.pasaporte_cliente }}</td>                      
+                            <td>{{ cliente.fono_cliente }}</td>
+                            <td>{{ cliente.correo_cliente }}</td>
+                            <td>{{ cliente.direccion_cliente }}</td>
+                            <td>{{ cliente.direccion_trabajo_cliente }}</td>
+                            <td>{{ cliente.fecha_nacimiento_cliente }}</td>
+                            <td><span class="badge rounded-pill bg-label-primary me-1">{{cliente.estado_cliente}}</span></td>
+                            <td>
+                                <div class="d-flex justify-content-evenly">
+                                    <a href="{% url 'ventas:editar_cliente' cliente.id_cliente %}">
+                                        <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                                            <span class="mdi mdi-pencil-outline"></span>               
+                                        </button>
+                                    </a>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                                            <span class="mdi mdi-trash-can-outline"></span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Bootstrap Table with Header - Light -->
 </div>
+
+<script src="{% static 'js/custom.js' %}"></script>
+
 {% endblock contenido %}

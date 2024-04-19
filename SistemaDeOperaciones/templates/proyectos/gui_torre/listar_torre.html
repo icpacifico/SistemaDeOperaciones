@@ -8,7 +8,6 @@
         <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_torre' %}">Agregar</a>
         <span class="text-muted fw-light">Torres /</span> Listado Torres</h4>
     <div class="card">
-        {% if torres %}
         <div id="example" class="dt-container" style="margin: 20px;">
             <div class="dt-layout-row dt-layout-table">
                 <div class="dt-layout-cell table-responsive text-nowrap">
@@ -68,7 +67,6 @@
                 </div>
             </div>
         </div>
-        {% endif%}
     </div>
 </div>
 

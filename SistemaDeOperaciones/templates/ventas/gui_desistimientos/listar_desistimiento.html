@@ -10,69 +10,68 @@
 
     <!-- Bootstrap Table with Header - Light -->
     <div class="card">
-        <h5 class="card-header fw-light">Desistimientos</h5>
-        <div class="table-responsive text-nowrap">
-            {% if desistimientos %}
-            <table class="table">
-                <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Venta</th>
-                    <th>Tipo</th>
-                    <th>Comentario</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                {% for desistimiento in desistimientos %}
-                <tr>
-                    <td>
-                        <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
-                        ><span class="fw-medium">{{desistimiento.id_desistimiento}}</span>
-                    </td>
-
-                    <td>{{desistimiento.id_venta}}</td>
-                    <td>{{desistimiento.id_tipodesistimiento}}</td>
-                    <td>{{desistimiento.comentario_desistimiento}}</td>
-                    <td>
-                        <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                <i class="mdi mdi-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="{% url 'ventas:editar_desistimiento' desistimiento.id_desistimiento %}"
-                                ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
-                                >
-                                <a class="dropdown-item" href="javascript:void(0);"
-                                ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
-                                >
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-            {% else %}
-            <table class="table" style="min-height:200px">
-                <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Venta</th>
-                    <th>Tipo</th>
-                    <th>Comentario</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody class="table-border-bottom-0"> 
-                <tr>
-                    <td colspan='4' align='center' ><span class="border-info me-1"><i class="mdi mdi-information-outline"></i> Lista se encuentra vacía</span></td>
-                </tr>
-                </tbody>
-            </table>
-            {% endif%}
+        <div id="example" class="dt-container" style="margin: 20px;">
+            <div class="dt-layout-row dt-layout-table">
+                <div class="dt-layout-cell table-responsive text-nowrap">
+                    <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
+                        <thead class="table-light">
+                        <tr>
+                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">ID</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Venta</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Tipo</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Comentario</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="4" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                <span class="dt-column-title" role="button">Acciones</span>
+                                <span class="dt-column-order"></span>
+                            </th>  
+                        </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                        {% for desistimiento in desistimientos %}
+                        <tr>
+                            <td>
+                                <i class="mdi mdi-wallet-travel mdi-20px text-danger me-3"></i
+                                ><span class="fw-medium">{{desistimiento.id_desistimiento}}</span>
+                            </td>
+                            <td>{{desistimiento.id_venta}}</td>
+                            <td>{{desistimiento.id_tipodesistimiento}}</td>
+                            <td>{{desistimiento.comentario_desistimiento}}</td>
+                            <td>
+                                <div class="d-flex justify-content-evenly">
+                                    <a href="{% url 'ventas:editar_desistimiento' desistimiento.id_desistimiento %}">
+                                        <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                                            <span class="mdi mdi-pencil-outline"></span>               
+                                        </button>
+                                    </a>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                                            <span class="mdi mdi-trash-can-outline"></span>
+                                        </button>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Bootstrap Table with Header - Light -->
 </div>
+
+<script src="{% static 'js/custom.js' %}"></script>
+
 {% endblock contenido %}
