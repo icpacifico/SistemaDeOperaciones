@@ -5,81 +5,86 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4">
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_modelo' %}">Agregar</a>
-        <span class="text-muted fw-light">Modelos /</span> Listado Modelos</h4>
-
-    <!-- Bootstrap Table with Header - Light -->
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_modelo' %}">
+            Agregar
+        </a>
+        <span class="text-muted fw-light">
+            Modelos /
+        </span>
+         Listado Modelos
+    </h4>
     <div class="card">
         <div id="example" class="dt-container" style="margin: 20px;">
             <div class="dt-layout-row dt-layout-table">
                 <div class="dt-layout-cell table-responsive text-nowrap">
                     <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
                         <thead>
-                        <tr role="row">
-                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">ID</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Condominio</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Tipo</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Camas</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Baños</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Descripción</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Estado</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="7" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
-                            <span class="dt-column-title" role="button">Acciones</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                        </tr>
+                            <tr role="row">
+                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">ID</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Condominio</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Tipo</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Camas</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Baños</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Descripción</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Estado</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="7" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                    <span class="dt-column-title" role="button">Acciones</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {% for modelo in modelos %}
-                        <tr>
-                            <td>
-                                <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
-                                ><span class="fw-medium">{{modelo.id_modelo}}</span>
-                            </td>
-                            <td>{{modelo.id_condominio.nombre_condominio}}</td>
-                            <td>{{modelo.nombre_modelo}}</td>
-                            <td>{{modelo.numero_cama_modelo}}</td>
-                            <td>{{modelo.numero_bagno_modelo}}</td>
-                            <td>{{modelo.descripcion_modelo}}</td>     
-                            <td><span class="badge rounded-pill bg-label-primary me-1">{{modelo.estado_modelo}}</span></td>       
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                        <i class="mdi mdi-dots-vertical"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{% url 'proyectos:editar_modelo' modelo.id_modelo %}"
-                                        ><i class="mdi mdi-pencil-outline me-1"></i> Editar</a
-                                        >
-                                        <a class="dropdown-item" href="#"
-                                        ><i class="mdi mdi-trash-can-outline me-1"></i> Eliminar</a
-                                        >
+                            {% for modelo in modelos %}
+                            <tr>
+                                <td>
+                                    <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i>
+                                    <span class="fw-medium">
+                                        {{modelo.id_modelo}}
+                                    </span>
+                                </td>
+                                <td>{{modelo.id_condominio.nombre_condominio}}</td>
+                                <td>{{modelo.nombre_modelo}}</td>
+                                <td>{{modelo.numero_cama_modelo}}</td>
+                                <td>{{modelo.numero_bagno_modelo}}</td>
+                                <td>{{modelo.descripcion_modelo}}</td>     
+                                <td><span class="badge rounded-pill bg-label-primary me-1">{{modelo.estado_modelo}}</span></td>       
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <a href="{% url 'proyectos:editar_modelo' modelo.id_modelo %}">
+                                            <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                                                <span class="mdi mdi-pencil-outline"></span>               
+                                            </button>
+                                        </a>
+                                        <a href="#">
+                                            <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                                                <span class="mdi mdi-trash-can-outline"></span>
+                                            </button>
+                                        </a>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

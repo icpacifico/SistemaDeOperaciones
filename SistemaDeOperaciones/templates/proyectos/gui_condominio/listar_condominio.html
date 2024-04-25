@@ -5,65 +5,69 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4">
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_condominio' %}">Agregar</a>
-        <span class="text-muted fw-light">Condominios /</span> Listado Condominios</h4>
-
-    <!-- Bootstrap Table with Header - Light -->
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_condominio' %}">
+            Agregar
+        </a>
+        <span class="text-muted fw-light">
+            Condominios /
+        </span>
+         Listado Condominios
+    </h4>
     <div class="card">
         <div id="example" class="dt-container" style="margin: 20px;">
             <div class="dt-layout-row dt-layout-table">
                 <div class="dt-layout-cell table-responsive text-nowrap">
                     <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
                         <thead>
-                        <tr role="row">
-                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">ID</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Nombre Condominio</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Fecha Venta</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">Estado</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="4" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
-                            <span class="dt-column-title" role="button">Acciones</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                        </tr>
+                            <tr role="row">
+                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">ID</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Nombre Condominio</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Fecha Venta</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Estado</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                    <span class="dt-column-title" role="button">Acciones</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
-                        {% for condominio in condominios %}
-                        <tr>
-                            <td>
-                                <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
-                                ><span class="fw-medium">{{condominio.id_condominio}}</span>
-                            </td>
-                            <td>{{condominio.nombre_condominio}}</td>
-                            <td>{{condominio.fecha_venta_condominio}}</td>
-                            <td>{{condominio.estado_condominio}}</td>
-                            <td>
-                                <div class="d-flex justify-content-evenly">
-                                    <a href="{% url 'proyectos:editar_condominio' condominio.id_condominio %}">
-                                        <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
-                                            <span class="mdi mdi-pencil-outline"></span>               
-                                        </button>
-                                    </a>
-                                    <a href="#">
-                                        <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
-                                            <span class="mdi mdi-trash-can-outline"></span>
-                                        </button>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                            {% for condominio in condominios %}
+                            <tr>
+                                <td>
+                                    <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
+                                    ><span class="fw-medium">{{condominio.id_condominio}}</span>
+                                </td>
+                                <td>{{condominio.nombre_condominio}}</td>
+                                <td>{{condominio.fecha_venta_condominio}}</td>
+                                <td>{{condominio.estado_condominio}}</td>
+                                <td>
+                                    <div class="d-flex justify-content-evenly">
+                                        <a href="{% url 'proyectos:editar_condominio' condominio.id_condominio %}">
+                                            <button type="button" class="btn btn-icon btn-sm btn-outline-warning">                                          
+                                                <span class="mdi mdi-pencil-outline"></span>               
+                                            </button>
+                                        </a>
+                                        <a href="#">
+                                            <button type="button" class="btn btn-icon btn-sm btn-outline-danger">
+                                                <span class="mdi mdi-trash-can-outline"></span>
+                                            </button>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

@@ -48,36 +48,12 @@
                                 <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Fecha Cotización</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Fecha Promesa</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
+                                </th>                    
                                 <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Porcentaje Crédito</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="10" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Número Cotización</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Canal Cotización</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="12" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Preaprobación Cotización</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="13" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Renta Cotización</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="14" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
                                     <span class="dt-column-title" role="button">Estado</span>
                                     <span class="dt-column-order"></span>
                                 </th>
-                                <th data-dt-column="15" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                <th data-dt-column="10" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
                                     <span class="dt-column-title" role="button">Acciones</span>
                                     <span class="dt-column-order"></span>
                                 </th>
@@ -97,12 +73,6 @@
                             <td>{{ cotizacion.id_cliente }}</td>
                             <td>{{ cotizacion.id_cliente.nombreCompleto}}</td>
                             <td>{{ cotizacion.fecha_cotizacion }}</td>
-                            <td>{{ cotizacion.fecha_promesa_cotizacion }}</td>
-                            <td>{{ cotizacion.procentaje_credito_cotizacion }}</td>
-                            <td>{{ cotizacion.numero_cotizacion }}</td>
-                            <td>{{ cotizacion.canal_cotizacion }}</td>
-                            <td>{{ cotizacion.preaprobacion_cotizacion }}</td>
-                            <td>{{ cotizacion.renta_cotizacion }}</td>
                             <td><span class="badge rounded-pill bg-label-primary me-1">{{cotizacion.estado_cotizacion}}</span></td>
                             <td>
                                 

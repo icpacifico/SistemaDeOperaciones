@@ -29,6 +29,13 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="d-flex form-floating form-floating-outline mb-4">
+                                        {{form.id_condominio}}
+                                        <label for="basic-default-fullname">Condominio</label>
+                                        <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="d-flex form-floating form-floating-outline mb-4">
                                         {{form.id_torre}}
                                         <label for="basic-default-fullname">N° Torre</label>
                                         <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    

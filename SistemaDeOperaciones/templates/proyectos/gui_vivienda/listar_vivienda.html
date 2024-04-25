@@ -5,8 +5,14 @@
 {% block contenido %}
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="py-3 mb-4">
-        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_vivienda' %}">Agregar</a>
-        <span class="text-muted fw-light">Viviendas /</span> Listado Viviendas</h4>
+        <a type="button" class="btn btn-info" style="float: right" href="{% url 'proyectos:crear_vivienda' %}">
+            Agregar
+        </a>
+        <span class="text-muted fw-light">
+            Viviendas /
+        </span> 
+        Listado Viviendas
+    </h4>
     <div class="card">
         {% if viviendas %}
         <div id="example" class="dt-container" style="margin: 20px;">
@@ -14,67 +20,69 @@
                 <div class="dt-layout-cell table-responsive text-nowrap">
                     <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
                         <thead>
-                        <tr role="row">
-                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                            <span class="dt-column-title" role="button">ID</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">N° Dpto</span>
+                            <tr role="row">
+                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">ID</span>
                                 <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Condominio</span>
+                                </th>
+                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">N° Dpto</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Condominio</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Etapa</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">N° Torre</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Modelo</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Tipo</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Orientación</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Piso</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Valor (UF)</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="10" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Rol</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                                    <span class="dt-column-title" role="button">Estado</span>
+                                    <span class="dt-column-order"></span>
+                                </th>
+                                <th data-dt-column="12" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
+                                <span class="dt-column-title" role="button">Acciones</span>
                                 <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Etapa</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">N° Torre</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Modelo</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Tipo</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Orientación</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Piso</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Valor (UF)</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="10" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Rol</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
-                                <span class="dt-column-title" role="button">Estado</span>
-                                <span class="dt-column-order"></span>
-                            </th>
-                            <th data-dt-column="12" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
-                            <span class="dt-column-title" role="button">Acciones</span>
-                            <span class="dt-column-order"></span>
-                            </th>
-                        </tr>
+                                </th>
+                            </tr>
                         </thead>
                         <tbody>
                             {% for vivienda in viviendas %}
                             <tr>
                                 <td>
-                                    <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i
-                                    ><span class="fw-medium">{{vivienda.id_vivienda}}</span>
+                                    <i class="mdi mdi-key-variant mdi-20px text-danger me-3"></i>
+                                    <span class="fw-medium">
+                                        {{vivienda.id_vivienda}}
+                                    </span>
                                 </td>
                                 <td>{{vivienda.nombre_vivienda}}</td>
                                 <td>{{vivienda.id_torre.id_etapa_condominio.id_condominio.nombre_condominio}}</td>
