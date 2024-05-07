@@ -179,14 +179,6 @@ def informe_pagos_venta(request, id_venta):
     return render(request, 'contabilidad/gui_pagos/detalle_pago.html',
                   {'datos': datos, 'id_venta': id_venta, 'datos_venta': datos_venta})
 
-
-def informe_pagos_venta_print(request, id_venta):
-    datos = Pago.objects.filter(id_venta=id_venta)
-    datos_venta = Venta.objects.filter(id_venta=id_venta)
-    return render(request, 'contabilidad/gui_pagos/detalle_pago_print.html',
-                  {'datos': datos, 'id_venta': id_venta, 'datos_venta': datos_venta})
-
-
 class PagosInvoicePdf(View):
     # datos = Pago.objects.filter(id_venta=id_venta)
     # datos_venta = Venta.objects.filter(id_venta=id_venta)
@@ -219,9 +211,73 @@ class PagosInvoicePdf(View):
         try:
             datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
             datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
-
             template = get_template('contabilidad/gui_pagos/prueba_pdf.html')
             context = {'datos': datos, 'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(request, 'ventas/gui_venta/listar_venta.html')
+
+
+def carta_cierre_negocios_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    datos_cierre_negocio = Pago.objects.filter(id_venta=id_venta,
+                                               categoria_pago='cierre_negocio')
+    # Datos de Detalle Pie
+    datos_detalle_pie = Pago.objects.filter(id_venta=id_venta, categoria_pago='detalle_pie')
+
+
+    return render(request, 'documentos/carta_cierre_negocio.html',
+                  {'datos_venta': datos_venta, 'datos_detalle_pie': datos_detalle_pie, 'id_venta': id_venta, 'datos_venta': datos_venta})
+
+
+class CierreNegociopdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            # Datos de cierre de negocio
+            datos_cierre_negocio = Pago.objects.filter(id_venta=self.kwargs['id_venta'],
+                                                       categoria_pago='cierre_negocio')
+            # Datos de Detalle Pie
+            datos_detalle_pie = Pago.objects.filter(id_venta=self.kwargs['id_venta'], categoria_pago='detalle_pie')
+
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+            template = get_template('documentos/carta_cierre_negocio_print.html')
+            context = {'datos_cierre_negocio': datos_cierre_negocio, 'datos_detalle_pie': datos_detalle_pie, 'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
                        'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
             html = template.render(context)
             response = HttpResponse(content_type='application/pdf')
@@ -236,20 +292,170 @@ class PagosInvoicePdf(View):
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
-def carta_cierre_negocios_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
-    pass
-
 
 def entrega_documentos_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
-    pass
+    datos = Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'documentos/entrega_documentos.html',
+                  {'datos': datos, 'id_venta': id_venta, 'datos_venta': datos_venta})
+
+
+class EntregaDocumentoPdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+
+            template = get_template('documentos/entrega_documentos_print.html')
+            context = {'datos': datos,'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
 def despacho_promesa_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
-    pass
+    #datos = Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'documentos/despacho_promesa.html',
+                  {'id_venta': id_venta, 'datos_venta': datos_venta})
 
+class Despacho_promesa_ventaPdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+
+            template = get_template('documentos/despacho_promesa_print.html')
+            context = {'datos': datos,'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 def carta_oferta_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
-    pass
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'documentos/carta_oferta.html',
+                  {'id_venta': id_venta, 'datos_venta': datos_venta})
+
+class Carta_oferta_ventaPdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+
+            template = get_template('documentos/carta_oferta_print.html')
+            context = {'datos': datos,'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
 def fpm_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO

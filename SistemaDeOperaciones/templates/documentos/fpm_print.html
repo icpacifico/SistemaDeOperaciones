@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+    <style>
+        .tabla1 {
+            width: 50%;
+            margin: auto; /* Esto centrará la tabla en el contenedor */
+            border-collapse: collapse;
+        }
+
+        .tabla1 th,.tabla1 td {
+            border: 1px solid #ddd;
+            padding: 2px;
+            text-align: center; /* Esto centrará el contenido */
+        }
+
+        .tabla1 th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div>
+    <!-- Invoice -->
+    <div>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <img src="{{ icon }}" width="150" height="75">
+                    </div>
+                    <br>
+                </div>
+
+                <div>
+                    <!-- Encabezado carta -->
+                    <p>{{Lugar y fecha de la carta}}</p>
+                    <p>Estimado(a): {{NOMBRE DEL CLIENTE}}</p>
+                    <p>Junto con saludar y según lo informado en el Cierre de Negocios firmado por usted al momento de
+                        promesar su departamento, Ud. debe cancelar por concepto de “Fondo de puesta en Marcha” un valor
+                        de $ {{MONTO FPM}} Dicho monto se debe pagar antes de la entrega y está definido según la ley N°
+                        19.537 de
+                        Copropiedad Inmobiliaria referida en Reglamento de Copropiedad.</p>
+                    <p>Reglamento de Copropiedad indica:</p>
+                    <!-- Fin Encabezado carta -->
+
+                    <p>ARTÍCULO VIGÉSIMO PRIMERO: Sin perjuicio de los pagos a que se refieren los artículos anteriores,
+                        los propietarios erogarán a prorrata de sus cuotas, los dineros necesarios para la formación de
+                        los siguientes fondos:</p>
+                    <p>A) "Fondo Común de Reserva", que se integrará según se establece en el artículo tercero
+                        transitorio del presente reglamento y servirá para atender las reparaciones de los bienes de
+                        dominio común o a gastos comunes urgentes o imprevistos, el que se formará e incrementará con el
+                        porcentaje de recargo sobre los gastos comunes que en sesión extraordinaria fije la asamblea de
+                        copropietarios, con el producto de las multas e intereses que deben pagar los copropietarios.
+                        Los recursos de este fondo se mantendrán en depósito en una cuenta corriente bancaria o en una
+                        cuenta de ahorro, o se invertirán en instrumentos financieros que operen en el mercado de
+                        capitales, previo acuerdo del Comité de Administración.</p>
+                    <p>B) “Fondo de Puesta en Marcha”, que se integrará según se establece en el artículo tercero
+                        transitorio del presente reglamento y servirá para atender los gastos iniciales de habilitación
+                        y puesta en marcha de la Comunidad, tales como alhajamiento del hall de acceso, compra de
+                        activos básicos y capital de trabajo. Este aporte, corresponderá y deberá ser pagado por el
+                        primer adquirente de la Unidad respectiva.</p>
+                    <p>ARTÍCULO TERCERO TRANSITORIO: Mientras la asamblea de copropietarios de la Comunidad, en sesión
+                        extraordinaria, no determine el porcentaje de recargo sobre los gastos comunes para el fondo de
+                        reserva establecido en el artículo vigésimo tercero del presente Reglamento, dicho porcentaje se
+                        fija en el equivalente al 10 % por ciento del total de los gastos comunes que mensualmente
+                        corresponda.</p>
+                    <p>Respecto del Fondo de Puesta en Marcha, este se constituirá mediante el aporte por parte del
+                        adquirente de la unidad equivalente a 2 gastos comunes mensuales del edificio.</p>
+                    <p>Agradeceré tener contemplado este pago en el momento indicado</p>
+                    <p>Atenta a sus consultas</p>
+
+
+                    <p>Atte.,</p>
+                    <p>Marta Olivares Castro.</p>
+                    <p>Subgerente de Ventas y OO.PP.</p>
+                </div>
+            </div>
+        </div>
+        <hr class="my-0">
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+        <p style="font-style: italic; font-size: 14px;">
+            Gracias por su preferencia. Para consultas, contáctenos a <a href="mailto:amoya@icpacifico.cl">amoya@icpacifico.cl</a>
+        </p>
+    </div>
+</div>
+</div>
+<!-- /Invoice -->
+</body>
+</html>

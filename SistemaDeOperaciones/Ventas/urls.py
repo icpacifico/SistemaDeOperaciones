@@ -8,8 +8,9 @@ from .views import (
     CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,
     ListarReservas, detalle_reserva,
     detalle_venta, registrar_pago_venta,
-    listado_detalle_venta, informe_pagos_venta, informe_pagos_venta_print, PagosInvoicePdf, carta_cierre_negocios_venta,
-    entrega_documentos_venta, despacho_promesa_venta, carta_oferta_venta, fpm_venta)
+    listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
+    carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
+    Despacho_promesa_ventaPdf, carta_oferta_venta,Carta_oferta_ventaPdf, fpm_venta)
 
 app_name = 'ventas'
 
@@ -33,12 +34,18 @@ urlpatterns = [
     # listado_detalle_venta
     path('detalle_pagos/<int:id_venta>/', login_required(listado_detalle_venta), name='detalle_pagos'),
     path('informe_pagos/<int:id_venta>/', login_required(informe_pagos_venta), name='informe_pagos'),
-    path('informe_pagos_print/<int:id_venta>/', login_required(informe_pagos_venta_print), name='informe_pagos_print'),
+    # path('informe_pagos_print/<int:id_venta>/', login_required(informe_pagos_venta_print), name='informe_pagos_print'),
     path('pagos_invoice_pdf/<int:id_venta>/', login_required(PagosInvoicePdf.as_view()), name='pagos_invoice_pdf'),
     path('ccn/<int:id_venta>/', login_required(carta_cierre_negocios_venta), name='ccn'),
+    path('ccn_print/<int:id_venta>/', login_required(CierreNegociopdf.as_view()), name='ccn_print'),
     path('entrega_docven/<int:id_venta>/', login_required(entrega_documentos_venta), name='entrega_docven'),
+    path('entrega_docven_print/<int:id_venta>/', login_required(EntregaDocumentoPdf.as_view()),
+         name='entrega_docven_print'),
     path('desp_promesa/<int:id_venta>/', login_required(despacho_promesa_venta), name='desp_promesa'),
+    path('desp_promesa_print/<int:id_venta>/', login_required(Despacho_promesa_ventaPdf.as_view()),
+         name='desp_promesa_print'),
     path('co_ven/<int:id_venta>/', login_required(carta_oferta_venta), name='co_ven'),
+    path('co_ven_print/<int:id_venta>/', login_required(Carta_oferta_ventaPdf.as_view()), name='co_ven_print'),
     path('fpm_venta/<int:id_venta>/', login_required(fpm_venta), name='fpm_venta'),
 
     # Tipos de Desistimiento

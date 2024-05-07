@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Despacho Promesa</title>
+    <style>
+        .tabla1 {
+            width: 50%;
+            margin: auto; /* Esto centrará la tabla en el contenedor */
+            border-collapse: collapse;
+        }
+
+        .tabla1 th,.tabla1 td {
+            border: 1px solid #ddd;
+            padding: 2px;
+            text-align: center; /* Esto centrará el contenido */
+        }
+
+        .tabla1 th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div>
+    <!-- Invoice -->
+    <div>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <img src="{{ icon }}" width="150" height="75">
+                    </div>
+                    <br>
+                </div>
+
+                <div>
+                    <!-- Encabezado carta -->
+                    <p>Lugar y fecha de la carta</p>
+                    <p>Estimado(a):</p>
+                    {% for venta in datos_venta %}
+                    <p>{{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</p>
+                    {% endfor%}
+
+                    <p>Presente</p>
+                    <!-- Fin Encabezado carta -->
+
+                    <p>Junto con saludar, Inmobiliaria Costanera Pacífico, tiene el agrado de hacerle llegar Promesa y
+                        Seguro de venta en verde de Compra Venta de departamento reservado en Condominio:
+                        {% for venta in datos_venta %}
+                        {{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio }}
+                        {% endfor%}– La Serena, debidamente protocolizada ante Notario Sra. Elena Leyton Carvajal.</p>
+                    <p>Agradeciendo su elección y atenta a sus consultas,</p>
+
+                    <hr>
+
+
+                    <p>Atte.,</p>
+                    <p>Marta Olivares Castro.</p>
+                    <p>Subgerente de Ventas y OO.PP.</p>
+                </div>
+            </div>
+        </div>
+        <hr class="my-0">
+    </div>
+    <div style="margin-top: 20px; text-align: center;">
+        <p style="font-style: italic; font-size: 14px;">
+            Gracias por su preferencia. Para consultas, contáctenos a <a href="mailto:amoya@icpacifico.cl">amoya@icpacifico.cl</a>
+        </p>
+    </div>
+</div>
+</div>
+<!-- /Invoice -->
+</body>
+</html>
