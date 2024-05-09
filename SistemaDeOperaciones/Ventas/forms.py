@@ -79,7 +79,7 @@ class CotizacionForm(forms.ModelForm):
             'estado_cotizacion': 'Estado Cotización'
         }
         widgets = {
-            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda'}),
+            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'true'}),
             'id_cliente': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Cliente'}),
             'fecha_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date' ,'placeholder': 'Fecha Cotización'}),
             'fecha_promesa_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date', 'placeholder': 'Fecha Promesa'}),
@@ -90,7 +90,6 @@ class CotizacionForm(forms.ModelForm):
             'renta_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Renta Cotización'}),
             'estado_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Cotización'}),
         }
-
 
 
 class VentaForm(forms.ModelForm):

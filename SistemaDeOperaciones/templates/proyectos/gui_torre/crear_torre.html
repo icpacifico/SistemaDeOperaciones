@@ -22,6 +22,18 @@
                       {% else %}
                         <div class="row gx-5">
                             <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    <select name="id_condominio" class="form-select" placeholder="Torre" required="" id="id_id_condominio">
+                                        <option value="" selected="">---------</option>
+                                        {% for condominio in condominios %}
+                                            <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
+                                        {% endfor %}
+                                      </select>
+                                      <label for="basic-default-fullname">Condominio</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{form.id_etapa_condominio}}
                                     <label for="basic-default-fullname">Etapa</label>
@@ -51,4 +63,29 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.getElementById('id_id_condominio').addEventListener('change', function() {
+        var condominioId = this.value;
+        var etapaSelect = document.getElementById('id_id_etapa_condominio');
+        etapaSelect.innerHTML = "<option value=''>---------</option>";
+        if (condominioId !== '') {
+            document.getElementById('id_id_etapa_condominio').disabled = false;
+            fetch(`{% url 'proyectos:get_etapas' %}?condominio_id=${condominioId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(etapa => {
+                    var option = document.createElement('option');
+                    option.text = etapa.nombre_etapa;
+                    option.value = etapa.id_etapa_condominio;
+                    etapaSelect.add(option);
+                });
+            });
+        } else {
+            document.getElementById('id_id_etapa_condominio').disabled = true;
+        }
+    });
+</script>
+
 {% endblock contenido %}

@@ -13,7 +13,7 @@ class Condominio(models.Model):
     fecha_venta_condominio = models.DateField(verbose_name="Fecha Venta Condominio", null=True, blank=True)
 
     def __str__(self):
-        return "(" + str(self.id_condominio) + ")" + " - " + self.nombre_condominio
+        return str(self.id_condominio) + " - " + self.nombre_condominio
 
     class Meta:
         db_table = "condominio"
@@ -24,7 +24,7 @@ class Etapa(models.Model):
     nombre_etapa = models.CharField(verbose_name= "Nombre",max_length=50)
 
     def __str__(self):
-        return "(" + str(self.id_condominio) + ")" + " - " + self.nombre_etapa
+        return str(self.id_etapa_condominio) + " - " + self.nombre_etapa
 
     class Meta:
         db_table = "etapa_proyecto"
@@ -55,7 +55,6 @@ class Modelo(models.Model):
 
     class Meta:
         db_table = "modelo"
-
 
 class Vivienda(models.Model):
     id_vivienda = models.AutoField(primary_key=True)

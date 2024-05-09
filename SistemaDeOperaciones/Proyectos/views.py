@@ -49,8 +49,8 @@ def descargar_parametros(request):
 
     # Guarda el libro de Excel en la respuesta
     wb.save(response)
-
     return response
+
 def descargar_formato(request):
     # Crea un DataFrame con las columnas que deseas en el formato del archivo Excel
     columns = [
@@ -65,7 +65,6 @@ def descargar_formato(request):
     # Guarda el DataFrame en el archivo Excel
     df.to_excel(response, index=False, engine='openpyxl')
     return response
-
 
 def importar_viviendas(request):
     if request.method == 'POST':
@@ -113,8 +112,29 @@ def importar_viviendas(request):
 
     return render(request, 'proyectos/gui_vivienda/importar_viviendas.html', {'form': form})
 
+def get_etapas(request):
+    condominio_id = request.GET.get('condominio_id')
+    etapas = Etapa.objects.filter(id_condominio=condominio_id)
+    data = [{'id_etapa_condominio': etapa.id_etapa_condominio, 'nombre_etapa': etapa.nombre_etapa} for etapa in etapas]
+    return JsonResponse(data, safe=False)
 
+def get_torres(request):
+    etapa_id = request.GET.get('etapa_id')
+    torres = Torre.objects.filter(id_etapa_condominio=etapa_id)
+    data = [{'id_torre': torre.id_torre, 'nombre_torre': torre.nombre_torre} for torre in torres]
+    return JsonResponse(data, safe=False)
 
+def get_modelos(request):
+    condominio_id = request.GET.get('condominio_id')
+    modelos = Modelo.objects.filter(id_condominio=condominio_id)
+    data = [{'id_modelo': modelo.id_modelo, 'nombre_modelo': modelo.nombre_modelo} for modelo in modelos]
+    return JsonResponse(data, safe=False)
+
+def get_viviendas(request):
+    torre_id = request.GET.get('torre_id')
+    viviendas = Vivienda.objects.filter(id_torre=torre_id)
+    data = [{'id_vivienda': vivienda.id_vivienda, 'nombre_vivienda': vivienda.nombre_vivienda} for vivienda in viviendas]
+    return JsonResponse(data, safe=False)
 
 class CrearCondominio(CreateView):
     model = Condominio
@@ -163,7 +183,10 @@ class CrearTorre(CreateView):
     form_class = TorreForm
     template_name = "proyectos/gui_torre/crear_torre.html"
     success_url = reverse_lazy("proyectos:listar_torre")
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
+        return context
 
 class ListadoTorre(ListView):
     model = Torre
@@ -205,6 +228,12 @@ class CrearBodega(CreateView):
     form_class = BodegaForm
     template_name = "proyectos/gui_bodega/crear_bodega.html"
     success_url = reverse_lazy("proyectos:listar_bodega")
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
+        context['etapa'] = Etapa.objects.values_list('id_etapa_condominio','nombre_etapa')
+        context['torre'] = Torre.objects.values_list('id_torre','nombre_torre')
+        return context
 
 
 class ListadoBodega(ListView):
@@ -226,7 +255,12 @@ class CrearEstacionamiento(CreateView):
     form_class = EstacionamientoForm
     template_name = "proyectos/gui_estacionamiento/crear_estacionamiento.html"
     success_url = reverse_lazy("proyectos:listar_estacionamiento")
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
+        context['etapa'] = Etapa.objects.values_list('id_etapa_condominio','nombre_etapa')
+        context['torre'] = Torre.objects.values_list('id_torre','nombre_torre')
+        return context
 
 class ListadoEstacionamiento(ListView):
     model = Estacionamiento
@@ -234,13 +268,11 @@ class ListadoEstacionamiento(ListView):
     context_object_name = "estacionamientos"
     queryset = Estacionamiento.objects.all()
 
-
 class ActualizarEstacionamiento(UpdateView):
     model = Estacionamiento
     template_name = "proyectos/gui_estacionamiento/crear_estacionamiento.html"
     form_class = EstacionamientoForm
     success_url = reverse_lazy("proyectos:listar_estacionamiento")
-
 
 class CrearVivienda(CreateView):
     model = Vivienda
@@ -248,13 +280,17 @@ class CrearVivienda(CreateView):
     template_name = "proyectos/gui_vivienda/crear_vivienda.html"
     success_url = reverse_lazy("proyectos:listar_vivienda")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
+        context['etapas'] = Etapa.objects.values_list('id_etapa_condominio','nombre_etapa')
+        return context
 
 class ListadoVivienda(ListView):
     model = Vivienda
     template_name = "proyectos/gui_vivienda/listar_vivienda.html"
     context_object_name = "viviendas"
     queryset = Vivienda.objects.all()
-
 
 class ActualizarVivienda(UpdateView):
     model = Vivienda

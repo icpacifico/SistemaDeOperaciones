@@ -10,7 +10,7 @@ from .views import (
     detalle_venta, registrar_pago_venta,
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
-    Despacho_promesa_ventaPdf, carta_oferta_venta,Carta_oferta_ventaPdf, fpm_venta)
+    Despacho_promesa_ventaPdf, carta_oferta_venta,Carta_oferta_ventaPdf, fpm_venta, get_etapas, get_torres, get_viviendas)
 
 app_name = 'ventas'
 
@@ -64,5 +64,9 @@ urlpatterns = [
     # Reservas
     path('listar_reserva/', login_required(ListarReservas.as_view()), name='listar_reserva'),
     path('detalle_reserva/<int:id_reserva>/', login_required(detalle_reserva), name='detalle_reserva'),
+
+    path('get_etapas/', login_required(get_etapas), name='get_etapas'),
+    path('get_torres/', login_required(get_torres), name='get_torres'),
+    path('get_viviendas/', login_required(get_viviendas), name='get_viviendas'),
 
 ]

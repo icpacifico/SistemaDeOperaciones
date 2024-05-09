@@ -1,5 +1,5 @@
 from django.db import models
-from Proyectos.models import Vivienda
+from Proyectos.models import Vivienda, Etapa, Torre
 from Administracion.models import *
 from SistemaDeOperaciones.choices import *
 

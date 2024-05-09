@@ -8,7 +8,7 @@ from .views import (
     CrearBodega, ListadoBodega, ActualizarBodega,
     CrearEstacionamiento, ListadoEstacionamiento, ActualizarEstacionamiento,
     CrearVivienda, ListadoVivienda, ActualizarVivienda,
-    descargar_parametros, descargar_formato, importar_viviendas
+    descargar_parametros, descargar_formato, importar_viviendas, get_etapas, get_torres, get_modelos, get_viviendas
 )
 
 
@@ -60,5 +60,9 @@ urlpatterns = [
     path('download_format', login_required(descargar_formato), name='download_format'),
     path('carga_proyecto', login_required(importar_viviendas), name='carga_proyecto'),
 
-
+    path('get_etapas/', login_required(get_etapas), name='get_etapas'),
+    path('get_torres/', login_required(get_torres), name='get_torres'),
+    path('get_modelos/', login_required(get_modelos), name='get_modelos'),
+    path('get_viviendas/', login_required(get_viviendas), name='get_viviendas'),
+    
 ]

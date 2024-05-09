@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
-from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva
+from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, Vivienda
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
 from Contabilidad.models import Pago
@@ -12,10 +12,26 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from datetime import datetime
-
+from django.http import JsonResponse
 
 # Create your views here.
-
+def get_etapas(request):
+    condominio_id = request.GET.get('condominio_id')
+    etapas = Etapa.objects.filter(id_condominio=condominio_id)
+    data = [{'id_etapa_condominio': etapa.id_etapa_condominio, 'nombre_etapa': etapa.nombre_etapa} for etapa in etapas]
+    return JsonResponse(data, safe=False)
+ 
+def get_torres(request):
+    etapa_id = request.GET.get('etapa_id')
+    torres = Torre.objects.filter(id_etapa_condominio=etapa_id)
+    data = [{'id_torre': torre.id_torre, 'nombre_torre': torre.nombre_torre} for torre in torres]
+    return JsonResponse(data, safe=False)
+ 
+def get_viviendas(request):
+    torre_id = request.GET.get('torre_id')
+    viviendas = Vivienda.objects.filter(id_torre=torre_id)
+    data = [{'id_vivienda': vivienda.id_vivienda, 'nombre_vivienda': vivienda.nombre_vivienda} for vivienda in viviendas]
+    return JsonResponse(data, safe=False)
 
 class CrearCliente(CreateView):
     model = Cliente
@@ -46,6 +62,12 @@ class CrearCotizacion(CreateView):
     template_name = "ventas/gui_cotizacion/crear_cotizacion.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
     success_url = reverse_lazy(
         "ventas:listar_cotizacion")  # Reemplaza "tu_app" y "listar_cotizaciones" con tus nombres de aplicación y URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
+        context['etapa'] = Etapa.objects.values_list('id_etapa_condominio','nombre_etapa')
+        context['torre'] = Torre.objects.values_list('id_torre','nombre_torre')
+        return context
 
 
 class ListadoCotizaciones(ListView):

@@ -1,6 +1,8 @@
 from django import forms
 from .models import Condominio, Etapa, Torre, Modelo, Bodega, Estacionamiento, Vivienda
 from django.forms.widgets import ClearableFileInput, TextInput
+
+
 class ImportViviendasForm(forms.Form):
     archivo_excel = forms.FileField( widget=ClearableFileInput(attrs={'class': 'form-control','type':'file' ,'id':'formFile' }),)
 class CondominioForm(forms.ModelForm):
@@ -41,7 +43,7 @@ class TorreForm(forms.ModelForm):
             'nombre_torre': 'Nombre',
         }
         widgets = {
-            'id_etapa_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Etapa torre'}),
+            'id_etapa_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Etapa torre', 'disabled':'true'}),
             'estado_torre': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado torre'}),
             'nombre_torre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre torre'}),
         }
@@ -79,7 +81,7 @@ class BodegaForm(forms.ModelForm):
             'rol_bodega': 'Rol',
         }
         widgets = {
-            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda'}),
+            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'True'}),
             'estado_bodega': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado bodega'}),
             'nombre_bodega': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° Bodega'}),
             'valor_bodega': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor bodega (UF)'}),
@@ -97,13 +99,14 @@ class EstacionamientoForm(forms.ModelForm):
             'valor_estacionamiento': 'Valor',
         }
         widgets = {
-            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda'}),
+            'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'True'}),
             'estado_estacionamiento': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado estacionamiento'}),
             'nombre_estacionamiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'N° estacionamiento'}),
             'valor_estacionamiento': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor estacionamiento (UF)'}),
         }
 
 class ViviendaForm(forms.ModelForm):
+
     class Meta:
         model = Vivienda
         fields = ['id_torre', 'id_modelo', 'tipo_vivienda', 'ori_vivienda', 'estado_vivienda', 'piso',
@@ -126,8 +129,8 @@ class ViviendaForm(forms.ModelForm):
             'rol_vivienda': 'Rol',
         }
         widgets = {
-            'id_torre': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Torre'}),
-            'id_modelo': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Modelo'}),
+            'id_torre': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Torre', 'disabled': 'True'}),
+            'id_modelo': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Modelo', 'disabled': 'True'}),
             'tipo_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Tipo de vivienda'}),
             'ori_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Orientación vivienda'}),
             'estado_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado vivienda'}),

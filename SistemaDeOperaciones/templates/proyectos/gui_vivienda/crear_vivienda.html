@@ -7,7 +7,6 @@
     <h4 class="py-3 mb-4 fw-bold"><span class="text-muted fw-light">Vivienda /</span>
         Agregar
     </h4>
-    <!-- Basic Layout -->
     <div class="row">
         <div class="col-xl">
             <div class="card mb-4">
@@ -18,7 +17,7 @@
                     <form method="post">
                         {% csrf_token %}
                         {% if error %}
-                        <h2>{{ error }}</h2>
+                            <h2>{{ error }}</h2>
                         {% else %}
                             <div class="row gx-5">
                                 <div class="col-md">
@@ -29,8 +28,25 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="d-flex form-floating form-floating-outline mb-4">
-                                        {{form.id_condominio}}
-                                        <label for="basic-default-fullname">Condominio</label>
+                                        <select name="id_condominio" class="form-select" placeholder="Torre" required="" id="id_id_condominio">
+                                            <option value="" selected="">---------</option>
+                                            {% for condominio in condominios %}
+                                                <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
+                                            {% endfor %}           
+                                          </select>
+                                          <label for="basic-default-fullname">Condominio</label>
+                                        <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="d-flex form-floating form-floating-outline mb-4">
+                                        <select name="id_etapa" class="form-select" placeholder="Etapa" required="" id="id_id_etapa" disabled>
+                                            <option value="" selected="">---------</option>
+                                            {% for etapa in etapas %}
+                                                <option value="{{ etapa.0 }}">{{ etapa.1 }}</option>
+                                            {% endfor %}
+                                          </select>
+                                          <label for="basic-default-fullname">Etapa</label>
                                         <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
                                     </div>
                                 </div>
@@ -41,6 +57,8 @@
                                         <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row gx-5">
                                 <div class="col-md">
                                     <div class="d-flex form-floating form-floating-outline mb-4">
                                         {{form.id_modelo}}
@@ -54,8 +72,6 @@
                                         <label for="basic-default-fullname">Tipo</label>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row gx-5">
                                 <div class="col-md">
                                     <div class="form-floating form-floating-outline mb-4">
                                         {{form.rol_vivienda}}
@@ -68,6 +84,8 @@
                                         <label for="basic-default-fullname">Orientación</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row gx-5">    
                                 <div class="col-md">
                                     <div class="form-floating form-floating-outline mb-4">
                                         {{form.piso}}
@@ -91,15 +109,15 @@
                                         {{form.metros_terraza_vivienda}}
                                         <label for="basic-default-fullname">Tamaño Terraza</label>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row gx-5">                              
+                                </div>                          
                                 <div class="col-md">
                                     <div class="form-floating form-floating-outline mb-4">
                                         {{form.metros_total_vivienda}}
                                         <label for="basic-default-fullname">Metros totales</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row gx-5">    
                                 <div class="col-md">
                                     <div class="form-floating form-floating-outline mb-4">
                                         {{form.bono_vivienda}}
@@ -124,7 +142,7 @@
                                         <label for="basic-default-fullname">Estado</label>
                                     </div>
                                 </div>
-                            </div>              
+                            </div>            
                             <div align="left">          
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                 <a style="margin-left:10px"  href="{% url 'proyectos:listar_vivienda' %}" class="btn btn-dark">Cancelar</a>
@@ -136,4 +154,71 @@
         </div>
     </div>
 </div>
+
+<script>
+    
+    document.getElementById('id_id_condominio').addEventListener('change', function() {
+        var condominioId = this.value;
+        var etapaSelect = document.getElementById('id_id_etapa');
+        var torreSelect = document.getElementById('id_id_torre');
+        var modeloSelect = document.getElementById('id_id_modelo');
+        etapaSelect.innerHTML = "<option value=''>---------</option>";
+        modeloSelect.innerHTML = "<option value=''>---------</option>";
+        torreSelect.innerHTML = "<option value=''>---------</option>";
+        torreSelect.disabled = true;
+        if (condominioId !== '') {
+            etapaSelect.disabled = false;
+            modeloSelect.disabled = false;
+            fetch(`{% url 'proyectos:get_etapas' %}?condominio_id=${condominioId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(etapa => {
+                    var option = document.createElement('option');
+                    option.text = etapa.nombre_etapa;
+                    option.value = etapa.id_etapa_condominio;
+                    etapaSelect.add(option);
+                });
+            });
+            fetch(`{% url 'proyectos:get_modelos' %}?condominio_id=${condominioId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(modelo => {
+                    var option = document.createElement('option');
+                    option.text = modelo.nombre_modelo;
+                    option.value = modelo.id_modelo;
+                    modeloSelect.add(option);
+                });
+            });
+        } else {
+            etapaSelect.disabled = true;
+            torreSelect.value = '';
+            torreSelect.disabled = true;
+            modeloSelect.disabled = true;
+        }
+    });
+
+    document.getElementById('id_id_etapa').addEventListener('change', function() {
+        var etapaId = this.value;
+        var torreSelect = document.getElementById('id_id_torre');
+        torreSelect.innerHTML = "<option value=''>---------</option>";
+        if (etapaId !== '') {
+            torreSelect.disabled = false;
+            fetch(`{% url 'proyectos:get_torres' %}?etapa_id=${etapaId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(torre => {
+                    var option = document.createElement('option');
+                    option.text = torre.nombre_torre;
+                    option.value = torre.id_torre;
+                    torreSelect.add(option);
+                });
+                });
+        }else{
+            torreSelect.disabled = true;
+            torreSelect.value = '';
+        }
+    });
+
+</script>
+
 {% endblock contenido %}
