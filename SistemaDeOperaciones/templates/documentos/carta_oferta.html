@@ -185,9 +185,10 @@
         <div class="col-xl-3 col-md-4 col-12 invoice-actions">
             <div class="card">
                 <div class="card-body">
-                    <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light">
-                        Descarga Excel
-                    </button>
+                    <a class="btn btn-secondary d-grid w-100 mb-3 waves-effect" target="_blank"
+                       href="{% url 'ventas:co_ven_excel' id_venta=id_venta %}">
+                        Imprimir
+                    </a>
                     <button class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light">
                         Descrga PDF
                     </button>

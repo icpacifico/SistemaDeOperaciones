@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponse, HttpRespon
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
 from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, Vivienda
+from Proyectos.models import Modelo, Bodega, Estacionamiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
 from Contabilidad.models import Pago
@@ -13,6 +14,18 @@ from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from datetime import datetime
 from django.http import JsonResponse
+from django.http import HttpResponse
+from openpyxl import Workbook
+from django.http import HttpResponse
+from openpyxl import Workbook
+from openpyxl.styles import Alignment
+from django.http import HttpResponse
+from openpyxl import Workbook
+from openpyxl.styles import Alignment
+from openpyxl.utils import get_column_letter
+from django.http import HttpResponse
+from xlsxwriter.workbook import Workbook
+from io import BytesIO
 
 # Create your views here.
 def get_etapas(request):
@@ -62,12 +75,6 @@ class CrearCotizacion(CreateView):
     template_name = "ventas/gui_cotizacion/crear_cotizacion.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
     success_url = reverse_lazy(
         "ventas:listar_cotizacion")  # Reemplaza "tu_app" y "listar_cotizaciones" con tus nombres de aplicación y URL
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
-        context['etapa'] = Etapa.objects.values_list('id_etapa_condominio','nombre_etapa')
-        context['torre'] = Torre.objects.values_list('id_torre','nombre_torre')
-        return context
 
 
 class ListadoCotizaciones(ListView):
@@ -479,6 +486,215 @@ class Carta_oferta_ventaPdf(View):
             pass
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
+def generate_excel(request, id_venta):
+
+    # Buscar los datos de la sección "Datos Carta de Oferta"
+    datos_venta = Venta.objects.values_list('id_cotizacion').filter(id_venta=id_venta)
+    id_cotizacion = datos_venta[0][0]
+    datos_cotizacion = Cotizacion.objects.values_list('id_cliente').filter(id_cotizacion=id_cotizacion)
+    id_cliente = datos_cotizacion[0][0]
+    nombre_cliente = Cliente.objects.values_list('nombre_cliente').filter(id_cliente=id_cliente)
+    nombre2_cliente = Cliente.objects.values_list('nombre2_cliente').filter(id_cliente=id_cliente)
+    apellido_paterno_cliente = Cliente.objects.values_list('apellido_paterno_cliente').filter(id_cliente=id_cliente)
+    apellido_materno_cliente = Cliente.objects.values_list('apellido_materno_cliente').filter(id_cliente=id_cliente)
+    nombre_cliente = nombre_cliente[0][0]
+    nombre2_cliente = nombre2_cliente[0][0]
+    apellido_paterno_cliente = apellido_paterno_cliente[0][0]
+    apellido_materno_cliente = apellido_materno_cliente[0][0]
+    rut_cliente = id_cliente
+    cliente = nombre_cliente +" "+ nombre2_cliente+" "+ apellido_paterno_cliente +" "+apellido_materno_cliente
+    print(cliente)
+
+    # Buscar los datos de la sección "Datos del Proyecto"
+    datos_cotizacion = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion=id_cotizacion)
+    id_vivienda = datos_cotizacion[0][0]
+    datos_vivienda = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
+    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
+    id_modelo = datos_vivienda[0][0]
+    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
+    nombre_modelo = nombre_modelo[0][0]
+    id_torre = id_torre[0][0]
+    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
+    nombre_torre = nombre_torre[0][0]
+    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
+    id_etapa_condominio = id_etapa_condominio[0][0]
+    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
+    nombre_etapa = nombre_etapa[0][0]
+    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
+    id_condominio = datos_modelo[0][0]
+    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
+    nombre_condominio = datos_condominio[0][0]
+
+    # Buscar los datos de la sección "Datos Inmueble"
+    nombre_vivienda = Vivienda.objects.values_list('nombre_vivienda').filter(id_vivienda=id_vivienda)
+    nombre_vivienda = nombre_vivienda[0][0]
+    valor_vivienda = Vivienda.objects.values_list('valor_vivienda').filter(id_vivienda=id_vivienda)
+    valor_vivienda = str(valor_vivienda[0][0])+" UF"
+    rol_vivienda = Vivienda.objects.values_list('rol_vivienda').filter(id_vivienda=id_vivienda)
+    rol_vivienda = rol_vivienda[0][0]
+    nombre_bodega = Bodega.objects.values_list('nombre_bodega').filter(id_vivienda=id_vivienda)
+    nombre_bodega=nombre_bodega[0][0]
+    valor_bodega = Bodega.objects.values_list('valor_bodega').filter(id_vivienda=id_vivienda)
+    valor_bodega = str(valor_bodega[0][0])+" UF"
+    rol_bodega = Bodega.objects.values_list('rol_bodega').filter(id_vivienda=id_vivienda)
+    rol_bodega = rol_bodega[0][0]
+    nombre_estacionamiento = Estacionamiento.objects.values_list('nombre_estacionamiento').filter(id_vivienda=id_vivienda)
+    nombre_estacionamiento = nombre_estacionamiento[0][0]
+    valor_estacionamiento = Estacionamiento.objects.values_list('valor_estacionamiento').filter(id_vivienda=id_vivienda)
+    valor_estacionamiento = str(valor_estacionamiento[0][0])+" UF"
+    """rol_bodega = Bodega.objects.values_list('rol_bodega').filter(id_vivienda=id_vivienda)
+    rol_bodega = rol_bodega[0][0]"""
+    rol_estacionamiento ="1234-4321"
+
+
+
+
+
+    # Crear un objeto BytesIO para almacenar el archivo Excel en memoria
+    output = BytesIO()
+
+    # Crear un nuevo libro de trabajo
+    workbook = Workbook(output, {'in_memory': True})
+
+    # Añadir una hoja de cálculo
+    worksheet = workbook.add_worksheet("Carta de Oferta")
+
+    # Definir un rango de 6 columnas y 27 filas
+    num_rows = 9
+    num_cols = 6
+    start_row = 1
+    start_col = 0
+
+    # Crear un formato con bordes negros
+    border_format = workbook.add_format({'border': 1})  # 1 para un borde fino
+
+    # Aplicar el formato con bordes a todas las celdas dentro del rango de A1 a F27
+    worksheet.conditional_format('A1:F27', {'type': 'no_blanks', 'format': border_format})
+
+    # Crear un formato con el color de fondo gris claro
+    grey_light_format = workbook.add_format({'bg_color': '#D3D3D3'})  # Código hexadecimal para gris claro
+
+    # Crear un nuevo formato basado en el formato existente pero con el color de fondo verde claro
+    green_light_format = workbook.add_format()
+    green_light_format.set_bold(True)
+    green_light_format.set_font_size(12)
+    green_light_format.set_align('center')
+    green_light_format.set_bg_color('#C9FFC1')  # Código hexadecimal para verde claro
+    green_light_format.set_border(3)
+
+
+    # Combinar celdas A1:F1 para el título
+    worksheet.merge_range('A1:F1', 'Datos Carta Oferta', green_light_format)
+
+    # Escribir datos en el rango de celdas
+    # Escribir los conceptos originales en las celdas A2:A10
+    original_concepts = ['Nombre del Titular', 'Rut', 'Razón Social Inmobiliaria', 'Rut', 'Quien Cancela Gastos Operacionales', 'En Que Notaria Firma Escritura',
+                         'Banco Alzante',
+                         'Banco a Depositar', 'Cta Corriente N°']
+    datos_carta_oferta =[cliente, id_cliente,"Inmobiliaria Costanera Pacífico SpA", "76.866.075-1", cliente, "Notaria de Don Pepito", "Banco Security", 'Banco a Depositar', 'Cta Corriente N°']
+    for i, concept in enumerate(original_concepts):
+        worksheet.write(i + start_row, start_col, concept, grey_light_format)
+
+    # Combinar celdas B2:F10 para la descripción de los conceptos originales
+    for row in range(start_row, start_row + num_rows):
+        worksheet.merge_range(row, start_col + 1, row, start_col + num_cols - 1,
+                              f'{datos_carta_oferta[row - start_row]}',
+                              workbook.add_format({'align': 'left'}))
+
+    # Combinar celdas A11:F11 para agregar una separación
+    worksheet.merge_range('A11:F11', '', workbook.add_format({'align': 'center'}))
+
+    # Combinar celdas A12:F12 para agregar un segundo título
+    worksheet.merge_range('A12:F12', 'Datos Del Proyecto', green_light_format)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos (A13:A18)
+    new_concepts = ['Proyecto', 'Etapa', 'Torre', 'Modelo', 'Dirección Inmueble',
+                    'Vivienda Social']
+    datos_proyecto = [nombre_condominio,nombre_etapa,nombre_torre,nombre_modelo, "Rue Emilio Apey #405", "No" ]
+    for i, concept in enumerate(new_concepts):
+        worksheet.write(i + 12, 0, concept, grey_light_format)
+
+    # Combinar celdas B13:F18 para la descripción de los nuevos conceptos
+    for row in range(12, 18):
+        worksheet.merge_range(row, 1, row, 5,
+                              f'{datos_proyecto[row - 12]}', workbook.add_format({'align': 'left'}))
+
+    # Combinar celdas A19:F19 para agregar una separación
+    worksheet.merge_range('A19:F19', '', workbook.add_format({'align': 'center'}))
+
+    # Combinar celdas A20:F20 para agregar un nuevo título con el formato modificado
+    worksheet.merge_range('A20:F20', 'Datos Inmueble', green_light_format)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (A21:A23)
+    additional_concepts = ['NRO. DEPARTAMENTO Y/O CASA', 'NRO. ESTACIONAMIENTO', 'NRO. BODEGA']
+    for i, concept in enumerate(additional_concepts):
+        worksheet.write(i + 20, 0, concept, grey_light_format)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (A21:A23)
+    num_bienes = [nombre_vivienda, nombre_estacionamiento, nombre_bodega]
+    for i, concept in enumerate(num_bienes):
+        worksheet.write(i + 20, 1, concept)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (C21:C23)
+    additional_concepts = ['UF Depto. o Casa', 'UF Estacionamiento.', 'UF Bodega']
+    for i, concept in enumerate(additional_concepts):
+        worksheet.write(i + 20, 2, concept, grey_light_format)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (C21:C23)
+    precio_bienes = [valor_vivienda, valor_estacionamiento, valor_bodega]
+    for i, concept in enumerate(precio_bienes):
+        worksheet.write(i + 20, 3, concept)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (E21:E23)
+    additional_concepts = ['ROL', 'ROL', 'ROL']
+    for i, concept in enumerate(additional_concepts):
+        worksheet.write(i + 20, 4, concept, grey_light_format)
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (E21:E23)
+    roles_bienes = [rol_vivienda, rol_estacionamiento, rol_bodega]
+    for i, concept in enumerate(roles_bienes):
+        worksheet.write(i + 20, 5, concept)
+
+    # Combinar celdas A24:F24 para agregar una separación
+    worksheet.merge_range('A24:F24', '', workbook.add_format({'align': 'center'}))
+
+    # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (A25:D25)
+    additional_concepts = ['Precio Venta', 'RECURSOS PROPIOS(PIE)', 'SUBSIDIO', 'AHORRO PREVIO']
+    for i, concept in enumerate(additional_concepts):
+        worksheet.write(24,i+ 0, concept, grey_light_format)
+
+    # Combinar celdas E25:F25 para agregar el concepto de Monto Credito
+    # worksheet.merge_range('E25:F25', 'Monto Credito',grey_light_format, workbook.add_format({'align': 'center'}))
+    # Crear un formato con el color de fondo gris claro
+    grey_light_format = workbook.add_format({'bg_color': '#D3D3D3'})  # Código hexadecimal para gris claro
+
+    # Combinar celdas E25:F25 para agregar el concepto de Monto Credito con el color de fondo gris claro
+    worksheet.merge_range('E25:F25', 'Monto Crédito', grey_light_format)
+    # Combinar celdas E26:F26 para agregar El monto del Credito
+    worksheet.merge_range('E26:F26', 'Hola', workbook.add_format({'align': 'center'}))
+
+    # Agregar el concepto de Observación en la celda A27
+    worksheet.write(26, 0, "Observaciones", grey_light_format)
+
+    # Combinar celdas B27:F27 para agregar la observación
+    worksheet.merge_range('B27:F27', 'Proyecto Afecto a IVA, incluido en el precio.', workbook.add_format({'align': 'left'}))
+
+    # Cerrar el libro de trabajo
+    workbook.close()
+
+    # Volver al principio del objeto BytesIO
+    output.seek(0)
+
+    # Crear una respuesta HTTP con el contenido del archivo Excel
+    response = HttpResponse(output.getvalue(),
+                            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
+    # Establecer el encabezado para que el navegador descargue el archivo en lugar de mostrarlo
+    response['Content-Disposition'] = 'attachment; filename=Carta_Oferta.xlsx'
+
+
+
+    return response
 
 def fpm_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     pass
