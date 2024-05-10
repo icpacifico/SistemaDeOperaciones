@@ -1,6 +1,7 @@
 from django.db import models
 from SistemaDeOperaciones.choices import *
 from django.core.exceptions import ValidationError
+from dal import autocomplete
 
 def validar_positivo(value):
     if value < 0:
@@ -11,6 +12,8 @@ class Condominio(models.Model):
     estado_condominio = models.CharField(verbose_name="Estado",max_length=30, choices=IS_DISPONIBLE_CHOICES, default=disponible)
     nombre_condominio = models.CharField(verbose_name="Nombre", max_length=100)
     fecha_venta_condominio = models.DateField(verbose_name="Fecha Venta Condominio", null=True, blank=True)
+    direccion_proyecto = models.CharField(verbose_name="Dirección", max_length=100)
+    vivienda_social = models.CharField(verbose_name="Estado",max_length=30, choices=SI_NO_CHOICES, default=disponible)
 
     def __str__(self):
         return str(self.id_condominio) + " - " + self.nombre_condominio
@@ -106,3 +109,15 @@ class Estacionamiento(models.Model):
 
     class Meta:
         db_table = "estacionamiento"
+
+
+class CondominioAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Condominio.objects.all()
+
+        if self.q:
+            qs = qs.filter(nombre_condominio__istartswith=self.q)
+
+        return qs
+    
+

@@ -1,5 +1,7 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
+from .models import Condominio
+from dal import autocomplete
 from .views import (
     CrearCondominio, ListadoCondominio, ActualizarCondominio,
     CrearEtapa, ListadoEtapa, ActualizarEtapa,
@@ -8,10 +10,9 @@ from .views import (
     CrearBodega, ListadoBodega, ActualizarBodega,
     CrearEstacionamiento, ListadoEstacionamiento, ActualizarEstacionamiento,
     CrearVivienda, ListadoVivienda, ActualizarVivienda,
-    descargar_parametros, descargar_formato, importar_viviendas, get_etapas, get_torres, get_modelos, get_viviendas
+    descargar_parametros, descargar_formato, importar_viviendas, get_etapas, get_torres, get_modelos, get_viviendas, CondominioAutocomplete
 )
-
-
+ 
 urlpatterns = [
     # Condominio
     path('crear_condominio/', login_required(CrearCondominio.as_view()), name='crear_condominio'),
@@ -64,5 +65,7 @@ urlpatterns = [
     path('get_torres/', login_required(get_torres), name='get_torres'),
     path('get_modelos/', login_required(get_modelos), name='get_modelos'),
     path('get_viviendas/', login_required(get_viviendas), name='get_viviendas'),
-    
+
+    # path('condominio-autocomplete/', login_required(CondominioAutocomplete.as_view()), name='condominio-autocomplete'),
+    path('condominio-autocomplete/', login_required(autocomplete.Select2QuerySetView.as_view(model=Condominio)), name='condominio-autocomplete'),
 ]

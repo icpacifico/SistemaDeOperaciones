@@ -26,7 +26,6 @@
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
                                     {{form.id_condominio}}
-                                    <label for="basic-default-fullname">Condominio</label>
                                     <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_condominio' %}">+</a>                    
                                 </div>
                             </div>
@@ -48,4 +47,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+</script>
+
+
 {% endblock contenido %}

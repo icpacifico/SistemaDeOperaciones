@@ -15,7 +15,7 @@ from .forms import (
     BodegaForm, EstacionamientoForm, ViviendaForm, ImportViviendasForm
 )
 from SistemaDeOperaciones.choices import *
-
+from dal import autocomplete
 
 # Create your views here.
 
@@ -135,6 +135,7 @@ def get_viviendas(request):
     viviendas = Vivienda.objects.filter(id_torre=torre_id)
     data = [{'id_vivienda': vivienda.id_vivienda, 'nombre_vivienda': vivienda.nombre_vivienda} for vivienda in viviendas]
     return JsonResponse(data, safe=False)
+
 
 class CrearCondominio(CreateView):
     model = Condominio
@@ -297,3 +298,10 @@ class ActualizarVivienda(UpdateView):
     template_name = "proyectos/gui_vivienda/crear_vivienda.html"
     form_class = ViviendaForm
     success_url = reverse_lazy("proyectos:listar_vivienda")
+
+class CondominioAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Condominio.objects.all()
+        if self.q:
+            qs = qs.filter(nombre_condominio__istartswith=self.q)
+        return qs

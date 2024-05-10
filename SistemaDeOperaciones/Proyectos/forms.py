@@ -1,7 +1,7 @@
 from django import forms
 from .models import Condominio, Etapa, Torre, Modelo, Bodega, Estacionamiento, Vivienda
 from django.forms.widgets import ClearableFileInput, TextInput
-
+from dal import autocomplete
 
 class ImportViviendasForm(forms.Form):
     archivo_excel = forms.FileField( widget=ClearableFileInput(attrs={'class': 'form-control','type':'file' ,'id':'formFile' }),)
@@ -29,7 +29,8 @@ class EtapaForm(forms.ModelForm):
             'nombre_etapa': 'Nombre',
         }
         widgets = {
-            'id_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Condominio'}),
+            'id_condominio': autocomplete.ModelSelect2(url='proyectos:condominio-autocomplete', attrs={'class': 'form-control', 'placeholder': 'Condominio'}),
+            # 'id_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Condominio'}),
             'nombre_etapa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre etapa'}),
         }
 
@@ -106,7 +107,6 @@ class EstacionamientoForm(forms.ModelForm):
         }
 
 class ViviendaForm(forms.ModelForm):
-
     class Meta:
         model = Vivienda
         fields = ['id_torre', 'id_modelo', 'tipo_vivienda', 'ori_vivienda', 'estado_vivienda', 'piso',
