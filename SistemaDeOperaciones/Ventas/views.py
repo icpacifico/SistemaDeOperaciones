@@ -435,8 +435,16 @@ class Despacho_promesa_ventaPdf(View):
 def carta_oferta_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
     # datos = Pago.objects.filter(id_venta=id_venta)
     datos_venta = Venta.objects.filter(id_venta=id_venta)
+    id_cotización = Venta.objects.values_list('id_cotizacion').filter(id_venta=id_venta)
+    id_cotizacion = id_cotización[0][0]
+    id_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion=id_cotizacion)
+    id_vivienda = id_vivienda[0][0]
+    datos_bodega = Bodega.objects.filter(id_vivienda=id_vivienda)
+    datos_estacionamiento = Estacionamiento.objects.filter(id_vivienda=id_vivienda)
+
+
     return render(request, 'documentos/carta_oferta.html',
-                  {'id_venta': id_venta, 'datos_venta': datos_venta})
+                  {'id_venta': id_venta, 'datos_venta': datos_venta, 'datos_bodega': datos_bodega, 'datos_estacionamiento': datos_estacionamiento, })
 
 class Carta_oferta_ventaPdf(View):
     # datos = Pago.objects.filter(id_venta=id_venta)
@@ -524,6 +532,10 @@ def generate_excel(request, id_venta):
     id_condominio = datos_modelo[0][0]
     datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
     nombre_condominio = datos_condominio[0][0]
+    direccion_proyecto = Condominio.objects.values_list('direccion_proyecto').filter(id_condominio=id_condominio)
+    direccion_proyecto = direccion_proyecto[0][0]
+    vivienda_social = Condominio.objects.values_list('vivienda_social').filter(id_condominio=id_condominio)
+    vivienda_social = vivienda_social[0][0]
 
     # Buscar los datos de la sección "Datos Inmueble"
     nombre_vivienda = Vivienda.objects.values_list('nombre_vivienda').filter(id_vivienda=id_vivienda)
@@ -545,10 +557,6 @@ def generate_excel(request, id_venta):
     """rol_bodega = Bodega.objects.values_list('rol_bodega').filter(id_vivienda=id_vivienda)
     rol_bodega = rol_bodega[0][0]"""
     rol_estacionamiento ="1234-4321"
-
-
-
-
 
     # Crear un objeto BytesIO para almacenar el archivo Excel en memoria
     output = BytesIO()
@@ -610,7 +618,7 @@ def generate_excel(request, id_venta):
     # Escribir datos en el rango de celdas para los nuevos conceptos (A13:A18)
     new_concepts = ['Proyecto', 'Etapa', 'Torre', 'Modelo', 'Dirección Inmueble',
                     'Vivienda Social']
-    datos_proyecto = [nombre_condominio,nombre_etapa,nombre_torre,nombre_modelo, "Rue Emilio Apey #405", "No" ]
+    datos_proyecto = [nombre_condominio,nombre_etapa,nombre_torre,nombre_modelo, direccion_proyecto, vivienda_social ]
     for i, concept in enumerate(new_concepts):
         worksheet.write(i + 12, 0, concept, grey_light_format)
 

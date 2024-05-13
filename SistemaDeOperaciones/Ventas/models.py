@@ -120,6 +120,8 @@ class Venta(models.Model):
     cotizacion_ven = models.IntegerField(verbose_name="Cotizacion Venta", null=True, blank=True)
     monto_credito_ven = models.FloatField(verbose_name="Monto Credito Venta", null=True, blank=True)
     monto_credito_real_ven = models.FloatField(verbose_name="Monto Credito Real Venta", null=True, blank=True)
+    ahorro_previo = models.FloatField(verbose_name="Ahorro Previo", null=True, blank=True)
+    monto_subsidio = models.FloatField(verbose_name="Monto Subsidio", null=True, blank=True)
     pie_real_ven = models.FloatField(verbose_name="Pie Real Venta", null=True, blank=True)
     valor_factor_ven = models.FloatField(verbose_name="Valor Factor Venta", null=True, blank=True)
     # id_supervisor_ven = models.IntegerField(null=True, blank=True)

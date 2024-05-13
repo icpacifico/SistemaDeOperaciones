@@ -13,7 +13,7 @@ class Condominio(models.Model):
     nombre_condominio = models.CharField(verbose_name="Nombre", max_length=100)
     fecha_venta_condominio = models.DateField(verbose_name="Fecha Venta Condominio", null=True, blank=True)
     direccion_proyecto = models.CharField(verbose_name="Dirección", max_length=100)
-    vivienda_social = models.CharField(verbose_name="Estado",max_length=30, choices=SI_NO_CHOICES, default=disponible)
+    vivienda_social = models.CharField(verbose_name="Estado",max_length=30, choices=SI_NO_CHOICES, default=no)
 
     def __str__(self):
         return str(self.id_condominio) + " - " + self.nombre_condominio

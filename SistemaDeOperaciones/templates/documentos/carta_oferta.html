@@ -25,14 +25,15 @@
                             <div>
                                 <hr class="my-0">
                                 <h3>Datos Carta Oferta</h3>
+                                {% for venta in datos_venta %}
                                 <table class="table">
                                     <tr>
                                         <th class="table-light">Nombre del Titular</th>
-                                        <td>Luis Alberto Pizarro Alvarez</td>
+                                        <td>{{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Rut</th>
-                                        <td>19,257,284-3</td>
+                                        <td>{{ venta.id_cotizacion.id_cliente }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Razón Social Inmobiliaria</th>
@@ -44,7 +45,7 @@
                                     </tr>
                                     <tr>
                                         <th class="table-light">Quien Cancela Gastos Operacionales</th>
-                                        <td>Luis Alberto Pizarro Alvarez</td>
+                                        <td>{{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">En Que Notaria Firma Escritura</th>
@@ -55,6 +56,7 @@
                                         <td>Banco Security</td>
                                     </tr>
                                 </table>
+                                {% endfor%}
                             </div>
 
                             <!-- Tabla 2 -->
@@ -62,64 +64,72 @@
                                 <hr class="my-0">
                                 <h3>Datos Del Proyecto</h3>
 
+                                {% for venta in datos_venta %}
                                 <table class="table">
                                     <tr>
                                         <th class="table-light">Proyecto</th>
-                                        <td>Condominio Distrito Verde</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.nombre_condominio }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Etapa</th>
-                                        <td>ETAPA III B</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_torre.id_etapa_condominio.nombre_etapa}}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Torre</th>
-                                        <td>Torre 1</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_torre.nombre_torre}}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Modelo</th>
-                                        <td>Modelo C</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_modelo.nombre_modelo}}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Dirección Inmueble</th>
-                                        <td>Rue Emilio Apey 405</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.direccion_proyecto }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Vivienda Social</th>
-                                        <td>No</td>
+                                        <td>{{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.vivienda_social }}</td>
                                     </tr>
                                 </table>
+                                {% endfor%}
                             </div>
 
                             <!-- Tabla 3 -->
                             <div>
                                 <hr class="my-0">
                                 <h3>Datos Inmueble</h3>
+                                {% for venta in datos_venta %}
                                 <table class="table">
                                     <tr>
                                         <th class="table-light">Nro. Depto y/o Casa</th>
-                                        <td>303</td>
+                                        <td>{{venta.id_cotizacion.id_vivienda.nombre_vivienda}}</td>
                                         <th class="table-light">UF Depto. o Casa</th>
-                                        <td>2921 UF</td>
+                                        <td>{{venta.monto_vivienda_ven}} UF</td>
                                         <th class="table-light">ROL</th>
-                                        <td>123456-8</td>
+                                        <td>{{venta.id_cotizacion.id_vivienda.rol_vivienda}}</td>
                                     </tr>
                                     <tr>
+                                        {% for est in datos_estacionamiento %}
                                         <th class="table-light">Nro. Est</th>
-                                        <td>19</td>
+                                        <td>{{est.nombre_estacionamiento}}</td>
                                         <th class="table-light">UF Est.</th>
-                                        <td>100 UF</td>
+                                        <td>{{est.valor_estacionamiento}} UF</td>
                                         <th class="table-light">ROL</th>
-                                        <td>123138-9</td>
+                                        <td>{{est.valor_estacionamiento}}</td>
+                                        {% endfor%}
                                     </tr>
                                     <tr>
+                                        {% for bod in datos_bodega %}
                                         <th class="table-light">Nro. Bodega</th>
-                                        <td>1</td>
+                                        <td>{{bod.nombre_bodega}}</td>
                                         <th class="table-light">UF Bodega</th>
-                                        <td>100 UF</td>
+                                        <td>{{bod.valor_bodega}} UF</td>
                                         <th class="table-light">ROL</th>
-                                        <td>134658-7</td>
+                                        <td>{{bod.rol_bodega}}</td>
+                                        {% endfor%}
                                     </tr>
                                 </table>
+                                {% endfor%}
                             </div>
 
                             <!-- Tabla 4 -->
@@ -128,11 +138,11 @@
                                 <h3>Precio de Venta y Financiamiento</h3>
                                 <table class="table">
                                     <tr>
-                                        <th class="table-light">Precio de Venta</th>
+                                        <th class="table-light">Precio de Venta</th>monto_vivienda_ven
                                         <td>3271 UF</td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light">Recursos Propios (Pie)</th>
+                                        <th class="table-light">Recursos Propios (Pie)</th>pie_real_ven
                                         <td>255 UF</td>
                                     </tr>
                                     <tr>
@@ -144,7 +154,7 @@
                                         <td>0 UF</td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light">Monto Crédito</th>
+                                        <th class="table-light">Monto Crédito</th>monto_credito_real_ven
                                         <td>3016 UF</td>
                                     </tr>
                                     <tr>
@@ -185,9 +195,9 @@
         <div class="col-xl-3 col-md-4 col-12 invoice-actions">
             <div class="card">
                 <div class="card-body">
-                    <a class="btn btn-secondary d-grid w-100 mb-3 waves-effect" target="_blank"
+                    <a class="btn btn-success d-grid w-100 mb-3 waves-effect" target="_blank"
                        href="{% url 'ventas:co_ven_excel' id_venta=id_venta %}">
-                        Imprimir
+                        Descargar Excel
                     </a>
                     <button class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light">
                         Descrga PDF
