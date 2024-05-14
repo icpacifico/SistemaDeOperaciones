@@ -3,6 +3,20 @@
 {% load static %}
 
 {% block contenido %}
+<style>
+        .contenido {
+            text-align: justify;
+            margin: 0 auto;
+            max-width: 1200px; /* ajusta el ancho según tus necesidades */
+            padding: 20px;
+        }
+        .contenido p {
+            margin-bottom: 10px;
+        }
+
+
+</style>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row invoice-preview">
         <!-- Invoice -->
@@ -12,7 +26,9 @@
                     <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
                         <div class="mb-xl-0 pb-3">
                             <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
-                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> Condominio Distrito Verde ETAPA XX</span>
+                                {% for venta in datos_venta %}
+                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.nombre_condominio }} {{ venta.id_cotizacion.id_vivienda.id_torre.id_etapa_condominio.nombre_etapa}}</span>
+                                {% endfor%}
                             </div>
                         </div>
                     </div>
@@ -20,200 +36,56 @@
                 <hr class="my-0">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-wrap">
-                        <div>
+                        <div class="contenido">
                             <!-- Encabezado carta -->
-                            <p>Lugar y fecha de la carta</p>
-                            <p>Estimado(a):</p>
+                            <p style="text-align: center">Lugar y fecha de la carta</p>
                             {% for venta in datos_venta %}
-                            <p>{{ venta.id_cotizacion.id_cliente.nombre_cliente }}
-                                {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</p>
+                            <p>Estimado(a):{{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</p>
                             {% endfor%}
-                            <table class="tabla1">
-                                <tr>
-                                    <th>A</th>
-                                    <th>B</th>
-                                    <th>C</th>
-                                    <th>D</th>
-                                    <th>E</th>
-                                    <th>F</th>
-                                </tr>
-                                <tbody>
-                                <tr>
-                                    <td>Nombre Titular del Crédito</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>RUT</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>PROYECTO</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>ETAPA</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>DIRECCIÓN DE INMUEBLE</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>RAZÓN SOCIAL INMOBILIARIA</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>RUT</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>BANCO ALZANTE</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>De no haber Banco Acreedor informar donde se debe efectuar el pago de este
-                                        credito
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Banco a depositar</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Vivienda Social</td>
-                                    <td>Si</td>
-                                    <td></td>
-                                    <td>No</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. DEPARTAMENTO Y/O CASA</td>
-                                    <td></td>
-                                    <td>UF Depto. o Casa</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>ROL</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. ESTACIONAMIENTO</td>
-                                    <td></td>
-                                    <td>UF Etac.</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>ROL</td>
-                                    <td></td>
-                                    <td>USO Y GOCE</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>NRO. BODEGA</td>
-                                    <td></td>
-                                    <td>UF Bodega</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>ROL</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>PRECIO DE VENTA</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>RECURSOS PROPIOS(PIE)</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>SUBSIDIO</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>AHORRO PREVIO</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>MONTO CREDITO</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>QUIEN CANCELA GASTOS OPERACIONALES</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>EN QUE NOTARIA FIRMA ESCRITURA</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>OBSERVACIONES</td>
-                                    <td>Proyecto Afecto a IVA, incluido en el precio.</td>
-                                </tr>
-                                </tbody>
-                            </table>
+                            <!-- Fin Encabezado carta -->
+                            <p>Junto con saludar y según lo informado en el Cierre de Negocios firmado por usted
+                                al momento de promesar su departamento, Ud. debe cancelar por concepto de “Fondo
+                                de puesta en Marcha” un valor de $ 176.464 Dicho monto se debe pagar antes de la
+                                entrega y está definido según la ley N° 19.537 de Copropiedad Inmobiliaria
+                                referida en Reglamento de Copropiedad.</p>
+
+                            <p>Reglamento de Copropiedad indica:</p>
+                            <p>ARTÍCULO VIGÉSIMO PRIMERO: Sin perjuicio de los pagos a que se refieren los
+                                artículos anteriores, los propietarios erogarán a prorrata de sus cuotas, los
+                                dineros necesarios para la formación de los siguientes fondos:</p>
+
+                            <p>A) "Fondo Común de Reserva", que se integrará según se establece en el artículo
+                                tercero transitorio del presente reglamento y servirá para atender las
+                                reparaciones de los bienes de dominio común o a gastos comunes urgentes o
+                                imprevistos, el que se formará e incrementará con el porcentaje de recargo sobre
+                                los gastos comunes que en sesión extraordinaria fije la asamblea de
+                                copropietarios, con el producto de las multas e intereses que deben pagar los
+                                copropietarios. Los recursos de este fondo se mantendrán en depósito en una
+                                cuenta corriente bancaria o en una cuenta de ahorro, o se invertirán en
+                                instrumentos financieros que operen en el mercado de capitales, previo acuerdo
+                                del Comité de Administración.</p>
+                            <p>B) “Fondo de Puesta en Marcha”, que se integrará según se establece en el
+                                artículo tercero transitorio del presente reglamento y servirá para atender los
+                                gastos iniciales de habilitación y puesta en marcha de la Comunidad, tales como
+                                alhajamiento del hall de acceso, compra de activos básicos y capital de trabajo.
+                                Este aporte, corresponderá y deberá ser pagado por el primer adquirente de la
+                                Unidad respectiva.</p>
+                            <p>ARTÍCULO TERCERO TRANSITORIO: Mientras la asamblea de copropietarios de la
+                                Comunidad, en sesión extraordinaria, no determine el porcentaje de recargo sobre
+                                los gastos comunes para el fondo de reserva establecido en el artículo vigésimo
+                                tercero del presente Reglamento, dicho porcentaje se fija en el equivalente al
+                                10 % por ciento del total de los gastos comunes que mensualmente
+                                corresponda.</p>
+
+                            <p>Respecto del Fondo de Puesta en Marcha, este se constituirá mediante el aporte
+                                por parte del adquirente de la unidad equivalente a 2 gastos comunes mensuales
+                                del edificio.</p>
+                            <p>Agradeceré tener contemplado este pago en el momento indicado.</p>
+                            <br></br>
+
+                            <p>Atenta a sus consultas,</p>
+                            <p>Marta Olivares Castro.</p>
+                            <p>Subgerente de Ventas y OO.PP.</p>
                         </div>
                         <hr class="my-0">
                     </div>
@@ -248,123 +120,16 @@
                     <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light"
                             data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
                         <span class="d-flex align-items-center justify-content-center text-nowrap"><i
-                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>Send Invoice</span>
+                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>ENVIAR DOCUMENTO</span>
                     </button>
-                    <button class="btn btn-outline-secondary d-grid w-100 mb-3 waves-effect">
-                        Download
-                    </button>
-                    <a class="btn btn-outline-secondary d-grid w-100 mb-3 waves-effect" target="_blank"
-                       href="{% url 'ventas:co_ven_print' id_venta=id_venta %}">
-                        Print
+                    <a class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light" target="_blank"
+                       href="{% url 'ventas:fpm_venta_print' id_venta=id_venta %}">
+                        DESCARGAR PDF
                     </a>
                 </div>
             </div>
         </div>
         <!-- /Invoice Actions -->
     </div>
-
-    <!-- Offcanvas -->
-    <!-- Send Invoice Sidebar -->
-    <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
-        <div class="offcanvas-header mb-3">
-            <h5 class="offcanvas-title">Send Invoice</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body flex-grow-1">
-            <form>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com"
-                           placeholder="company@email.com">
-                    <label for="invoice-from">From</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com"
-                           placeholder="company@email.com">
-                    <label for="invoice-to">To</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-subject"
-                           value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods">
-                    <label for="invoice-subject">Subject</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-        <textarea class="form-control" name="invoice-message" id="invoice-message" style="height: 190px;">Dear Queen Consolidated,
-          Thank you for your business, always a pleasure to work with you!
-          We have generated a new invoice in the amount of $95.59
-          We would appreciate payment of this invoice by 05/11/2021</textarea>
-                    <label for="invoice-message">Message</label>
-                </div>
-                <div class="mb-4">
-        <span class="badge bg-label-primary rounded-pill">
-          <i class="mdi mdi-link-variant mdi-14px me-1"></i>
-          <span class="align-middle">Invoice Attached</span>
-        </span>
-                </div>
-                <div class="mb-3 d-flex flex-wrap">
-                    <button type="button" class="btn btn-primary me-3 waves-effect waves-light"
-                            data-bs-dismiss="offcanvas">Send
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- /Send Invoice Sidebar -->
-
-    <!-- Add Payment Sidebar -->
-    <div class="offcanvas offcanvas-end" id="addPaymentOffcanvas" aria-hidden="true">
-        <div class="offcanvas-header mb-3">
-            <h5 class="offcanvas-title">Add Payment</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body flex-grow-1">
-            <div class="d-flex justify-content-between bg-lighter p-2 mb-3">
-                <p class="mb-0">Invoice Balance:</p>
-                <p class="fw-medium mb-0">$5000.00</p>
-            </div>
-            <form>
-                <div class="input-group input-group-merge mb-4">
-                    <span class="input-group-text">$</span>
-                    <div class="form-floating form-floating-outline">
-                        <input type="text" id="invoiceAmount" name="invoiceAmount" class="form-control invoice-amount"
-                               placeholder="100">
-                        <label for="invoiceAmount">Payment Amount</label>
-                    </div>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input id="payment-date" class="form-control invoice-date flatpickr-input" type="text"
-                           readonly="readonly">
-                    <label for="payment-date">Payment Date</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <select class="form-select" id="payment-method">
-                        <option value="" selected="" disabled="">Select payment method</option>
-                        <option value="Cash">Cash</option>
-                        <option value="Bank Transfer">Bank Transfer</option>
-                        <option value="Debit Card">Debit Card</option>
-                        <option value="Credit Card">Credit Card</option>
-                        <option value="Paypal">Paypal</option>
-                    </select>
-                    <label for="payment-method">Payment Method</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <textarea class="form-control" id="payment-note" style="height: 62px;"></textarea>
-                    <label for="payment-note">Internal Payment Note</label>
-                </div>
-                <div class="mb-3 d-flex flex-wrap">
-                    <button type="button" class="btn btn-primary me-3 waves-effect waves-light"
-                            data-bs-dismiss="offcanvas">Send
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- /Add Payment Sidebar -->
-    <!-- /Offcanvas -->
 </div>
 {% endblock contenido %}

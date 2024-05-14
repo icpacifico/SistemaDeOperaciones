@@ -12,7 +12,9 @@
                     <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
                         <div class="mb-xl-0 pb-3">
                             <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
-                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> Condominio Distrito Verde ETAPA XX</span>
+                                {% for venta in datos_venta %}
+                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.nombre_condominio }} {{ venta.id_cotizacion.id_vivienda.id_torre.id_etapa_condominio.nombre_etapa}}</span>
+                                {% endfor%}
                             </div>
                         </div>
                     </div>
@@ -115,7 +117,7 @@
                                         <th class="table-light">UF Est.</th>
                                         <td>{{est.valor_estacionamiento}} UF</td>
                                         <th class="table-light">ROL</th>
-                                        <td>{{est.valor_estacionamiento}}</td>
+                                        <td>Sin Rol</td>
                                         {% endfor%}
                                     </tr>
                                     <tr>
@@ -136,14 +138,15 @@
                             <div>
                                 <hr class="my-0">
                                 <h3>Precio de Venta y Financiamiento</h3>
+                                {% for venta in datos_venta %}
                                 <table class="table">
                                     <tr>
-                                        <th class="table-light">Precio de Venta</th>monto_vivienda_ven
-                                        <td>3271 UF</td>
+                                        <th class="table-light">Precio de Venta</th>
+                                        <td>{{venta.monto_vivienda_ven}} UF</td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light">Recursos Propios (Pie)</th>pie_real_ven
-                                        <td>255 UF</td>
+                                        <th class="table-light">Recursos Propios (Pie)</th>
+                                        <td>{{venta.pie_real_ven}} UF</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Subsidio</th>
@@ -154,14 +157,15 @@
                                         <td>0 UF</td>
                                     </tr>
                                     <tr>
-                                        <th class="table-light">Monto Crédito</th>monto_credito_real_ven
-                                        <td>3016 UF</td>
+                                        <th class="table-light">Monto Crédito</th>
+                                        <td>{{venta.monto_credito_real_ven}} UF</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Observaciones</th>
                                         <td>Proyecto Afecto a IVA, incluido en el precio.</td>
                                     </tr>
                                 </table>
+                                {% endfor%}
                                 <hr class="my-0">
                             </div>
                         </div>
@@ -195,16 +199,18 @@
         <div class="col-xl-3 col-md-4 col-12 invoice-actions">
             <div class="card">
                 <div class="card-body">
+                    <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light"
+                            data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
+                        <span class="d-flex align-items-center justify-content-center text-nowrap"><i
+                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>ENVIAR DOCUMENTO</span>
+                    </button>
                     <a class="btn btn-success d-grid w-100 mb-3 waves-effect" target="_blank"
                        href="{% url 'ventas:co_ven_excel' id_venta=id_venta %}">
-                        Descargar Excel
+                        DESCARGAR EXCEL
                     </a>
-                    <button class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light">
-                        Descrga PDF
-                    </button>
-                    <a class="btn btn-secondary d-grid w-100 mb-3 waves-effect" target="_blank"
+                    <a class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light" target="_blank"
                        href="{% url 'ventas:co_ven_print' id_venta=id_venta %}">
-                        Imprimir
+                        DESCARGAR PDF
                     </a>
                 </div>
             </div>

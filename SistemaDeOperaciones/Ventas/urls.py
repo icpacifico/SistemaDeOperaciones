@@ -10,7 +10,7 @@ from .views import (
     detalle_venta, registrar_pago_venta,
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
-    Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta)
+    Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf)
 
 app_name = 'ventas'
 
@@ -48,6 +48,7 @@ urlpatterns = [
     path('co_ven_print/<int:id_venta>/', login_required(Carta_oferta_ventaPdf.as_view()), name='co_ven_print'),
     path('co_ven_excel/<int:id_venta>/', login_required(generate_excel), name='co_ven_excel'),
     path('fpm_venta/<int:id_venta>/', login_required(fpm_venta), name='fpm_venta'),
+    path('fpm_venta_print/<int:id_venta>/', login_required(Fpm_VentaPdf.as_view()), name='fpm_venta_print'),
 
     # Tipos de Desistimiento
     path('crear_tipodesistimiento/', login_required(CrearTipoDesistimiento.as_view()), name='crear_tipodesistimiento'),

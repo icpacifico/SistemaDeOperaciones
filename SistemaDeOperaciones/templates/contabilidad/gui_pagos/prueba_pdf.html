@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informe de Pagos</title>
+    {% for venta in datos_venta %}
+    <title>Informe de Pagos - {{ venta.id_cotizacion.id_cliente}} - {{ venta.id_cotizacion.id_cliente.nombre_cliente }}
+        {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</title>
+    {% endfor%}
     <style>
         .tabla1 {
             width: 50%;

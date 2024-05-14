@@ -542,6 +542,14 @@ def generate_excel(request, id_venta):
     nombre_vivienda = nombre_vivienda[0][0]
     valor_vivienda = Vivienda.objects.values_list('valor_vivienda').filter(id_vivienda=id_vivienda)
     valor_vivienda = str(valor_vivienda[0][0])+" UF"
+    pie_real_ven = Venta.objects.values_list('pie_real_ven').filter(id_venta=id_venta)
+    pie_real_ven = str(pie_real_ven[0][0]) + " UF"
+    ahorro_previo = Venta.objects.values_list('ahorro_previo').filter(id_venta=id_venta)
+    ahorro_previo = str(ahorro_previo[0][0]) + " UF"
+    monto_subsidio = Venta.objects.values_list('monto_subsidio').filter(id_venta=id_venta)
+    monto_subsidio = str(monto_subsidio[0][0]) + " UF"
+    monto_credito_real_ven = Venta.objects.values_list('monto_credito_real_ven').filter(id_venta=id_venta)
+    monto_credito_real_ven = str(monto_credito_real_ven[0][0]) + " UF"
     rol_vivienda = Vivienda.objects.values_list('rol_vivienda').filter(id_vivienda=id_vivienda)
     rol_vivienda = rol_vivienda[0][0]
     nombre_bodega = Bodega.objects.values_list('nombre_bodega').filter(id_vivienda=id_vivienda)
@@ -610,7 +618,7 @@ def generate_excel(request, id_venta):
                               workbook.add_format({'align': 'left'}))
 
     # Combinar celdas A11:F11 para agregar una separación
-    worksheet.merge_range('A11:F11', '', workbook.add_format({'align': 'center'}))
+    worksheet.merge_range('A11:F11', ' ', workbook.add_format({'align': 'center'}))
 
     # Combinar celdas A12:F12 para agregar un segundo título
     worksheet.merge_range('A12:F12', 'Datos Del Proyecto', green_light_format)
@@ -628,7 +636,7 @@ def generate_excel(request, id_venta):
                               f'{datos_proyecto[row - 12]}', workbook.add_format({'align': 'left'}))
 
     # Combinar celdas A19:F19 para agregar una separación
-    worksheet.merge_range('A19:F19', '', workbook.add_format({'align': 'center'}))
+    worksheet.merge_range('A19:F19', 'Nota: Bodega con USO y GOCE ', workbook.add_format({'align': 'center'}))
 
     # Combinar celdas A20:F20 para agregar un nuevo título con el formato modificado
     worksheet.merge_range('A20:F20', 'Datos Inmueble', green_light_format)
@@ -664,10 +672,11 @@ def generate_excel(request, id_venta):
         worksheet.write(i + 20, 5, concept)
 
     # Combinar celdas A24:F24 para agregar una separación
-    worksheet.merge_range('A24:F24', '', workbook.add_format({'align': 'center'}))
+    worksheet.merge_range('A24:F24', ' ', workbook.add_format({'align': 'center'}))
 
     # Escribir datos en el rango de celdas para los nuevos conceptos adicionales (A25:D25)
     additional_concepts = ['Precio Venta', 'RECURSOS PROPIOS(PIE)', 'SUBSIDIO', 'AHORRO PREVIO']
+    valores_venta = [valor_vivienda, pie_real_ven, monto_subsidio, ahorro_previo]
     for i, concept in enumerate(additional_concepts):
         worksheet.write(24,i+ 0, concept, grey_light_format)
 
@@ -679,7 +688,7 @@ def generate_excel(request, id_venta):
     # Combinar celdas E25:F25 para agregar el concepto de Monto Credito con el color de fondo gris claro
     worksheet.merge_range('E25:F25', 'Monto Crédito', grey_light_format)
     # Combinar celdas E26:F26 para agregar El monto del Credito
-    worksheet.merge_range('E26:F26', 'Hola', workbook.add_format({'align': 'center'}))
+    worksheet.merge_range('E26:F26',monto_credito_real_ven, workbook.add_format({'align': 'center'}))
 
     # Agregar el concepto de Observación en la celda A27
     worksheet.write(26, 0, "Observaciones", grey_light_format)
@@ -705,12 +714,84 @@ def generate_excel(request, id_venta):
     return response
 
 def fpm_venta(request, id_venta):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
-    pass
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    datos_venta = Venta.objects.filter(id_venta=id_venta)
+    return render(request, 'documentos/fpm.html',
+                  {'id_venta': id_venta, 'datos_venta': datos_venta})
+
+
+class Fpm_VentaPdf(View):
+    # datos = Pago.objects.filter(id_venta=id_venta)
+    # datos_venta = Venta.objects.filter(id_venta=id_venta)
+
+    def link_callback(self, uri, rel):
+        """
+        Convert HTML URIs to absolute system paths so xhtml2pdf can access those
+        resources
+        """
+        sUrl = settings.STATIC_URL  # Typically /static/
+        sRoot = settings.STATIC_URL  # Typically /home/userX/project_static/
+        mUrl = settings.MEDIA_URL  # Typically /media/
+        mRoot = settings.MEDIA_ROOT  # Typically /home/userX/project_static/media/
+
+        if uri.startswith(mUrl):
+            path = os.path.join(mRoot, uri.replace(mUrl, ""))
+        elif uri.startswith(sUrl):
+            path = os.path.join(sRoot, uri.replace(sUrl, ""))
+        else:
+            return uri
+
+        # make sure that file exists
+        if not os.path.isfile(path):
+            raise RuntimeError(
+                'media URI must start with %s or %s' % (sUrl, mUrl)
+            )
+        return path
+
+    def get(self, request, *args, **kwargs):
+        try:
+            datos = Pago.objects.filter(id_venta=self.kwargs['id_venta'])
+            datos_venta = Venta.objects.filter(id_venta=self.kwargs['id_venta'])
+
+            template = get_template('documentos/fpm_print.html')
+            context = {'datos': datos,'id_venta': self.kwargs['id_venta'], 'datos_venta': datos_venta,
+                       'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+            html = template.render(context)
+            response = HttpResponse(content_type='application/pdf')
+            # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+            # create a pdf
+            pisa_status = pisa.CreatePDF(
+                html, dest=response,
+                link_callback=self.link_callback)
+            return response
+        except:
+            pass
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
 def desistir_venta(request, id_venta):  # ESTA VISTA ES PARA CAMBIAR EL ESTADO DE LA VENTA A DESISTIMIENTO
-    pass
 
+    # Cambiar el estado de la venta a desistimeinto
+    venta = get_object_or_404(Venta, id_venta=id_venta)
+    venta.estado_ven = 'Desestimiento'
+    venta.save()
+    # Obetener la vivienda de la venta
+    id_vivienda = Venta.objects.values_list('id_vivienda').filter(id_venta=id_venta)
+    id_vivienda = id_vivienda[0][0]
+    # Cambiar el estado de la vivienda a disponible
+    vivienda = get_object_or_404(Vivienda, id_vivienda=id_vivienda)
+    vivienda.estado_vivienda = 'Disponible'
+    vivienda.save()
+    # Cambiar el estado de la bodega a disponible
+    bodega = get_object_or_404(Bodega, id_vivienda=id_vivienda)
+    bodega.estado_bodega = 'bodega'
+    bodega.save()
+    # Cambiar el estado del estacionamiento disponible
+    est = get_object_or_404(Estacionamiento, id_vivienda=id_vivienda)
+    est.estado_estacionamiento = 'Disponible'
+    est.save()
+
+    pass
 
 def pasar_reserva(request, id_cotizacion):
     # datos_venta = Venta.objects.filter(id_venta=id_venta)
