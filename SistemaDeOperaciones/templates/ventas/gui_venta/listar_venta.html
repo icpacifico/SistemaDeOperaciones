@@ -127,7 +127,7 @@
                                         <a class="dropdown-item" href="{% url 'ventas:fpm_venta' id_venta=venta.id_venta %}">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> FPM
                                         </a>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{% url 'ventas:call_desist' id_venta=venta.id_venta %}">
                                             <i class="mdi mdi-pencil-outline me-1"></i> Desistir
                                         </a>
                                     </div>

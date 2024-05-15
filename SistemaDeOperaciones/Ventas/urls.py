@@ -6,11 +6,12 @@ from .views import (
     CrearVenta, ListadoVentas, ActualizarVenta,
     CrearTipoDesistimiento, ListarTiposDesistimiento, ActualizarTipoDesistimiento,
     CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,
-    ListarReservas, detalle_reserva,
+    pasar_reserva, ListarReservas, detalle_reserva,
     detalle_venta, registrar_pago_venta,
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
-    Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf)
+    Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf,
+    invocar_desistimiento)
 
 app_name = 'ventas'
 
@@ -58,12 +59,14 @@ urlpatterns = [
          name='editar_tipodesistimiento'),
 
     # Desistimientos
+    path('call_desist/<int:id_venta>/', login_required(invocar_desistimiento), name='call_desist'),
     path('crear_desistimiento/', login_required(CrearDesistimiento.as_view()), name='crear_desistimiento'),
     path('listar_desistimiento/', login_required(ListarDesistimientos.as_view()), name='listar_desistimiento'),
     path('editar_desistimiento/<int:pk>/', login_required(ActualizarDesistimiento.as_view()),
          name='editar_desistimiento'),
 
     # Reservas
+    path('pasar_reserva/<int:id_cotizacion>/', login_required(pasar_reserva), name='pasar_reserva'),
     path('listar_reserva/', login_required(ListarReservas.as_view()), name='listar_reserva'),
     path('detalle_reserva/<int:id_reserva>/', login_required(detalle_reserva), name='detalle_reserva'),
 

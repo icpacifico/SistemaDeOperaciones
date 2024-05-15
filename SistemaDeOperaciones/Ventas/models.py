@@ -162,9 +162,9 @@ class Desistimiento(models.Model):
 class Reserva(models.Model):
     id_reserva = models.AutoField(primary_key=True)
     negocio = models.CharField(max_length=10)
-    referencia = models.CharField(max_length=10)
-    fecha_creación = models.DateField(null=True, blank=True)
-    fecha_aprobación = models.DateField()
+    referencia = models.CharField(max_length=10) # Esta es la cotización
+    fecha_creacion = models.DateField(null=True, blank=True)
+    fecha_aprobacion = models.DateField()
     cliente = models.CharField(max_length=10) 
     no_recibo = models.IntegerField()
     fono = models.CharField(max_length=10)

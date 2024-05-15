@@ -21,11 +21,12 @@
                         {% if error %}
                         <h2>{{ error }}</h2>
                         {% else %}
-                        <div class="row gx-5"> 
+                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
-                                    {{form.id_venta}}
-                                    <label for="floating-input">Venta</label>
+                                    <label for="id_venta">Venta</label>
+                                    <input type="text" id="id_venta" name="id_venta" class="form-control"
+                                           value="{{ id_venta }}" readonly>
                                 </div>
                             </div>
                             <div class="col-md">
