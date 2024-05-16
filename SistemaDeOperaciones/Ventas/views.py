@@ -873,54 +873,42 @@ def pasar_reserva(request, id_cotizacion):
 
 
 def pasar_promesa(request, id_cotizacion):
-    """ACÁ FALTARÍA CREAR EL CODIGO PARA LA CREACIÓN DE LA VENTA EN PARALELO A LA RESERVA
-    TOMANDO TODOS LOS DATOS DE LA COTIZACIÓN Y CALCULANDO LOS DEMÁS ATRIBUTOS DEL MODELO DE VENTAS
-   nueva_venta = Venta(id_cotizacion=id_cotizacion,
-                        id_vivienda=datos_cotizacion.id_vivienda,
-                        id_vendedor="",
-                        id_cliente=datos_cotizacion.id_cliente,
-                        id_banco="",
-                        forma_pago="",
-                        pie_abono_ven="",
-                        tipo_pago="",
-                        estado_ven="",
-                        fecha_ven="",
-                        fecha_promesa_ven="",
-                        monto_reserva_ven="",
-                        descuento_manual_ven="",
-                        descuento_precio_ven="",
-                        descuento_adicional_ven="",
-                        descuento_ven="",
-                        pie_cancelado_ven="",
-                        pie_cobrar_ven="",
-                        monto_estacionamiento_ven="",
-                        monto_bodega_ven="",
-                        monto_vivienda_ven="",
-                        monto_vivienda_ingreso_ven="",
-                        monto_ven="",
-                        factor_categoria_ven="",
-                        porcentaje_comision_ven="",
-                        promesa_porcentaje_comision_reparto_ven="",
-                        promesa_monto_comision_ven="",
-                        escritura_porcentaje_comision_reparto_ven="",
-                        escritura_monto_comision_ven="",
-                        total_comision_ven="",
-                        bono_vivienda_ven="",
-                        porcentaje_bono_precio_ven="",
-                        promesa_bono_precio_ven="",
-                        escritura_bono_precio_ven="",
-                        total_bono_precio_ven="",
-                        numero_compra_ven="",
-                        cotizacion_ven="",
-                        monto_credito_ven="",
-                        monto_credito_real_ven="",
-                        pie_real_ven="",
-                        valor_factor_ven="",
-                        escritura_monto_comision_operacion_ven="",
-                        fecha_escritura_ven=""
-                        )
-                        nueva_venta.save()
-    return ()
-"""
+
+
+    # CALCULOS DEL MODELO DE VENTAS
+    variables_ventas = [
+        "monto_reserva_ven", # 10 UF
+        "descuento_manual_ven", # Descuento que le aplica a la venta
+        "descuento_precio_ven", # Descuento que tiene la vivienda por promoción
+        "descuento_adicional_ven", # Descuento extra de la venta
+        "descuento_ven", # Total descontado a la venta
+        "pie_cancelado_ven", # Pie total que a cancelado el cliente - Se deben sumar los pagos
+        "pie_cobrar_ven", # Pie restante por pagar
+        "monto_estacionamiento_ven", # Monto del estacionamiento
+        "monto_bodega_ven", # Monto de la bodega
+        "monto_vivienda_ven", # Valor de la vivineda
+        "monto_vivienda_ingreso_ven", # Monto total que le ingresa a la inmo por la venta
+        "monto_ven", # Valor de venta del depto
+        "factor_categoria_ven", # Ni carajo  idea que es
+        "porcentaje_comision_ven", # Calculo de la comisión de los vendedores
+        "promesa_porcentaje_comision_reparto_ven", # calculo comisión % promesa 40%
+        "promesa_monto_comision_ven", # monto en clp del % de la comisión X promesa
+        "escritura_porcentaje_comision_reparto_ven",# calculo comisión % escritura 40%
+        "escritura_monto_comision_ven",# monto en clp del % de la comisión X escritura
+        "total_comision_ven", # total de la comisión del vendedor
+        "bono_vivienda_ven", # Bono de venta
+        "porcentaje_bono_precio_ven", # % de bono que se le da al vendendor
+        "promesa_bono_precio_ven",# % distribuciíon
+        "escritura_bono_precio_ven",# % de distribución
+        "total_bono_precio_ven", # Bono total del vendedpor
+        "numero_compra_ven", # ??
+        "cotizacion_ven", # n° Cotización
+        "monto_credito_ven", #Monto credito que le da el banco
+        "monto_credito_real_ven", # Monto de credito entregado por el banco
+        "ahorro_previo", # Ahorro del cliente
+        "monto_subsidio", # Monto del subsidio del estado
+        "pie_real_ven", # Pie real del cliente
+        "valor_factor_ven", # ??
+    ]
 
     pass

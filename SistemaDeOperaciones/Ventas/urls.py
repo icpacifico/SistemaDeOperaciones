@@ -70,4 +70,7 @@ urlpatterns = [
     path('listar_reserva/', login_required(ListarReservas.as_view()), name='listar_reserva'),
     path('detalle_reserva/<int:id_reserva>/', login_required(detalle_reserva), name='detalle_reserva'),
 
+    # Promesas
+    path('pasar_reserva/<int:id_cotizacion>/', login_required(pasar_reserva), name='pasar_reserva'),
+
 ]
