@@ -1,0 +1,225 @@
+{% extends "pages/base.html" %}
+
+{% load static %}
+
+{% block contenido %}
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <h4 class="py-3 mb-4 fw-bold">
+        <span class="text-muted fw-light">Cotización /</span>
+        Agregar
+    </h4>
+    <div class="row">
+        <div class="col-xl" align="center">
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0 fw-normal">Cotización</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% if error %}
+                        <h2>{{ error }}</h2>
+                        {% else %}
+                        <div class="row gx-5">    
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    <select name="id_condominio" class="form-select" placeholder="Torre" required="" id="id_id_condominio">
+                                        <option value="" selected="">---------</option>
+                                        {% for condominio in condominios %}
+                                            <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
+                                        {% endfor %}
+                                      </select>
+                                      <label for="basic-default-fullname">Condominio</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_condominio' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    <select name="id_etapa" class="form-select" placeholder="Etapa" required="" id="id_id_etapa" disabled>
+                                        <option value="" selected="">---------</option>
+                                        {% for etapa in etapas %}
+                                            <option value="{{ etapa.0 }}">{{ etapa.1 }}</option>
+                                        {% endfor %}
+                                      </select>
+                                      <label for="basic-default-fullname">Etapa</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_etapa' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    <select name="id_torre" class="form-select" placeholder="Torre" required="" id="id_id_torre" disabled>
+                                        <option value="" selected="">---------</option>
+                                        {% for torre in torres %}
+                                            <option value="{{ torre.0 }}">{{ torre.1 }}</option>
+                                        {% endfor %}
+                                      </select>
+                                      <label for="basic-default-fullname">Torre</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.id_vivienda }}
+                                    <label for="basic-default-fullname">Vivienda</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-5">    
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.id_cliente }}
+                                    <label for="basic-default-fullname">Rut Cliente</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.fecha_cotizacion }}
+                                    <label for="basic-default-fullname">Fecha Cotización</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.fecha_promesa_cotizacion }}
+                                    <label for="basic-default-fullname">Fecha Promesa</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-5">    
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.procentaje_credito_cotizacion }}
+                                    <label for="basic-default-fullname">Porcentaje Crédito</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.numero_cotizacion }}
+                                    <label for="basic-default-fullname">Número Cotización</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.canal_cotizacion }}
+                                    <label for="basic-default-fullname">Canal Cotización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-5">  
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.preaprobacion_cotizacion }}
+                                    <label for="basic-default-fullname">Preaprobación Cotización</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.renta_cotizacion }}
+                                    <label for="basic-default-fullname">Renta Cotización</label>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.estado_cotizacion }}
+                                    <label for="basic-default-fullname">Estado Cotización</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div align="left">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <a style="margin-left:10px" href="{% url 'ventas:listar_cotizacion' %}"
+                               class="btn btn-dark">Cancelar</a>
+                        </div>
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+    document.getElementById('id_id_condominio').addEventListener('change', function() {
+        var condominioId = this.value;
+        var etapaSelect = document.getElementById('id_id_etapa');
+        var torreSelect = document.getElementById('id_id_torre');
+        var viviendaSelect = document.getElementById('id_id_vivienda');
+        etapaSelect.innerHTML = "<option value=''>---------</option>";
+        torreSelect.innerHTML = "<option value=''>---------</option>";
+        viviendaSelect.innerHTML = "<option value=''>---------</option>";
+        torreSelect.disabled = true;
+        viviendaSelect.disabled = true;
+        if (condominioId !== '') {
+            etapaSelect.disabled = false;
+            fetch(`{% url 'proyectos:get_etapas' %}?condominio_id=${condominioId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(etapa => {
+                    var option = document.createElement('option');
+                    option.text = etapa.nombre_etapa;
+                    option.value = etapa.id_etapa_condominio;
+                    etapaSelect.add(option);
+                });
+            });
+        } else {
+            etapaSelect.disabled = true;
+            torreSelect.value = ''
+            torreSelect.disabled = true;
+            viviendaSelect.value = ''
+            viviendaSelect.disabled = true;
+        }
+    });
+
+    document.getElementById('id_id_etapa').addEventListener('change', function() {
+        var etapaId = this.value;
+        var torreSelect = document.getElementById('id_id_torre');
+        var viviendaSelect = document.getElementById('id_id_vivienda');
+        torreSelect.innerHTML = "<option value=''>---------</option>";
+        viviendaSelect.innerHTML = "<option value=''>---------</option>";
+        torreSelect.disabled = true;
+        viviendaSelect.disabled = true;
+        if (etapaId !== '') {
+            torreSelect.disabled = false;
+            fetch(`{% url 'proyectos:get_torres' %}?etapa_id=${etapaId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(torre => {
+                    var option = document.createElement('option');
+                    option.text = torre.nombre_torre;
+                    option.value = torre.id_torre;
+                    torreSelect.add(option);
+                });
+                });
+        }else{
+            torreSelect.disabled = true;
+            viviendaSelect.value = ''
+            viviendaSelect.disabled = true;
+        }
+    });
+
+    document.getElementById('id_id_torre').addEventListener('change', function() {
+        var torreId = this.value;
+        var viviendaSelect = document.getElementById('id_id_vivienda');
+        viviendaSelect.innerHTML = "<option value=''>---------</option>";
+        if (torreId !== '') {
+            viviendaSelect.disabled = false;
+            fetch(`{% url 'proyectos:get_viviendas' %}?torre_id=${torreId}`)
+                .then(response => response.json())
+                .then(data => {
+                data.forEach(vivienda => {
+                    var option = document.createElement('option');
+                    option.text = vivienda.nombre_vivienda;
+                    option.value = vivienda.id_vivienda;
+                    viviendaSelect.add(option);
+                });
+                });
+        }else{
+            viviendaSelect.disabled = true;
+            viviendaSelect.value = '';
+        }
+    });
+
+</script>
+
+{% endblock contenido %}
