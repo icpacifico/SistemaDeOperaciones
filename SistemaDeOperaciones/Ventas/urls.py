@@ -19,7 +19,7 @@ urlpatterns = [
     # Clientes
     path('crear_cliente/', login_required(CrearCliente.as_view()), name='crear_cliente'),
     path('listar_cliente/', login_required(ListadoClientes.as_view()), name='listar_cliente'),
-    path('editar_cliente/<int:pk>/', login_required(ActualizarCliente.as_view()), name='editar_cliente'),
+    path('editar_cliente/<str:pk>/', login_required(ActualizarCliente.as_view()), name='editar_cliente'),
 
     # Cotizaciones
     path('crear_cotizacion/', login_required(CrearCotizacion.as_view()), name='crear_cotizacion'),

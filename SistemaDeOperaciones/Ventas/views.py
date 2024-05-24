@@ -31,12 +31,12 @@ from django.shortcuts import render, redirect
 
 
 # Create your views here.
+
 def get_etapas(request):
     condominio_id = request.GET.get('condominio_id')
     etapas = Etapa.objects.filter(id_condominio=condominio_id)
     data = [{'id_etapa_condominio': etapa.id_etapa_condominio, 'nombre_etapa': etapa.nombre_etapa} for etapa in etapas]
     return JsonResponse(data, safe=False)
-
 
 def get_torres(request):
     etapa_id = request.GET.get('etapa_id')
@@ -82,7 +82,13 @@ class CrearCotizacion(CreateView):
     template_name = "ventas/gui_cotizacion/crear_cotizacion.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
     success_url = reverse_lazy(
         "ventas:listar_cotizacion")  # Reemplaza "tu_app" y "listar_cotizaciones" con tus nombres de aplicación y URL
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['clientes'] = Cliente.objects.all()
+        return context
 
+def cotizacion_from_cliente(request, id_cliente):
+    pass
 
 class ListadoCotizaciones(ListView):
     model = Cotizacion

@@ -8,7 +8,7 @@ from SistemaDeOperaciones.choices import *
 
 
 class Cliente(models.Model):
-    id_cliente = models.CharField(primary_key=True, max_length=9, verbose_name="Rut")
+    id_cliente = models.CharField(primary_key=True, max_length=15, verbose_name="Rut")
     id_nacionalidad = models.ForeignKey(Nacionalidad, verbose_name="Nacionalidad",
                                         on_delete=models.CASCADE)  # PENDIENTE
     region = models.CharField(verbose_name="Región", max_length=31, choices=REGIONES_CHOICES, default=iv_reg_coquimbo)

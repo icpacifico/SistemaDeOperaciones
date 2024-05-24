@@ -80,7 +80,7 @@ class CotizacionForm(forms.ModelForm):
         }
         widgets = {
             'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'true'}),
-            'id_cliente': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Cliente'}),
+            'id_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut Cliente', 'type':'list', 'id': 'myInput', 'list': 'lista_clientes'}),
             'fecha_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date' ,'placeholder': 'Fecha Cotización'}),
             'fecha_promesa_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date', 'placeholder': 'Fecha Promesa'}),
             'procentaje_credito_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Porcentaje Crédito'}),
