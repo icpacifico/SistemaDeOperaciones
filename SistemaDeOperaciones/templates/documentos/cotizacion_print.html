@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carta Cierre Negocio</title>
+    <title>Cotización</title>
     <style>
         .tabla-container {
             width: 50%; /* Ancho de los contenedores */
@@ -50,7 +50,7 @@
         <hr class="my-0">
         <h3>Datos Carta Oferta</h3>
         {% for venta in datos_venta %}
-        <table class="tabla1">
+        <table class="table">
             <tr>
                 <th class="table-light">Nombre del Titular</th>
                 <td>{{ venta.id_cotizacion.id_cliente.nombre_cliente }}
@@ -93,7 +93,7 @@
         <h3>Datos Del Proyecto</h3>
 
         {% for venta in datos_venta %}
-        <table class="tabla1">
+        <table class="table">
             <tr>
                 <th class="table-light">Proyecto</th>
                 <td>{{ venta.id_cotizacion.id_vivienda.id_modelo.id_condominio.nombre_condominio }}</td>
@@ -127,7 +127,7 @@
         <hr class="my-0">
         <h3>Datos Inmueble</h3>
         {% for venta in datos_venta %}
-        <table class="tabla1">
+        <table class="table">
             <tr>
                 <th class="table-light">Nro. Depto y/o Casa</th>
                 <td>{{venta.id_cotizacion.id_vivienda.nombre_vivienda}}</td>
@@ -165,7 +165,7 @@
         <hr class="my-0">
         <h3>Precio de Venta y Financiamiento</h3>
         {% for venta in datos_venta %}
-        <table class="tabla1">
+        <table class="table">
             <tr>
                 <th class="table-light">Precio de Venta</th>
                 <td>{{venta.monto_vivienda_ven}} UF</td>
