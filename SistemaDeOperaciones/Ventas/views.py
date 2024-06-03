@@ -97,6 +97,7 @@ class CrearCotizacion(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['clientes'] = Cliente.objects.all()
+        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
         return context
 
 
