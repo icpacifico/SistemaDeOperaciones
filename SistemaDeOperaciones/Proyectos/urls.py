@@ -10,7 +10,7 @@ from .views import (
     CrearBodega, ListadoBodega, ActualizarBodega,
     CrearEstacionamiento, ListadoEstacionamiento, ActualizarEstacionamiento,
     CrearVivienda, ListadoVivienda, ActualizarVivienda,
-    descargar_parametros, descargar_formato, importar_viviendas, get_etapas, get_torres, get_modelos, get_viviendas, CondominioAutocomplete
+    descargar_parametros, descargar_formato, importar_viviendas, get_etapas, get_torres, get_modelos, get_viviendas, condominio_autocomplete
 )
  
 urlpatterns = [
@@ -67,5 +67,5 @@ urlpatterns = [
     path('get_viviendas/', login_required(get_viviendas), name='get_viviendas'),
 
     # path('condominio-autocomplete/', login_required(CondominioAutocomplete.as_view()), name='condominio-autocomplete'),
-    path('condominio-autocomplete/', login_required(autocomplete.Select2QuerySetView.as_view(model=Condominio)), name='condominio-autocomplete'),
+    path('condominio-autocomplete/', login_required(condominio_autocomplete), name='condominio-autocomplete'),
 ]

@@ -2,7 +2,7 @@ from django.db import models
 from Proyectos.models import Vivienda, Etapa, Torre
 from Administracion.models import *
 from SistemaDeOperaciones.choices import *
-
+import datetime
 
 # Create your models here.
 
@@ -46,17 +46,15 @@ class Cotizacion(models.Model):
     id_cotizacion = models.AutoField(primary_key=True)
     id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    fecha_cotizacion = models.DateField(verbose_name="Fecha Cotización", null=True, blank=True ) 
+    fecha_cotizacion = models.DateField(verbose_name="Fecha Cotización", null=True, blank=True, default=datetime.date.today) 
     fecha_promesa_cotizacion = models.DateField(verbose_name="Fecha Promesa", null=True, blank=True ) 
     procentaje_credito_cotizacion = models.FloatField(verbose_name="Porcentaje Credito", null=True, blank=True)
     numero_cotizacion = models.IntegerField(verbose_name="Estado Venta",  null=True, blank=True)
     canal_cotizacion = models.CharField(verbose_name="Canal Cotización", max_length=200, choices=CANAL_COTIZACION_CHOICES, default=None)
     preaprobacion_cotizacion = models.CharField(verbose_name="Preaprobación Cotización", max_length=200, choices=PREAPROBACION_COTIZACION_CHOICES, default=None)
     renta_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=RENTA_COTIZACION_CHOICES, default=None)
-    estado_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=IS_ACTIVE_CHOICES, default=None)
+    estado_cotizacion = models.CharField(verbose_name="Estado Cotización", max_length=200, choices=IS_ACTIVE_CHOICES, default="Activo")
 
-   # def __str__(self):
-    #    return "(" +str(self.id_cotizacion)+")Hola"
     class Meta:
         db_table = "cotizacion"
 

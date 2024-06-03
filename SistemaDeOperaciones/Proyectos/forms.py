@@ -29,7 +29,7 @@ class EtapaForm(forms.ModelForm):
             'nombre_etapa': 'Nombre',
         }
         widgets = {
-            'id_condominio': autocomplete.ModelSelect2(url='proyectos:condominio-autocomplete', attrs={'class': 'form-control', 'placeholder': 'Condominio'}),
+            'id_condominio': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Condominio', 'id': "myInput"}),
             # 'id_condominio': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Condominio'}),
             'nombre_etapa': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre etapa'}),
         }

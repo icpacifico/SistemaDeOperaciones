@@ -62,17 +62,18 @@ class CotizacionForm(forms.ModelForm):
     class Meta:
         model = Cotizacion
         fields = [
-            'id_vivienda', 'id_cliente', 'fecha_cotizacion', 'fecha_promesa_cotizacion',
-            'procentaje_credito_cotizacion', 'numero_cotizacion', 'canal_cotizacion',
-            'preaprobacion_cotizacion', 'renta_cotizacion', 'estado_cotizacion'
+            'id_vivienda', 'id_cliente', 
+            'procentaje_credito_cotizacion',  'canal_cotizacion', 'renta_cotizacion', 'estado_cotizacion',
+            # 'numero_cotizacion', 'fecha_cotizacion', 'fecha_promesa_cotizacion',
+            'preaprobacion_cotizacion',
         ]
         labels = {
             'id_vivienda': 'Vivienda',
             'id_cliente': 'Cliente',
-            'fecha_cotizacion': 'Fecha Cotización',
-            'fecha_promesa_cotizacion': 'Fecha Promesa',
+            # 'fecha_cotizacion': 'Fecha Cotización',
+            # 'fecha_promesa_cotizacion': 'Fecha Promesa',
             'procentaje_credito_cotizacion': 'Porcentaje Crédito',
-            'numero_cotizacion': 'Número Cotización',
+            # 'numero_cotizacion': 'Número Cotización',
             'canal_cotizacion': 'Canal Cotización',
             'preaprobacion_cotizacion': 'Preaprobación Cotización',
             'renta_cotizacion': 'Renta Cotización',
@@ -81,10 +82,10 @@ class CotizacionForm(forms.ModelForm):
         widgets = {
             'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'true'}),
             'id_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut Cliente', 'type':'list', 'id': 'myInput', 'list': 'lista_clientes'}),
-            'fecha_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date' ,'placeholder': 'Fecha Cotización'}),
-            'fecha_promesa_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date', 'placeholder': 'Fecha Promesa'}),
+            # 'fecha_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date' ,'placeholder': 'Fecha Cotización'}),
+            # 'fecha_promesa_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date', 'placeholder': 'Fecha Promesa'}),
             'procentaje_credito_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Porcentaje Crédito'}),
-            'numero_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Número Cotización'}),
+            # 'numero_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Número Cotización'}),
             'canal_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Canal Cotización'}),
             'preaprobacion_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Preaprobación Cotización'}),
             'renta_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Renta Cotización'}),

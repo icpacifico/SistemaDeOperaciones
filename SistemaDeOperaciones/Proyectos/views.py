@@ -112,6 +112,14 @@ def importar_viviendas(request):
 
     return render(request, 'proyectos/gui_vivienda/importar_viviendas.html', {'form': form})
 
+def condominio_autocomplete(request):
+    if 'term' in request.GET:
+        term = request.GET.get('term')
+        items = Condominio.objects.filter(nombre__icontains=term)
+        results = [item.nombre for item in items]
+        return JsonResponse(results, safe=False)
+    return JsonResponse([], safe=False)
+
 def get_etapas(request):
     condominio_id = request.GET.get('condominio_id')
     etapas = Etapa.objects.filter(id_condominio=condominio_id)
@@ -298,10 +306,3 @@ class ActualizarVivienda(UpdateView):
     template_name = "proyectos/gui_vivienda/crear_vivienda.html"
     form_class = ViviendaForm
     success_url = reverse_lazy("proyectos:listar_vivienda")
-
-class CondominioAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = Condominio.objects.all()
-        if self.q:
-            qs = qs.filter(nombre_condominio__istartswith=self.q)
-        return qs
