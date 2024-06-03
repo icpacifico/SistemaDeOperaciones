@@ -162,3 +162,93 @@ class CotizacionPdf(View):
         except:
             pass
         return HttpResponseRedirect(request, 'ventas/gui_cotizacion/listar_cotizacion.html')
+
+
+def anular_reserva(request, id_reserva):
+    reserva = Reserva.objects.get(id_reserva= id_reserva)
+    reserva.estado_reserva = "Anulada"
+    reserva.save()
+    cotizacion =  Reserva.objects.values_list('referencia').filter(id_reserva=id_reserva)
+    cotizacion = cotizacion[0][0]
+    mod_cot =  Cotizacion.objects.get(id_cotizacion = cotizacion)
+    mod_cot.estado_cotizacion ="Anulada"
+    mod_cot.save()
+    vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion = cotizacion)
+    vivienda =  vivienda[0][0]
+    mod_viv = Vivienda.objects.get(id_vivienda=vivienda)
+    mod_viv.estado_vivienda = "Disponible"
+    mod_viv.save()
+    bodega = Bodega.objects.values_list('id_bodega').filter(id_vivienda = vivienda)
+    bodega = bodega[0][0]
+    mod_bod = Bodega.objects.get(id_bodega = bodega)
+    mod_bod.estado_bodega = "Disponible"
+    mod_bod.save()
+    estacionamiento = Estacionamiento.objects.values_list('id_estacionamiento').filter(id_vivienda = vivienda)
+    estacionamiento = estacionamiento[0][0]
+    mod_est = Estacionamiento.objects.get(id_estacionamiento=estacionamiento)
+    mod_est.estado_estacionamiento = "Disponible"
+    mod_est.save()
+
+    return render(request, 'ventas/gui_reserva/listar_reserva.html')
+
+
+
+def pasar_reserva(request, id_cotizacion):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+    datos_cliente = Cotizacion.objects.values_list('id_cliente').filter(
+        id_cotizacion=id_cotizacion)
+    id_cliente = datos_cliente[0][0]
+    datos_cliente = Cliente.objects.filter(id_cliente=id_cliente)
+    # Datos de la vivienda
+    datos_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(
+        id_cotizacion=id_cotizacion)
+    id_vivienda = datos_vivienda[0][0]
+    datos_vivienda = Vivienda.objects.filter(id_vivienda=id_vivienda)
+    # Datos de las bodegas
+    datos_bodega = Bodega.objects.filter(id_vivienda=id_vivienda)
+    # Datos de los Estacionamientos
+    datos_estacionamiento = Estacionamiento.objects.filter(id_vivienda=id_vivienda)
+    # Datos del condominio
+    modelo = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
+    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
+    id_modelo = modelo[0][0]
+    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
+    nombre_modelo = nombre_modelo[0][0]
+    id_torre = id_torre[0][0]
+    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
+    nombre_torre = nombre_torre[0][0]
+    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
+    id_etapa_condominio = id_etapa_condominio[0][0]
+    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
+    nombre_etapa = nombre_etapa[0][0]
+    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
+    id_condominio = datos_modelo[0][0]
+    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
+    nombre_condominio = datos_condominio[0][0]
+    direccion_proyecto = Condominio.objects.values_list('direccion_proyecto').filter(
+        id_condominio=id_condominio)
+    direccion_proyecto = direccion_proyecto[0][0]
+    datos_proyecto = {'condominio': nombre_condominio, 'etapa': nombre_etapa, 'torre': nombre_torre,
+                      'direccion': direccion_proyecto}
+
+
+    return render(request, 'ventas/gui_reserva/crear_reserva.html',
+                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                   'id_cotizacion': id_cotizacion})
+
+
+
+def registrar_pago_venta(request, id_venta):
+    datos = Venta.objects.filter(id_venta=id_venta)
+    if request.method == 'POST':
+        form = PagoForm(request.POST)
+        if form.is_valid():
+            # Guardar el pago en la base de datos si el formulario es válido
+            pago = form.save()
+            # Puedes redirigir a una página de detalles del pago, por ejemplo
+            return redirect('contabilidad/gui_pagos/listar_pago.html')
+    else:
+        form = PagoForm()
+
+    return render(request, 'contabilidad/gui_pagos/crear_pago.html',
+                  {'form': form, 'id_venta': id_venta, 'datos': datos})

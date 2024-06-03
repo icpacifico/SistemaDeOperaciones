@@ -22,7 +22,7 @@
                                     <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
                                         <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
                                     </div>
-                                    <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+                                    <p class="mb-1">Ejecutivo(a): Luis Pizarro Álvarez</p>
 
                                 </div>
                                 <div>
@@ -77,65 +77,65 @@
                         </div>
                         <hr class="my-0">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0 fw-normal">Pago</h3>
-                </div>
-<div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {% if error %}
-                        <h2>{{ error }}</h2>
-                        {% else %}
-                        <input type="hidden" name="id_venta" value="{{ id_venta }}">
+                            <h3 class="mb-0 fw-normal">Pago</h3>
+                        </div>
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                {% if error %}
+                                <h2>{{ error }}</h2>
+                                {% else %}
+                                <input type="hidden" name="id_venta" value="{{ id_venta }}">
 
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.forma_pago}}
-                            <label for="floating-input">Forma de Pago</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.id_banco}}
-                            <label for="floating-input">Banco</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.categoria_pago}}
-                            <label for="floating-input">Categoria pago</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.estado_pago}}
-                            <label for="floating-input">Estado Pago</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.numero_documento}}
-                            <label for="floating-input">N° Documento</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.numero_serie}}
-                            <label for="floating-input">N° Serie</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.fecha_pago}}
-                            <label for="floating-input">Fecha de Pago</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.fecha_real_pago}}
-                            <label for="floating-input">Fecha Real</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.monto_pago}}
-                            <label for="floating-input">Monto</label>
-                        </div>
-                        <div class="form-floating form-floating-outline mb-4">
-                            {{form.descripcion}}
-                            <label for="floating-input">Descripción</label>
-                        </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.forma_pago}}
+                                    <label for="floating-input">Forma de Pago</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.id_banco}}
+                                    <label for="floating-input">Banco</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.categoria_pago}}
+                                    <label for="floating-input">Categoria pago</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.estado_pago}}
+                                    <label for="floating-input">Estado Pago</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.numero_documento}}
+                                    <label for="floating-input">N° Documento</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.numero_serie}}
+                                    <label for="floating-input">N° Serie</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.fecha_pago}}
+                                    <label for="floating-input">Fecha de Pago</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.fecha_real_pago}}
+                                    <label for="floating-input">Fecha Real</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.monto_pago}}
+                                    <label for="floating-input">Monto</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{form.descripcion}}
+                                    <label for="floating-input">Descripción</label>
+                                </div>
 
-                        <div align="left">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
-                            <a style="margin-left:10px" href="{% url 'ventas:listar_venta' %}"
-                               class="btn btn-dark">Cancelar</a>
+                                <div align="left">
+                                    <button type="submit" class="btn btn-primary">Guardar</button>
+                                    <a style="margin-left:10px" href="{% url 'ventas:listar_venta' %}"
+                                       class="btn btn-dark">Cancelar</a>
+                                </div>
+                                {% endif %}
+                            </form>
                         </div>
-                        {% endif %}
-                    </form>
-                </div>
 
 
                     </div>

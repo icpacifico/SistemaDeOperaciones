@@ -78,10 +78,10 @@
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Editar
                                         </a>
                                         <a class="dropdown-item" href="#">
-                                            <i class="mdi mdi-pencil-outline me-1"></i> Registrar pago
+                                            <i class="mdi mdi-pencil-outline me-1"></i> Pasar a promesa
                                         </a>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="mdi mdi-trash-can-outline me-1"></i> Listado detalle
+                                        <a class="dropdown-item" href="{% url 'ventas:anular_reserva' id_reserva=reserva.id_reserva %}">
+                                            <i class="mdi mdi-trash-can-outline me-1"></i> Anular reserva
                                         </a>
                                     </div>
                                 </div>

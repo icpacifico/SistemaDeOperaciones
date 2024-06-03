@@ -28,6 +28,16 @@ from django.http import HttpResponse
 from xlsxwriter.workbook import Workbook
 from io import BytesIO
 from django.shortcuts import render, redirect
+import pandas as pd
+import numpy as np
+from django.shortcuts import render
+from django.http import JsonResponse
+from Contabilidad.forms import PagoForm
+from Contabilidad.models import Pago
+import json
+from django.shortcuts import render, redirect
+from django.forms import formset_factory
+from Contabilidad.forms import PagoForm
 
 
 # Create your views here.
@@ -37,6 +47,7 @@ def get_etapas(request):
     etapas = Etapa.objects.filter(id_condominio=condominio_id)
     data = [{'id_etapa_condominio': etapa.id_etapa_condominio, 'nombre_etapa': etapa.nombre_etapa} for etapa in etapas]
     return JsonResponse(data, safe=False)
+
 
 def get_torres(request):
     etapa_id = request.GET.get('etapa_id')
@@ -82,13 +93,16 @@ class CrearCotizacion(CreateView):
     template_name = "ventas/gui_cotizacion/crear_cotizacion.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
     success_url = reverse_lazy(
         "ventas:listar_cotizacion")  # Reemplaza "tu_app" y "listar_cotizaciones" con tus nombres de aplicación y URL
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['clientes'] = Cliente.objects.all()
         return context
 
+
 def cotizacion_from_cliente(request, id_cliente):
     pass
+
 
 class ListadoCotizaciones(ListView):
     model = Cotizacion
@@ -847,7 +861,95 @@ class Fpm_VentaPdf(View):
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
-def pasar_reserva(request, id_cotizacion):
+def pasar_reserva(request, id_cotizacion):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+
+    datos_cliente = Cotizacion.objects.values_list('id_cliente').filter(
+        id_cotizacion=id_cotizacion)
+    id_cliente = datos_cliente[0][0]
+    datos_cliente = Cliente.objects.filter(id_cliente=id_cliente)
+    # Datos de la vivienda
+    datos_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(
+        id_cotizacion=id_cotizacion)
+    id_vivienda = datos_vivienda[0][0]
+    datos_vivienda = Vivienda.objects.filter(id_vivienda=id_vivienda)
+    # Datos de las bodegas
+    datos_bodega = Bodega.objects.filter(id_vivienda=id_vivienda)
+    # Datos de los Estacionamientos
+    datos_estacionamiento = Estacionamiento.objects.filter(id_vivienda=id_vivienda)
+    # Datos del condominio
+    modelo = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
+    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
+    id_modelo = modelo[0][0]
+    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
+    nombre_modelo = nombre_modelo[0][0]
+    id_torre = id_torre[0][0]
+    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
+    nombre_torre = nombre_torre[0][0]
+    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
+    id_etapa_condominio = id_etapa_condominio[0][0]
+    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
+    nombre_etapa = nombre_etapa[0][0]
+    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
+    id_condominio = datos_modelo[0][0]
+    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
+    nombre_condominio = datos_condominio[0][0]
+    direccion_proyecto = Condominio.objects.values_list('direccion_proyecto').filter(
+        id_condominio=id_condominio)
+    direccion_proyecto = direccion_proyecto[0][0]
+    datos_proyecto = {'condominio': nombre_condominio, 'etapa': nombre_etapa, 'torre': nombre_torre,
+                      'direccion': direccion_proyecto}
+
+    if request.method == 'POST':
+        # Creamos la reserva
+        print("AH INGRESADO AL METOOD POST")
+
+        nueva_reserva = Reserva(negocio=id_cotizacion,
+                                referencia=id_cotizacion,
+                                fecha_creacion=datetime.now(),
+                                fecha_aprobacion=datetime.now(),
+                                cliente=cliente,
+                                no_recibo=recibo,
+                                fono=fono_cliente,
+                                correo=correo_cliente,
+                                proyecto=nombre_condominio,
+                                estado_reserva="Pendiente")
+        nueva_reserva.save()
+
+        id_reserva = Reservas.objects.all()
+        print(id_reserva)
+        id_reserva = id_reserva[0]
+        print(id_reserva)
+        id_reserva = len(id_reserva)
+        print(id_reserva)
+
+
+
+        pagos_data = json.loads(request.body).get('pagos', [])
+        for pago_data in pagos_data:
+            form = PagoForm(pago_data)
+            if form.is_valid():
+                form.save()
+        # return JsonResponse({'status': 'success'})
+        return render(request, 'ventas/gui_reserva/listar_reserva.html')
+    else:
+        form = PagoForm()
+        # print(form)
+
+
+        return render(request, 'ventas/gui_reserva/crear_reserva.html', {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                   'id_cotizacion': id_cotizacion,'form': form})
+
+
+
+"""
+    return render(request, 'ventas/gui_reserva/crear_reserva.html',
+                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                   'id_cotizacion': id_cotizacion, 'context':context})"""
+
+
+def pasar_reserva_2(request, id_cotizacion):
     # datos_venta = Venta.objects.filter(id_venta=id_venta)
     # cotizacion_no = datos_venta.id_cotizacion
     id_cliente = Cotizacion.objects.values_list('id_cliente').filter(id_cotizacion=id_cotizacion)
@@ -941,7 +1043,45 @@ def pasar_promesa(request, id_cotizacion):
     ]
 
     pass
+def registrar_pagos(request):
+    if request.method == 'POST':
+        pagos_data = json.loads(request.body).get('pagos', [])
+        for pago_data in pagos_data:
+            form = PagoForm(pago_data)
+            if form.is_valid():
+                form.save()
+        return JsonResponse({'status': 'success'})
+    else:
+        form = PagoForm()
+        return render(request, 'registrar_pagos.html', {'form': form})
+def anular_reserva(request, id_reserva):
+    # agregar un correo automatico a contabibildiad con cc a operaciones, grenci de ventas indicando la devolución del dinero
+    reserva = Reserva.objects.get(id_reserva= id_reserva)
+    reserva.estado_reserva = "Anulada"
+    reserva.save()
+    cotizacion =  Reserva.objects.values_list('referencia').filter(id_reserva=id_reserva)
+    cotizacion = cotizacion[0][0]
+    mod_cot =  Cotizacion.objects.get(id_cotizacion = cotizacion)
+    mod_cot.estado_cotizacion ="Anulada"
+    mod_cot.save()
+    vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion = cotizacion)
+    vivienda =  vivienda[0][0]
+    mod_viv = Vivienda.objects.get(id_vivienda=vivienda)
+    mod_viv.estado_vivienda = "Disponible"
+    mod_viv.save()
+    bodega = Bodega.objects.values_list('id_bodega').filter(id_vivienda = vivienda)
+    bodega = bodega[0][0]
+    mod_bod = Bodega.objects.get(id_bodega = bodega)
+    mod_bod.estado_bodega = "Disponible"
+    mod_bod.save()
+    estacionamiento = Estacionamiento.objects.values_list('id_estacionamiento').filter(id_vivienda = vivienda)
+    estacionamiento = estacionamiento[0][0]
+    mod_est = Estacionamiento.objects.get(id_estacionamiento=estacionamiento)
+    mod_est.estado_estacionamiento = "Disponible"
+    mod_est.save()
+    reservas =  Reserva.objects.all()
 
+    return render(request, 'ventas/gui_reserva/listar_reserva.html', {'reservas':reservas})
 
 def cotizacion_from_cliente(request, id_cliente):
     if request.method == 'POST':
@@ -953,6 +1093,56 @@ def cotizacion_from_cliente(request, id_cliente):
         form = CotizacionForm(initial={'id_cliente': id_cliente})
     return render(request, 'ventas/gui_cotizacion/crear_cotizacion_from_cliente.html',
                   {'id_cliente': id_cliente, 'form': form})
+
+
+def ver_cotizacion_pdf(request, id_cotizacion):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+    datos_cliente = Cotizacion.objects.values_list('id_cliente').filter(
+        id_cotizacion=id_cotizacion)
+    id_cliente = datos_cliente[0][0]
+    datos_cliente = Cliente.objects.filter(id_cliente=id_cliente)
+    # Datos de la vivienda
+    datos_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(
+        id_cotizacion=id_cotizacion)
+    id_vivienda = datos_vivienda[0][0]
+    datos_vivienda = Vivienda.objects.filter(id_vivienda=id_vivienda)
+    # Datos de las bodegas
+    datos_bodega = Bodega.objects.filter(id_vivienda=id_vivienda)
+    # Datos de los Estacionamientos
+    datos_estacionamiento = Estacionamiento.objects.filter(id_vivienda=id_vivienda)
+    # Datos del condominio
+    modelo = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
+    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
+    id_modelo = modelo[0][0]
+    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
+    nombre_modelo = nombre_modelo[0][0]
+    id_torre = id_torre[0][0]
+    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
+    nombre_torre = nombre_torre[0][0]
+    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
+    id_etapa_condominio = id_etapa_condominio[0][0]
+    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
+    nombre_etapa = nombre_etapa[0][0]
+    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
+    id_condominio = datos_modelo[0][0]
+    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
+    nombre_condominio = datos_condominio[0][0]
+    direccion_proyecto = Condominio.objects.values_list('direccion_proyecto').filter(
+        id_condominio=id_condominio)
+    direccion_proyecto = direccion_proyecto[0][0]
+    datos_proyecto = {'condominio': nombre_condominio, 'etapa': nombre_etapa, 'torre': nombre_torre,
+                      'direccion': direccion_proyecto}
+
+    # Template que se renderiza para obtener el PDF
+    template = get_template('documentos/cotizacion_print.html')
+    # Diccionaro context para entregar los datos  al template que se renderiza
+    context = {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+               'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+               'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
+
+    return render(request, 'documentos/cotizacion.html',
+                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                   'id_cotizacion': id_cotizacion})
 
 
 class CotizacionPdf(View):
@@ -984,7 +1174,9 @@ class CotizacionPdf(View):
         return path
 
     def get(self, request, *args, **kwargs):
+        print("INGRESA AL GET")
         try:
+            print("INGRESA AL TRY")
             # Extracción de los datos de la cotizacion
             """
             Por parametro solo nos llega el el id de la cotización que se quiere imprimir.
@@ -998,15 +1190,20 @@ class CotizacionPdf(View):
             Calcular las formas de pago según los porcentajes de Reserva-Pie-Credito
             Calcular las simulaciones de los creditos Hipotecarios
             """
+            n_cotizacion = self.kwargs['id_cotizacion']
 
+            # Datos Cotización
+            fecha_coti = Cotizacion.objects.values_list('fecha_cotizacion').filter(
+                id_cotizacion=self.kwargs['id_cotizacion'])
+            fecha_coti = fecha_coti[0][0]
             # Datos del cliente
             datos_cliente = Cotizacion.objects.values_list('id_cliente').filter(
-                id_cotizacion=self.kwars['id_cotizacion'])
+                id_cotizacion=self.kwargs['id_cotizacion'])
             id_cliente = datos_cliente[0][0]
             datos_cliente = Cliente.objects.filter(id_cliente=id_cliente)
             # Datos de la vivienda
             datos_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(
-                id_cotizacion=self.kwars['id_cotizacion'])
+                id_cotizacion=self.kwargs['id_cotizacion'])
             id_vivienda = datos_vivienda[0][0]
             datos_vivienda = Vivienda.objects.filter(id_vivienda=id_vivienda)
             # Datos de las bodegas
@@ -1036,63 +1233,15 @@ class CotizacionPdf(View):
             datos_proyecto = {'condominio': nombre_condominio, 'etapa': nombre_etapa, 'torre': nombre_torre,
                               'direccion': direccion_proyecto}
 
-            # Calculos de los valores de la cotización
-
-            # Calculo de datos de los precios de la vivienda-bodega-estacionamiento
-            uf = 35250
-            valores_bienes = pd.Dataframe(colums['item', 'valor_uf', 'valor_clp'])
-            valores_bienes.loc[0] = [datos_vivienda.nombre_vivienda, datos_vivienda.valor_vivienda,
-                                     datos_vivienda.valor_vivienda * uf]
-            valores_bienes.loc[1] = [datos_bodega.nombre_bodega, datos_bodega.valor_bodega,
-                                     datos_bodega.valor_bodega * uf]
-            valores_bienes.loc[2] = [datos_estacionamiento.nombre_estacionamiento,
-                                     datos_estacionamiento.valor_estacionamiento,
-                                     datos_estacionamiento.valor_estacionamiento * uf]
-
-            # Usar un for para rellenar los calculos
-            valores_bienes.loc[3] = ["Total Precio Lista",
-                                     valores_bienes.iloc[0][1] + valores_bienes.iloc[1][1] + valores_bienes.iloc[2][1],
-                                     valores_bienes.iloc[0][1] + valores_bienes.iloc[1][1] + valores_bienes.iloc[2][1]]
-            valores_bienes.loc[4] = ["Descuentos",
-                                     350,
-                                     350 * uf]
-            valores_bienes.loc[5] = ["Total Precio Venta",
-                                     valores_bienes.iloc[3][1] - valores_bienes.iloc[4][1],
-                                     valores_bienes.iloc[3][2] - valores_bienes.iloc[4][2]]
-
-            # Calculo de Datos de la forma de pago
-            # Usar un for para los calculos de las formas de pago
-            porcentaje_credito = 80
-            reserva = 10
-            porcentaje_pie = 100 - porcentaje_credito - reserva
-            porcentaje_reserva = reserva / valores_bienes.iloc[0][1]
-            valor_pie_uf = porcentaje_pie * datos_vivienda.valor_vivienda
-            valor_credito_uf = porcentaje_credito * datos_vivienda.valor_vivienda
-            total_en_uf = porcentaje_credito, reserva + valor_pie_uf + valor_credito_uf
-            forma_pago = pd.Dataframe(columns['concepto', 'porcentaje', 'valor_uf', 'valor_clp'])
-            forma_pago.loc[0] = ['Reserva', porcentaje_reserva, reserva, reserva * uf]
-            forma_pago.loc[1] = ['Pie Contado', porcentaje_pie, valor_pie_uf, valor_pie_uf * uf]
-            forma_pago.loc[2] = ['Credito Hipotecario', porcentaje_credito, valor_credito_uf, valor_credito_uf * uf]
-            forma_pago.loc[3] = ['Total', porcentaje_reserva + porcentaje_pie + total_en_uf, total_en_uf * uf]
-            # Calculo de Datos de la sumulación de Credito Hipotecario
-
-            tasa_anual = 4
-            simulacion_credito = pd.DataFrame(
-                columns['Plazo en años', 'Tasa Anual (%)', 'UF', '$CLP', 'Renta Requerida'])
-            simulacion_credito.loc[0] = [15, tasa_anual, "", "", ""]
-            simulacion_credito.loc[1] = [20, tasa_anual, "", "", ""]
-            simulacion_credito.loc[2] = [25, tasa_anual, "", "", ""]
-            simulacion_credito.loc[3] = [30, tasa_anual, "", "", ""]
-            # Usar un For para los calculos de la simulación del credito hipotecario
-
             # Template que se renderiza para obtener el PDF
-            template = get_template('ventas/gui_cotizacion/crear_cotizacion_from_cliente.html')
+            template = get_template('documentos/cotizacion_print.html')
             # Diccionaro context para entregar los datos  al template que se renderiza
             context = {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
                        'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                       'n_cotizacion': n_cotizacion, 'fecha_coti': fecha_coti,
                        'icon': 'static/assets/img/illustrations/logo-horizontal.gif'}
-
             html = template.render(context)
+
             response = HttpResponse(content_type='application/pdf')
             # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
             # create a pdf
@@ -1100,6 +1249,8 @@ class CotizacionPdf(View):
                 html, dest=response,
                 link_callback=self.link_callback)
             return response
-        except:
+        except Exception as e:
+            print(e)
             pass
-        return HttpResponseRedirect(request, 'ventas/gui_cotizacion/listar_cotizacion.html')
+        return HttpResponseRedirect(reverse_lazy("ventas:listar_cotizacion"))
+

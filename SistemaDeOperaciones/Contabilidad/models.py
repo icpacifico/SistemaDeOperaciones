@@ -9,7 +9,8 @@ from SistemaDeOperaciones.choices import *
 class Pago(models.Model):
     id_pago = models.AutoField(primary_key=True)
     forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=contado)
-    id_venta =  models.ForeignKey(Venta,verbose_name="Venta", on_delete=models.CASCADE)
+    id_reserva = models.CharField(verbose_name="Forma Pago", max_length=30, blank=True)
+    id_venta =  models.CharField(verbose_name="Venta", max_length=30, blank=True)
     id_banco = models.ForeignKey(Banco,verbose_name="Banco", on_delete=models.CASCADE)
     categoria_pago = models.CharField(verbose_name="Categoria Pago", max_length=30, choices=CATEGORIA_PAGO_CHOICES, default=cierre_negocio)
     estado_pago =  models.CharField(verbose_name="Estado Pago", max_length=30, choices=EST_PAGO_CHOICES, default=pendiente)

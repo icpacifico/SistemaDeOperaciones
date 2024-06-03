@@ -2,16 +2,16 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 from .views import (
     CrearCliente, ListadoClientes, ActualizarCliente,
-    CrearCotizacion, ListadoCotizaciones, ActualizarCotizacion,
+    CrearCotizacion, ListadoCotizaciones, ActualizarCotizacion,ver_cotizacion_pdf ,CotizacionPdf,
     CrearVenta, ListadoVentas, ActualizarVenta,
     CrearTipoDesistimiento, ListarTiposDesistimiento, ActualizarTipoDesistimiento,
     CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,
-    pasar_reserva, ListarReservas, detalle_reserva,
+    pasar_reserva, ListarReservas, detalle_reserva,anular_reserva,
     detalle_venta, registrar_pago_venta,
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
     Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf,
-    invocar_desistimiento)
+    invocar_desistimiento, registrar_pagos)
 
 app_name = 'ventas'
 
@@ -25,6 +25,8 @@ urlpatterns = [
     path('crear_cotizacion/', login_required(CrearCotizacion.as_view()), name='crear_cotizacion'),
     path('listar_cotizacion/', login_required(ListadoCotizaciones.as_view()), name='listar_cotizacion'),
     path('editar_cotizacion/<int:pk>/', login_required(ActualizarCotizacion.as_view()), name='editar_cotizacion'),
+    path('print_cotizacion/<int:id_cotizacion>/', login_required(CotizacionPdf.as_view()), name='print_cotizacion'),
+    path('ver_cotizacion_pdf/<int:id_cotizacion>/', login_required(ver_cotizacion_pdf), name='ver_cotizacion_pdf'),
 
     # Ventas
     path('crear_venta/', login_required(CrearVenta.as_view()), name='crear_venta'),
@@ -69,8 +71,11 @@ urlpatterns = [
     path('pasar_reserva/<int:id_cotizacion>/', login_required(pasar_reserva), name='pasar_reserva'),
     path('listar_reserva/', login_required(ListarReservas.as_view()), name='listar_reserva'),
     path('detalle_reserva/<int:id_reserva>/', login_required(detalle_reserva), name='detalle_reserva'),
+    path('anular_reserva/<int:id_reserva>/', login_required(anular_reserva), name='anular_reserva'),
 
     # Promesas
     path('pasar_reserva/<int:id_cotizacion>/', login_required(pasar_reserva), name='pasar_reserva'),
+    #
+    path('registrar_pagos/', login_required(registrar_pagos), name='registrar_pagos'),
 
 ]

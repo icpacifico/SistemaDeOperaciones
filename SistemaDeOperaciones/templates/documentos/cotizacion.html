@@ -12,249 +12,306 @@
                     <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
                         <div class="mb-xl-0 pb-3">
                             <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
-                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO</span>
+                               <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ proyectos.condominio }} {{ proyectos.etapa}}</span>
                             </div>
-                            <p class="mb-1">Ejecutio(a): Luis Pizarro Álvarez</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="tabla-container">
+                            <h3 style="text-align: center" >Cotización</h3>
+                            <!-- Tabla 1 -->
+                            <div>
+                                <h3>Datos cotización</h3>
+                                <table class="table">
+                                    <tr>
+                                        <th class="table-light">Proyecto</th>
+                                        <td>{{proyectos.condominio}}</td>
+                                        <th class="table-light">Cotización</th>
+                                        <td>{{n_cotizacion}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Etapa y Torre</th>
+                                        <td>{{proyectos.etapa}} - {{proyectos.torre}}</td>
+                                        <th class="table-light">Fecha</th>
+                                        <td>{{fecha_coti }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Dirección</th>
+                                        <td>{{proyectos.direccion}}</td>
+                                        <th class="table-light">Valor U.F $</th>
+                                        <td>35.650,50</td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 2 -->
+                            <div>
+                                <hr class="my-0">
+                                <h3>Datos del Cliente</h3>
+                                {% for dato in clientes %}
+                                <table class="table">
+                                    <tr>
+                                        <th class="table-light">Nombre</th>
+                                        <td>{{ dato.nombre_cliente }} {{ dato.nombre2_cliente }} {{ dato.apellido_paterno_cliente }} {{ dato.apellido_materno_cliente }}
+                                        </td>
+                                        <th class="table-light">Rut</th>
+                                        <td>{{ dato.id_cliente }}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Dirección</th>
+                                        <td>{{ dato.direccion_cliente }}</td>
+                                        <th class="table-light">E-mail</th>
+                                        <td>{{ dato.correo_cliente}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Comuna</th>
+                                        <td>{{ dato.region}}</td>
+                                        <th class="table-light">Fono</th>
+                                        <td>{{ dato.fono_cliente}}</td>
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Tabla 3 -->
+                            <div>
+                                <hr class="my-0">
+                                <h3>Datos del Bien</h3>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-light">Unidad</th>
+                                        <th class="table-light">N°</th>
+                                        <th class="table-light">Tipo</th>
+                                        <th class="table-light">Piso</th>
+                                        <th class="table-light">Orientación</th>
+                                        <th class="table-light">Sup. Útil</th>
+                                        <th class="table-light">Sup. Terraza</th>
+                                        <th class="table-light">Sup. Total</th>
+                                        <th class="table-light">Precio. UF</th>
+                                        <th class="table-light">Precio. $CLP</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for dato in viviendas %}
+                                    <tr>
+                                        <td>Departamento</td>
+                                        <td>{{dato.nombre_vivienda}}</td>
+                                        <td>{{dato.id_modelo.nombre_modelo}}</td>
+                                        <td>{{dato.piso}}</td>
+                                        <td>{{dato.ori_vivienda}}</td>
+                                        <td>{{dato.metros_vivienda}}</td>
+                                        <td>{{dato.metros_terraza_vivienda}}</td>
+                                        <td>{{dato.metros_total_vivienda}}</td>
+                                        <td>{{dato.valor_vivienda}}</td>
+                                        <td>{{dato.valor_vivienda}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% for dato in bodegas %}
+                                    <tr>
+                                        <td>Bodega</td>
+                                        <td>{{dato.nombre_bodega}}</td>
+                                        <td>Bodega</td>
+                                        <td>-1</td>
+                                        <td>X</td>
+                                        <td>2.41</td>
+                                        <td>0</td>
+                                        <td>2.41</td>
+                                        <td>{{dato.valor_bodega}}</td>
+                                        <td>{{dato.valor_bodega}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% for dato in estacionamientos %}
+                                    <tr>
+                                        <td>Estacionamiento</td>
+                                        <td>{{dato.nombre_estacionamiento}}</td>
+                                        <td>Est</td>
+                                        <td>0</td>
+                                        <td>X</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>0</td>
+                                        <td>{{dato.valor_estacionamiento}}</td>
+                                        <td>{{dato.valor_estacionamiento}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 4 -->
+                            <div>
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th class="table-light">Total Precio Lista</th>
+                                        <td>3.175,00 UF</td>
+                                        <td>$90.850.960.-</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Descuento</th>
+                                        <td>100 UF</td>
+                                        <td>$350.000.-</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="table-light">Total Precio Venta</th>
+                                        <td>3.075 UF</td>
+                                        <td>$90.550.960.-</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 5 -->
+
+                            <div>
+                                <hr class="my-0">
+                                <h6>Forma de Pago</h6>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-light">Concepto</th>
+                                        <th class="table-light">%</th>
+                                        <th class="table-light">Valor UF</th>
+                                        <th class="table-light">Valor $</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Reserva</td>
+                                        <td>0.35%</td>
+                                        <td>10</td>
+                                        <td>350.000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pie Contado</td>
+                                        <td>19.65%</td>
+                                        <td>554,20</td>
+                                        <td>19.560.112</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Credito Hip.</td>
+                                        <td>80 %</td>
+                                        <td>2.556</td>
+                                        <td>80.500.850</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>100%</td>
+                                        <td>2.850</td>
+                                        <td>90.580.850</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 6 -->
+
+                            <div>
+                                <hr class="my-0">
+
+                                <h6>Simulación de Crédito Hipotecario</h6>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th class="table-light">Plazo (años)</th>
+                                        <th class="table-light">Tasa Anual</th>
+                                        <th class="table-light">Div. UF</th>
+                                        <th class="table-light">Div. CLP $</th>
+                                        <th class="table-light">Renta $</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>15</td>
+                                        <td>4.00</td>
+                                        <td>16.69</td>
+                                        <td>589.100</td>
+                                        <td>2.350.500</td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>4.00</td>
+                                        <td>16.69</td>
+                                        <td>589.100</td>
+                                        <td>1.930.500</td>
+                                    </tr>
+                                    <tr>
+                                        <td>25</td>
+                                        <td>4.00</td>
+                                        <td>16.69</td>
+                                        <td>589.100</td>
+                                        <td>1.650.500</td>
+                                    </tr>
+                                    <tr>
+                                        <td>30</td>
+                                        <td>4.00</td>
+                                        <td>16.69</td>
+                                        <td>589.100</td>
+                                        <td>1.350.500</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Tabla 7 -->
+
+                            <hr class="my-0">
+                            <div>
+                                <table class="table">
+                                    <tbody>
+                                    <td>
+                                        <div>
+                                            <h6>Datos de Atención</h6>
+                                            <div>
+                                                <table class="table">
+                                                    <tr>
+                                                        <th class="table-light">Atendido por:</th>
+                                                        <td>Kriss Aguirre Zambra</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="table-light">Fono:</th>
+                                                        <td>+56958709218</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="table-light">E-mail</th>
+                                                        <td>kaguirre@icpacifico.cl</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- Tabla 6 -->
+                                    <td>
+                                        <div class="center-top">
+                                            <h6></h6>
+                                            <div>
+                                                <div>
+                                                    <table class="table">
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </div>
-                        <div>
-                            <h4 class="fw-medium text-capitalize pb-1 text-nowrap">VENTA {{id_venta}}</h4>
-                            <div class="mb-1">
-                                <span>Fecha de venta:</span>
-                                <span>04 de marzo 2024</span>
-                            </div>
-                            <div>
-                                <span>Fecha Arqueo:</span>
-                                <span>04 de marzo 2024</span>
-                            </div>
-                        </div>
+                        <hr class="my-0">
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <p style="font-style: italic; font-size: 14px;">
+                            Gracias por su preferencia. Para consultas, contáctenos a <a
+                                href="mailto:amoya@icpacifico.cl">amoya@icpacifico.cl</a>
+                        </p>
                     </div>
                 </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div class="my-3">
-                            {% for venta in datos_venta %}
-                            <h6>Datos departamento:</h6>
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="pe-3">N° Departamento:</td>
-                                    <td>{{ venta.id_cotizacion.id_vivienda.nombre_vivienda }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pe-3">N° Torre</td>
-                                    <td>{{ venta.id_cotizacion.id_vivienda.id_torre.nombre_torre }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="pe-3">Piso:</td>
-                                    <td>{{ venta.id_cotizacion.id_vivienda.piso }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                            {% endfor %}
-                        </div>
-                        <div class="my-3 me-3">
-                            <h6>Datos cliente:</h6>
-                            {% for venta in datos_venta %}
-                            <p class="mb-1">Nombre: {{ venta.id_cotizacion.id_cliente.nombre_cliente }} {{venta.id_cotizacion.id_cliente.apellido_paterno_cliente }}</p>
-                            <p class="mb-1">Rut: {{ venta.id_cotizacion.id_cliente.id_cliente}}</p>
-                            <p class="mb-1">Correo: {{ venta.id_cotizacion.id_cliente.correo_cliente}}</p>
-                            <p class="mb-1">Teléfono: (+56) {{ venta.id_cotizacion.id_cliente.fono_cliente}}</p>
-                            {% endfor%}
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-0">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0 fw-normal">Arqueo contable</h3>
-                </div>
-                <!-- Bootstrap Table with Header - Dark -->
-                <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                        {% if datos %}
-                        <table class="table">
-                            <thead class="table-dark">
-                            <tr>
-                                <th>Abono $CLP</th>
-                                <th>Abono UF</th>
-                                <th>Fecha Cobro</th>
-                                <th>Estado Cobro</th>
-                                <th>Valor UF pago efectivo</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                            {% for dato in datos %}
-                            <tr>
-                                <td>{{dato.categoria_pago}}</td>
-                                <td>{{dato.id_banco}}</td>
-                                <td>{{dato.forma_pago}}</td>
-                                <td>{{dato.fecha_pago}}</td>
-                                <td>{{dato.fecha_pago}}</td>
-                            </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                        {% else %}
-                        <table class="table" style="min-height:200px">
-                            <thead class="table-light">
-                            <tr>
-                                <th>Abono $CLP</th>
-                                <th>Abono UF</th>
-                                <th>Fecha Cobro</th>
-                                <th>Estado Cobro</th>
-                                <th>Valor UF pago efectivo</th>
-                            </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                            <tr>
-                                <td colspan='4' align='center'><span class="border-info me-1"><i
-                                        class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        {% endif%}
-                    </div>
-                </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <div class="my-3">
-                            <h6>Fondo Puesta en Marcha (FPM):</h6>
-                            <div class="table-responsive text-nowrap">
-                                {% if datos %}
-                                <table class="table">
-                                    <thead class="table-dark">
-                                    <tr>
-                                        <th>Monto $CLP</th>
-                                        <th>Fecha Pago</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0">
-                                    {% for dato in datos %}
-                                    <tr>
-                                        <td>{{dato.categoria_pago}}</td>
-                                        <td>{{dato.id_banco}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                                {% else %}
-                                <table class="table" style="min-height:200px">
-                                    <thead class="table-light">
-                                    <tr>
-                                        <th>Monto $CLP</th>
-                                        <th>Fecha Pago</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td colspan='4' align='center'><span class="border-info me-1"><i
-                                                class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                {% endif%}
-                            </div>
-                        </div>
-                        <div class="my-3 me-3">
-                            <h6>Fondo gastos OOPP Constado:</h6>
-                            <div class="table-responsive text-nowrap">
-                                {% if datos %}
-                                <table class="table">
-                                    <thead class="table-dark">
-                                    <tr>
-                                        <th>Monto $CLP</th>
-                                        <th>Fecha Pago</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0">
-                                    {% for dato in datos %}
-                                    <tr>
-                                        <td>{{dato.categoria_pago}}</td>
-                                        <td>{{dato.id_banco}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                                {% else %}
-                                <table class="table" style="min-height:200px">
-                                    <thead class="table-light">
-                                    <tr>
-                                        <th>Monto $CLP</th>
-                                        <th>Fecha Pago</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td colspan='4' align='center'><span class="border-info me-1"><i
-                                                class="mdi mdi-information-outline"></i>Aún no se han realizado pagos</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                {% endif%}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="my-0">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-md-0 mb-3">
-                            <div>
-                                <p class="mb-2">
-                                    <span class="me-1 text-heading">Jefa de Operaciones:</span>
-                                    <span>Sara Araya Bugueño</span>
-                                </p>
-                                <span>Thanks for your business</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-md-end mt-2">
-                            <div class="invoice-calculations">
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Valor Depto:</span>
-                                    <h6 class="mb-0 pt-1">UF 3.600,00</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Pie Cancelado:</span>
-                                    <h6 class="mb-0 pt-1">UF 147.78</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Abono Inmobiliaria:</span>
-                                    <h6 class="mb-0 pt-1">UF 1.070,00</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Saldo Pie:</span>
-                                    <h6 class="mb-0 pt-1">UF 222,22</h6>
-                                </div>
-                                <div class="d-flex justify-content-between mb-2">
-                                    <span>Crédito Hipotecario:</span>
-                                    <h6 class="mb-0 pt-1">UF 2.160,00</h6>
-                                </div>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <span>Total:</span>
-                                    <h6 class="mb-0 pt-1">UF 2.530,00</h6>
-                                </div>
-                                <hr>
-                                <div class="d-flex justify-content-between">
-                                    <span>Valor Final Inmobiliaria:</span>
-                                    <h6 class="mb-0 pt-1">UF 2.530,00</h6>
-                                </div>
-                            </div>
-                            <div id="extwaiokist" style="display:none" v="pdbbg" q="926b5c29" c="135.0" i="142"
-                                 u="19.76" s="03052403" sg="svr_09102316-ga_03052403-bai_02292418" d="1" w="false" e=""
-                                 a="2" m="BMe=" vn="1gtra">
-                                <div id="extwaigglbit" style="display:none" v="pdbbg" q="926b5c29" c="135.0" i="142"
-                                     u="19.76" s="03052403" sg="svr_09102316-ga_03052403-bai_02292418" d="1" w="false"
-                                     e="" a="2" m="BMe="></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+
                 <hr class="my-0">
 
                 <div class="card-body">
@@ -277,10 +334,10 @@
                     <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light"
                             data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
                         <span class="d-flex align-items-center justify-content-center text-nowrap"><i
-                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>Enviar</span>
+                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>ENVIAR DOCUMENTO</span>
                     </button>
                     <a class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light" target="_blank"
-                       href="{% url 'ventas:pagos_invoice_pdf' id_venta=id_venta %}">
+                       href="{% url 'ventas:print_cotizacion' id_cotizacion=id_cotizacion %}">
                         DESCARGAR PDF
                     </a>
                 </div>
@@ -290,56 +347,8 @@
     </div>
 
     <!-- Offcanvas -->
-    <!-- Send Invoice Sidebar -->
-    <div class="offcanvas offcanvas-end" id="sendInvoiceOffcanvas" aria-hidden="true">
-        <div class="offcanvas-header mb-3">
-            <h5 class="offcanvas-title">Send Invoice</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body flex-grow-1">
-            <form>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com"
-                           placeholder="company@email.com">
-                    <label for="invoice-from">From</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com"
-                           placeholder="company@email.com">
-                    <label for="invoice-to">To</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-                    <input type="text" class="form-control" id="invoice-subject"
-                           value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods">
-                    <label for="invoice-subject">Subject</label>
-                </div>
-                <div class="form-floating form-floating-outline mb-4">
-        <textarea class="form-control" name="invoice-message" id="invoice-message" style="height: 190px;">Dear Queen Consolidated,
-          Thank you for your business, always a pleasure to work with you!
-          We have generated a new invoice in the amount of $95.59
-          We would appreciate payment of this invoice by 05/11/2021</textarea>
-                    <label for="invoice-message">Message</label>
-                </div>
-                <div class="mb-4">
-        <span class="badge bg-label-primary rounded-pill">
-          <i class="mdi mdi-link-variant mdi-14px me-1"></i>
-          <span class="align-middle">Invoice Attached</span>
-        </span>
-                </div>
-                <div class="mb-3 d-flex flex-wrap">
-                    <button type="button" class="btn btn-primary me-3 waves-effect waves-light"
-                            data-bs-dismiss="offcanvas">Send
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary waves-effect" data-bs-dismiss="offcanvas">
-                        Cancel
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- /Send Invoice Sidebar -->
+    <!-- Add Payment Sidebar -->
+    <!-- /Add Payment Sidebar -->
     <!-- /Offcanvas -->
-
-
 </div>
 {% endblock contenido %}
