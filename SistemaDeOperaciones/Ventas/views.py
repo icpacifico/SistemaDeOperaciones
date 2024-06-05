@@ -17,9 +17,10 @@ from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
 from xlsxwriter.workbook import Workbook
 from io import BytesIO
+from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import numpy as np
-from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 
@@ -899,6 +900,26 @@ def pasar_reserva(request, id_cotizacion):
         nueva_reserva.save()
         # Obtener el ID de la nueva reserva
         id_nueva_reserva = nueva_reserva.id_reserva
+        # CAMBIO DE ESTADOS DE LA COTIZACIÓN, Y BIENES
+        print("ESTE ES EL ID DE LA COTIZACION --------->", id_cotizacion)
+        cotizacion_update = get_object_or_404(Cotizacion, id_cotizacion=id_cotizacion)
+        cotizacion_update.estado_cotizacion = 'En Reserva'
+        cotizacion_update.save()
+        vivienda_update = get_object_or_404(Vivienda, id_vivienda=cotizacion.id_vivienda.id_vivienda)
+        vivienda_update.estado_vivienda = 'No Disponible'
+        vivienda_update.save()
+        print("ESTE ES EL ID DE LA VIVIENDA --------->", vivienda_update.id_vivienda)
+        """bodega_update = Bodega.objects.filter(id_vivienda=vivienda_update.id_vivienda)
+        bodega_update.estado_bodega = 'No Disponible'
+        bodega_update.save()"""
+
+        bodega = get_object_or_404(Bodega, id_vivienda_id=vivienda_update.id_vivienda)
+        bodega.estado_bodega = 'bodega'
+        bodega.save()
+
+        estacionamiento_update = get_object_or_404(Estacionamiento, id_vivienda_id=vivienda_update.id_vivienda)
+        estacionamiento_update.estado_estacionamiento = 'No Disponible'
+        estacionamiento_update.save()
 
         # Ahora puedes usar el ID de la nueva reserva como necesites
         print(f"El ID de la nueva reserva es: {id_nueva_reserva}")
@@ -949,69 +970,6 @@ def pasar_reserva(request, id_cotizacion):
         }
 
         return render(request, 'ventas/gui_reserva/crear_reserva.html', context)
-
-
-def pasar_reserva_2(request, id_cotizacion):
-    # datos_venta = Venta.objects.filter(id_venta=id_venta)
-    # cotizacion_no = datos_venta.id_cotizacion
-    id_cliente = Cotizacion.objects.values_list('id_cliente').filter(id_cotizacion=id_cotizacion)
-    id_cliente = id_cliente[0][0]
-    nombre_cliente = Cliente.objects.values_list('nombre_cliente').filter(id_cliente=id_cliente)
-    apellido_paterno_cliente = Cliente.objects.values_list('apellido_paterno_cliente').filter(id_cliente=id_cliente)
-    apellido_materno_cliente = Cliente.objects.values_list('apellido_materno_cliente').filter(id_cliente=id_cliente)
-    nombre_cliente = nombre_cliente[0][0]
-    apellido_paterno_cliente = apellido_paterno_cliente[0][0]
-    apellido_materno_cliente = apellido_materno_cliente[0][0]
-    rut_cliente = id_cliente
-    cliente = nombre_cliente + " " + apellido_paterno_cliente + " " + apellido_materno_cliente
-    fono_cliente = Cliente.objects.values_list('fono_cliente').filter(id_cliente=id_cliente)
-    fono_cliente = fono_cliente[0][0]
-    correo_cliente = Cliente.objects.values_list('correo_cliente').filter(id_cliente=id_cliente)
-    correo_cliente = correo_cliente[0][0]
-
-    id_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion=id_cotizacion)
-    id_vivienda = id_vivienda[0][0]
-
-    datos_reserva = Reserva.objects.all()
-    recibo = len(datos_reserva) + 1
-    datos_vivienda = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
-    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
-    id_modelo = datos_vivienda[0][0]
-    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
-    nombre_modelo = nombre_modelo[0][0]
-    id_torre = id_torre[0][0]
-    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
-    nombre_torre = nombre_torre[0][0]
-    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
-    id_etapa_condominio = id_etapa_condominio[0][0]
-    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
-    nombre_etapa = nombre_etapa[0][0]
-    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
-    id_condominio = datos_modelo[0][0]
-    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
-    nombre_condominio = datos_condominio[0][0]
-
-    nueva_reserva = Reserva(negocio=id_cotizacion,
-                            referencia=id_cotizacion,
-                            fecha_creacion=datetime.now(),
-                            fecha_aprobacion=datetime.now(),
-                            cliente=cliente,
-                            no_recibo=recibo,
-                            fono=fono_cliente,
-                            correo=correo_cliente,
-                            proyecto=nombre_condominio,
-                            estado_reserva="Pendiente")
-    nueva_reserva.save()
-
-    reservas = Reserva.objects.all()
-    return render(request, 'ventas/gui_reserva/listar_reserva.html', {'reservas': reservas})
-
-
-"""
-    return render(request, 'ventas/gui_reserva/crear_reserva.html',
-                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
-                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
-                   'id_cotizacion': id_cotizacion, 'context':context})"""
 
 
 def pasar_promesa(request, id_cotizacion):

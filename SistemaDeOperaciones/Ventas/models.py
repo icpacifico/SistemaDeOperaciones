@@ -53,7 +53,7 @@ class Cotizacion(models.Model):
     canal_cotizacion = models.CharField(verbose_name="Canal Cotización", max_length=200, choices=CANAL_COTIZACION_CHOICES, default=None)
     preaprobacion_cotizacion = models.CharField(verbose_name="Preaprobación Cotización", max_length=200, choices=PREAPROBACION_COTIZACION_CHOICES, default=None)
     renta_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=RENTA_COTIZACION_CHOICES, default=None)
-    estado_cotizacion = models.CharField(verbose_name="Estado Cotización", max_length=200, choices=IS_ACTIVE_CHOICES, default="Activo")
+    estado_cotizacion = models.CharField(verbose_name="Estado Cotización", max_length=200, choices=COTIZACIONES_CHOICES, default="Activo")
 
     class Meta:
         db_table = "cotizacion"

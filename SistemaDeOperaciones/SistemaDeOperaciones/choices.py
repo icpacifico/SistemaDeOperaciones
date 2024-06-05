@@ -4,6 +4,13 @@ is_inactive = 'Inactivo'
 IS_ACTIVE_CHOICES = [(is_active, 'Activo'),
                      (is_inactive, 'Inactivo'), ]
 
+reserva = 'En Reserva'
+anulada = 'Anulada'
+
+COTIZACIONES_CHOICES = [(reserva, 'En Reserva'),
+                     (anulada, 'Anulada'),
+                     (is_active, 'Activo'),]
+
 # Activo-Inactivo
 # etapa_estado_etapa
 # modelo_estado_modelo
