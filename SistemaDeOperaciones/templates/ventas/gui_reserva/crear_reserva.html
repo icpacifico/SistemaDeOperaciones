@@ -6,85 +6,82 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let pagosContainer = document.getElementById('pagos-container');
-        let addPagoBtn = document.getElementById('add-pago-btn');
-        let submitPagosBtn = document.getElementById('submit-pagos-btn');
+document.addEventListener('DOMContentLoaded', function() {
+    let pagosContainer = document.getElementById('pagos-container');
+    let addPagoBtn = document.getElementById('add-pago-btn');
+    let pagosForm = document.querySelector('.pago-form'); // Cambiado aquí para seleccionar el primer formulario de pago
 
-        // Función para obtener la fecha actual en formato YYYY-MM-DD
-        function getFormattedDate(date) {
-            let d = new Date(date),
-                month = '' + (d.getMonth() + 1),
-                day = '' + d.getDate(),
-                year = d.getFullYear();
+    function getFormattedDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
 
-            if (month.length < 2) month = '0' + month;
-            if (day.length < 2) day = '0' + day;
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
 
-            return [year, month, day].join('-');
-        }
-
-        // Inicializa la fecha de pago con la fecha actual
-        let currentDate = new Date();
-        document.querySelector('.pago-form input[name="fecha_pago"]').value = getFormattedDate(currentDate);
-
-        addPagoBtn.addEventListener('click', function() {
-    let lastForm = pagosContainer.querySelector('.pago-form:last-child');
-
-    // Verificar si lastForm es null o undefined antes de continuar
-    if (lastForm) {
-        let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
-        let lastDate = new Date(lastDateInput);
-
-        // Incrementa la fecha en 30 días
-        let newDate = new Date(lastDate);
-        newDate.setDate(newDate.getDate() + 30);
-
-        let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-        pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
-            if (input.name === "fecha_pago") {
-                input.value = getFormattedDate(newDate);
-            } else {
-                input.value = '';
-            }
-        });
-
-        pagosContainer.appendChild(pagoForm);
-    } else {
-        // Si no se encuentra ningún formulario, clonar el primer formulario
-        let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-        pagosContainer.appendChild(pagoForm);
+        return [year, month, day].join('-');
     }
-});
 
+    let currentDate = new Date();
+    document.querySelector('.pago-form input[name="fecha_pago"]').value = getFormattedDate(currentDate);
 
-        submitPagosBtn.addEventListener('click', function() {
-            let pagos = [];
-            document.querySelectorAll('.pago-form').forEach(form => {
-                let formData = new FormData(form);
-                let pago = {};
-                formData.forEach((value, key) => pago[key] = value);
-                pagos.push(pago);
-            });
+    addPagoBtn.addEventListener('click', function() {
+        let lastForm = pagosContainer.querySelector('.pago-form:last-child');
 
-            fetch("{% url 'ventas:registrar_pagos' %}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ pagos: pagos })
-            }).then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Pagos registrados con éxito');
-                    window.location.reload();
+        if (lastForm) {
+            let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
+            let lastDate = new Date(lastDateInput);
+
+            let newDate = new Date(lastDate);
+            newDate.setDate(newDate.getDate() + 30);
+
+            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
+            pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
+                if (input.name === "fecha_pago") {
+                    input.value = getFormattedDate(newDate);
                 } else {
-                    alert('Ocurrió un error');
+                    input.value = '';
                 }
             });
+
+            pagosContainer.appendChild(pagoForm);
+        } else {
+            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
+            pagosContainer.appendChild(pagoForm);
+        }
+    });
+
+    pagosForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let pagos = [];
+        document.querySelectorAll('.pago-form').forEach(form => {
+            let formData = new FormData(form);
+            let pago = {};
+            formData.forEach((value, key) => pago[key] = value);
+            pagos.push(pago);
+        });
+
+
+        fetch(pagosForm.action, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ pagos: pagos })
+        }).then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Pagos registrados con éxito');
+                window.location.href = "{% url 'ventas:listar_reserva' %}";
+            } else {
+                alert('Ocurrió un error: ' + data.message);
+            }
         });
     });
+});
+
 
 
 
@@ -208,10 +205,11 @@
                             <hr class="my-0">
                             <br>
                             <div id="pagos-container">
-                                <form class="pago-form" method="post">
+                                <form id="pagos-form" class="pago-form" method="post"
+                                      action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
                                     {% csrf_token %}
                                     <div class="row">
-                                        <input type="hidden" name="id_venta" value="{{ id_venta }}">
+
 
                                         <div class="col-md-6 form-floating form-floating-outline mb-4">
                                             {{form.forma_pago}}
@@ -230,52 +228,28 @@
                                             <label for="floating-input">Monto</label>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <button class="btn btn-info w-100 waves-effect waves-light"
+                                                    id="add-pago-btn" type="button">Agregar Pago
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn"
+                                                    type="submit">Enviar Pagos
+                                            </button>
+                                        </div>
+                                    </div>
                                 </form>
                                 <hr class="my-0">
-                                <br>
                             </div>
-                            <div class="row mt-3">
-                                <div class="col-md-6 mb-3">
-                                    <button class="btn btn-info w-100 waves-effect waves-light" id="add-pago-btn"
-                                            type="button">Agregar Pago
-                                    </button>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn"
-                                            type="button">Enviar Pagos
-                                    </button>
-                                </div>
-                            </div>
+                            <br>
                         </div>
                     </div>
                 </div>
-                <hr class="my-0">
             </div>
+            <hr class="my-0">
         </div>
-        <!-- /Invoice -->
-
-        <!-- Invoice Actions -->
-        <div class="col-xl-3 col-md-4 col-12 invoice-actions">
-            <div class="card">
-                <div class="card-body">
-                    <button class="btn btn-primary d-grid w-100 mb-3 waves-effect waves-light"
-                            data-bs-toggle="offcanvas" data-bs-target="#sendInvoiceOffcanvas">
-                        <span class="d-flex align-items-center justify-content-center text-nowrap"><i
-                                class="mdi mdi-send-outline scaleX-n1-rtl me-2"></i>ENVIAR DOCUMENTO</span>
-                    </button>
-                    <a class="btn btn-info d-grid w-100 mb-3 waves-effect waves-light" target="_blank"
-                       href="{% url 'ventas:print_cotizacion' id_cotizacion=id_cotizacion %}">
-                        DESCARGAR PDF
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!-- /Invoice Actions -->
     </div>
-
-    <!-- Offcanvas -->
-    <!-- Add Payment Sidebar -->
-    <!-- /Add Payment Sidebar -->
-    <!-- /Offcanvas -->
 </div>
 {% endblock contenido %}

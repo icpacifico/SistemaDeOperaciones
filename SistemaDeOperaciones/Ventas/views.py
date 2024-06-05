@@ -1,43 +1,26 @@
-from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
-from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, \
-    Vivienda
+from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, Vivienda
 from Proyectos.models import Modelo, Bodega, Estacionamiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
-from Contabilidad.models import Pago
-import os
+from Contabilidad.models import Pago, Banco
 from django.conf import settings
-from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from datetime import datetime
 from django.http import JsonResponse
-from django.http import HttpResponse
-from openpyxl import Workbook
-from django.http import HttpResponse
-from openpyxl import Workbook
-from openpyxl.styles import Alignment
-from django.http import HttpResponse
 from openpyxl import Workbook
 from openpyxl.styles import Alignment
 from openpyxl.utils import get_column_letter
-from django.http import HttpResponse
 from xlsxwriter.workbook import Workbook
 from io import BytesIO
-from django.shortcuts import render, redirect
 import pandas as pd
 import numpy as np
-from django.shortcuts import render
-from django.http import JsonResponse
-from Contabilidad.forms import PagoForm
-from Contabilidad.models import Pago
-import json
-from django.shortcuts import render, redirect
-from django.forms import formset_factory
-from Contabilidad.forms import PagoForm
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Create your views here.
@@ -862,92 +845,110 @@ class Fpm_VentaPdf(View):
         return HttpResponseRedirect(reverse_lazy("ventas:listar_venta"))
 
 
-def pasar_reserva(request, id_cotizacion):  # ESTA VISTA ES PARA GENERAR UN DOCUMENTO
+@csrf_exempt
+def pasar_reserva(request, id_cotizacion):
+    cotizacion = get_object_or_404(Cotizacion, id_cotizacion=id_cotizacion)
+    cliente = get_object_or_404(Cliente, id_cliente=cotizacion.id_cliente.id_cliente)
+    vivienda = get_object_or_404(Vivienda, id_vivienda=cotizacion.id_vivienda.id_vivienda)
 
-    datos_cliente = Cotizacion.objects.values_list('id_cliente').filter(
-        id_cotizacion=id_cotizacion)
-    id_cliente = datos_cliente[0][0]
-    datos_cliente = Cliente.objects.filter(id_cliente=id_cliente)
-    # Datos de la vivienda
-    datos_vivienda = Cotizacion.objects.values_list('id_vivienda').filter(
-        id_cotizacion=id_cotizacion)
-    id_vivienda = datos_vivienda[0][0]
-    datos_vivienda = Vivienda.objects.filter(id_vivienda=id_vivienda)
-    # Datos de las bodegas
-    datos_bodega = Bodega.objects.filter(id_vivienda=id_vivienda)
-    # Datos de los Estacionamientos
-    datos_estacionamiento = Estacionamiento.objects.filter(id_vivienda=id_vivienda)
-    # Datos del condominio
-    modelo = Vivienda.objects.values_list('id_modelo').filter(id_vivienda=id_vivienda)
-    id_torre = Vivienda.objects.values_list('id_torre').filter(id_vivienda=id_vivienda)
-    id_modelo = modelo[0][0]
-    nombre_modelo = Modelo.objects.values_list('nombre_modelo').filter(id_modelo=id_modelo)
-    nombre_modelo = nombre_modelo[0][0]
-    id_torre = id_torre[0][0]
-    nombre_torre = Torre.objects.values_list('nombre_torre').filter(id_torre=id_torre)
-    nombre_torre = nombre_torre[0][0]
-    id_etapa_condominio = Torre.objects.values_list('id_etapa_condominio').filter(id_torre=id_torre)
-    id_etapa_condominio = id_etapa_condominio[0][0]
-    nombre_etapa = Etapa.objects.values_list('nombre_etapa').filter(id_etapa_condominio=id_etapa_condominio)
-    nombre_etapa = nombre_etapa[0][0]
-    datos_modelo = Modelo.objects.values_list('id_condominio').filter(id_modelo=id_modelo)
-    id_condominio = datos_modelo[0][0]
-    datos_condominio = Condominio.objects.values_list('nombre_condominio').filter(id_condominio=id_condominio)
-    nombre_condominio = datos_condominio[0][0]
-    direccion_proyecto = Condominio.objects.values_list('direccion_proyecto').filter(
-        id_condominio=id_condominio)
-    direccion_proyecto = direccion_proyecto[0][0]
-    datos_proyecto = {'condominio': nombre_condominio, 'etapa': nombre_etapa, 'torre': nombre_torre,
-                      'direccion': direccion_proyecto}
+    nombre_cliente = f"{cliente.nombre_cliente} {cliente.apellido_paterno_cliente} {cliente.apellido_materno_cliente}"
+    fono_cliente = cliente.fono_cliente
+    correo_cliente = cliente.correo_cliente
+
+    bodega = Bodega.objects.filter(id_vivienda=vivienda.id_vivienda)
+    estacionamiento = Estacionamiento.objects.filter(id_vivienda=vivienda.id_vivienda)
+
+    modelo = vivienda.id_modelo
+    torre = vivienda.id_torre
+    etapa = torre.id_etapa_condominio
+    condominio = modelo.id_condominio
+
+    datos_proyecto = {
+        'condominio': condominio.nombre_condominio,
+        'etapa': etapa.nombre_etapa,
+        'torre': torre.nombre_torre,
+        'direccion': condominio.direccion_proyecto
+    }
 
     if request.method == 'POST':
-        # Creamos la reserva
-        print("AH INGRESADO AL METOOD POST")
+        print("Ha ingresado al método POST")
 
-        nueva_reserva = Reserva(negocio=id_cotizacion,
-                                referencia=id_cotizacion,
-                                fecha_creacion=datetime.now(),
-                                fecha_aprobacion=datetime.now(),
-                                cliente=cliente,
-                                no_recibo=recibo,
-                                fono=fono_cliente,
-                                correo=correo_cliente,
-                                proyecto=nombre_condominio,
-                                estado_reserva="Pendiente")
+        # Verificar el cuerpo de la solicitud
+        print("Contenido de request.body:", request.body)
+
+        try:
+            pagos_data = json.loads(request.body).get('pagos', [])
+        except json.JSONDecodeError as e:
+            return JsonResponse({'status': 'error', 'message': 'Error al decodificar JSON', 'details': str(e)},
+                                status=400)
+
+        print("Datos de pagos recibidos:", pagos_data)
+
+        nueva_reserva = Reserva(
+            negocio=id_cotizacion,
+            referencia=id_cotizacion,
+            fecha_creacion=datetime.now(),
+            fecha_aprobacion=datetime.now(),
+            cliente=cliente,
+            no_recibo=Reserva.objects.count() + 1,
+            fono=fono_cliente,
+            correo=correo_cliente,
+            proyecto=condominio.nombre_condominio,
+            estado_reserva="Pendiente"
+        )
         nueva_reserva.save()
+        # Obtener el ID de la nueva reserva
+        id_nueva_reserva = nueva_reserva.id_reserva
 
-        id_reserva = Reservas.objects.all()
-        print(id_reserva)
-        id_reserva = id_reserva[0]
-        print(id_reserva)
-        id_reserva = len(id_reserva)
-        print(id_reserva)
+        # Ahora puedes usar el ID de la nueva reserva como necesites
+        print(f"El ID de la nueva reserva es: {id_nueva_reserva}")
 
+        # return render(request, 'ventas/gui_reserva/listar_reserva.html')
+        return JsonResponse({'status': 'success'}, status=201)
+        #response_data = {
+          #  'status': 'success'
+        #}
 
+        for conjunto in pagos_data:
+            # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
+            # Accediendo a los valores
+            csrf_token = conjunto['csrfmiddlewaretoken']
+            forma_pago = conjunto['forma_pago']
+            id_banco = conjunto['id_banco']
+            id_banco = int(id_banco)
+            banco = Banco.objects.get(id_banco = id_banco)
+            print("tipo de variable banco ", type(banco))
+            fecha_pago = conjunto['fecha_pago']
+            monto_pago = conjunto['monto_pago']
+            nuevo_pago = Pago(
+                forma_pago=forma_pago,
+                id_reserva=id_nueva_reserva,
+                id_banco=banco,
+                categoria_pago='cierre_negocio',
+                estado_pago='pendiente',
+                fecha_pago=fecha_pago,
+                fecha_real_pago=fecha_pago,
+                monto_pago=monto_pago,
+                descripcion="Pago de reserva"
+            )
+            nuevo_pago.save()
 
-        pagos_data = json.loads(request.body).get('pagos', [])
-        for pago_data in pagos_data:
-            form = PagoForm(pago_data)
-            if form.is_valid():
-                form.save()
-        # return JsonResponse({'status': 'success'})
-        return render(request, 'ventas/gui_reserva/listar_reserva.html')
+        # Combina la respuesta HTML y JSON en un solo retorno
+        #return render(request, 'ventas/gui_reserva/listar_reserva.html', {'response_data': response_data})
+
     else:
         form = PagoForm()
-        # print(form)
+        context = {
+            'viviendas': [vivienda],
+            'clientes': [cliente],
+            'bodegas': bodega,
+            'estacionamientos': estacionamiento,
+            'proyectos': datos_proyecto,
+            'id_cotizacion': id_cotizacion,
+            'form': form
+        }
 
-
-        return render(request, 'ventas/gui_reserva/crear_reserva.html', {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
-                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
-                   'id_cotizacion': id_cotizacion,'form': form})
-
-
-
-"""
-    return render(request, 'ventas/gui_reserva/crear_reserva.html',
-                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
-                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
-                   'id_cotizacion': id_cotizacion, 'context':context})"""
+        return render(request, 'ventas/gui_reserva/crear_reserva.html', context)
 
 
 def pasar_reserva_2(request, id_cotizacion):
@@ -1006,6 +1007,13 @@ def pasar_reserva_2(request, id_cotizacion):
     return render(request, 'ventas/gui_reserva/listar_reserva.html', {'reservas': reservas})
 
 
+"""
+    return render(request, 'ventas/gui_reserva/crear_reserva.html',
+                  {'viviendas': datos_vivienda, 'clientes': datos_cliente, 'bodegas': datos_bodega,
+                   'estacionamientos': datos_estacionamiento, 'proyectos': datos_proyecto,
+                   'id_cotizacion': id_cotizacion, 'context':context})"""
+
+
 def pasar_promesa(request, id_cotizacion):
     # CALCULOS DEL MODELO DE VENTAS
     variables_ventas = [
@@ -1044,6 +1052,8 @@ def pasar_promesa(request, id_cotizacion):
     ]
 
     pass
+
+
 def registrar_pagos(request):
     if request.method == 'POST':
         pagos_data = json.loads(request.body).get('pagos', [])
@@ -1055,34 +1065,37 @@ def registrar_pagos(request):
     else:
         form = PagoForm()
         return render(request, 'registrar_pagos.html', {'form': form})
+
+
 def anular_reserva(request, id_reserva):
     # agregar un correo automatico a contabibildiad con cc a operaciones, grenci de ventas indicando la devolución del dinero
-    reserva = Reserva.objects.get(id_reserva= id_reserva)
+    reserva = Reserva.objects.get(id_reserva=id_reserva)
     reserva.estado_reserva = "Anulada"
     reserva.save()
-    cotizacion =  Reserva.objects.values_list('referencia').filter(id_reserva=id_reserva)
+    cotizacion = Reserva.objects.values_list('referencia').filter(id_reserva=id_reserva)
     cotizacion = cotizacion[0][0]
-    mod_cot =  Cotizacion.objects.get(id_cotizacion = cotizacion)
-    mod_cot.estado_cotizacion ="Anulada"
+    mod_cot = Cotizacion.objects.get(id_cotizacion=cotizacion)
+    mod_cot.estado_cotizacion = "Anulada"
     mod_cot.save()
-    vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion = cotizacion)
-    vivienda =  vivienda[0][0]
+    vivienda = Cotizacion.objects.values_list('id_vivienda').filter(id_cotizacion=cotizacion)
+    vivienda = vivienda[0][0]
     mod_viv = Vivienda.objects.get(id_vivienda=vivienda)
     mod_viv.estado_vivienda = "Disponible"
     mod_viv.save()
-    bodega = Bodega.objects.values_list('id_bodega').filter(id_vivienda = vivienda)
+    bodega = Bodega.objects.values_list('id_bodega').filter(id_vivienda=vivienda)
     bodega = bodega[0][0]
-    mod_bod = Bodega.objects.get(id_bodega = bodega)
+    mod_bod = Bodega.objects.get(id_bodega=bodega)
     mod_bod.estado_bodega = "Disponible"
     mod_bod.save()
-    estacionamiento = Estacionamiento.objects.values_list('id_estacionamiento').filter(id_vivienda = vivienda)
+    estacionamiento = Estacionamiento.objects.values_list('id_estacionamiento').filter(id_vivienda=vivienda)
     estacionamiento = estacionamiento[0][0]
     mod_est = Estacionamiento.objects.get(id_estacionamiento=estacionamiento)
     mod_est.estado_estacionamiento = "Disponible"
     mod_est.save()
-    reservas =  Reserva.objects.all()
+    reservas = Reserva.objects.all()
 
-    return render(request, 'ventas/gui_reserva/listar_reserva.html', {'reservas':reservas})
+    return render(request, 'ventas/gui_reserva/listar_reserva.html', {'reservas': reservas})
+
 
 def cotizacion_from_cliente(request, id_cliente):
     if request.method == 'POST':
@@ -1254,4 +1267,3 @@ class CotizacionPdf(View):
             print(e)
             pass
         return HttpResponseRedirect(reverse_lazy("ventas:listar_cotizacion"))
-
