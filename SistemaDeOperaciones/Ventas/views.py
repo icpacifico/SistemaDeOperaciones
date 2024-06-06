@@ -901,34 +901,21 @@ def pasar_reserva(request, id_cotizacion):
         # Obtener el ID de la nueva reserva
         id_nueva_reserva = nueva_reserva.id_reserva
         # CAMBIO DE ESTADOS DE LA COTIZACIÓN, Y BIENES
-        print("ESTE ES EL ID DE LA COTIZACION --------->", id_cotizacion)
         cotizacion_update = get_object_or_404(Cotizacion, id_cotizacion=id_cotizacion)
         cotizacion_update.estado_cotizacion = 'En Reserva'
         cotizacion_update.save()
         vivienda_update = get_object_or_404(Vivienda, id_vivienda=cotizacion.id_vivienda.id_vivienda)
         vivienda_update.estado_vivienda = 'No Disponible'
         vivienda_update.save()
-        print("ESTE ES EL ID DE LA VIVIENDA --------->", vivienda_update.id_vivienda)
-        """bodega_update = Bodega.objects.filter(id_vivienda=vivienda_update.id_vivienda)
-        bodega_update.estado_bodega = 'No Disponible'
-        bodega_update.save()"""
-
         bodega = get_object_or_404(Bodega, id_vivienda_id=vivienda_update.id_vivienda)
-        bodega.estado_bodega = 'bodega'
+        bodega.estado_bodega = 'No Disponible'
         bodega.save()
-
         estacionamiento_update = get_object_or_404(Estacionamiento, id_vivienda_id=vivienda_update.id_vivienda)
         estacionamiento_update.estado_estacionamiento = 'No Disponible'
         estacionamiento_update.save()
 
-        # Ahora puedes usar el ID de la nueva reserva como necesites
-        print(f"El ID de la nueva reserva es: {id_nueva_reserva}")
-
-        # return render(request, 'ventas/gui_reserva/listar_reserva.html')
         return JsonResponse({'status': 'success'}, status=201)
-        #response_data = {
-          #  'status': 'success'
-        #}
+
 
         for conjunto in pagos_data:
             # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
@@ -953,10 +940,6 @@ def pasar_reserva(request, id_cotizacion):
                 descripcion="Pago de reserva"
             )
             nuevo_pago.save()
-
-        # Combina la respuesta HTML y JSON en un solo retorno
-        #return render(request, 'ventas/gui_reserva/listar_reserva.html', {'response_data': response_data})
-
     else:
         form = PagoForm()
         context = {
@@ -1010,20 +993,6 @@ def pasar_promesa(request, id_cotizacion):
     ]
 
     pass
-
-
-def registrar_pagos(request):
-    if request.method == 'POST':
-        pagos_data = json.loads(request.body).get('pagos', [])
-        for pago_data in pagos_data:
-            form = PagoForm(pago_data)
-            if form.is_valid():
-                form.save()
-        return JsonResponse({'status': 'success'})
-    else:
-        form = PagoForm()
-        return render(request, 'registrar_pagos.html', {'form': form})
-
 
 def anular_reserva(request, id_reserva):
     # agregar un correo automatico a contabibildiad con cc a operaciones, grenci de ventas indicando la devolución del dinero

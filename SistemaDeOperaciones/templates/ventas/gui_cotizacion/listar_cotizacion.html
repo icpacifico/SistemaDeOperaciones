@@ -14,50 +14,61 @@
         <div id="example" class="dt-container" style="margin: 20px;">
             <div class="dt-layout-row dt-layout-table">
                 <div class="dt-layout-cell table-responsive text-nowrap">
-                    <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed" style="width: 100%;" aria-describedby="example_info">
+                    <table id="example-table-bd" class="display  nowrap dataTable dtr-inline collapsed"
+                           style="width: 100%;" aria-describedby="example_info">
                         <thead class="table-light">
-                            <tr>
-                                <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                        <tr>
+                            <th data-dt-column="0" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">ID</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="1" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">N° Depto</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="2" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Torre</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="3" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Etapa</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="4" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Condominio</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="5" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Rut Cliente</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="6" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Nombre Cliente</span>
                                 <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            </th>
+                            <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Fecha Cotización</span>
                                 <span class="dt-column-order"></span>
-                                </th>                    
-                                <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
-                                    <span class="dt-column-title" role="button">Estado</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                                <th data-dt-column="10" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
-                                    <span class="dt-column-title" role="button">Acciones</span>
-                                    <span class="dt-column-order"></span>
-                                </th>
-                            </tr>
+                            </th>
+                            <th data-dt-column="9" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc"
+                                aria-label="ID: Click para ordenar" tabindex="0">
+                                <span class="dt-column-title" role="button">Estado</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                            <th data-dt-column="10" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc"
+                                rowspan="1" colspan="1" tabindex="0">
+                                <span class="dt-column-title" role="button">Acciones</span>
+                                <span class="dt-column-order"></span>
+                            </th>
+                        </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
                         {% for cotizacion in cotizaciones%}
@@ -69,38 +80,64 @@
                             <td>{{cotizacion.id_vivienda.nombre_vivienda}}</td>
                             <td>{{cotizacion.id_vivienda.id_torre.nombre_torre}}</td>
                             <td>{{cotizacion.id_vivienda.id_torre.id_etapa_condominio.nombre_etapa}}</td>
-                            <td>{{cotizacion.id_vivienda.id_torre.id_etapa_condominio.id_condominio.nombre_condominio}}</td>                          
+                            <td>
+                                {{cotizacion.id_vivienda.id_torre.id_etapa_condominio.id_condominio.nombre_condominio}}
+                            </td>
                             <td>{{ cotizacion.id_cliente }}</td>
                             <td>{{ cotizacion.id_cliente.nombreCompleto}}</td>
                             <td>{{ cotizacion.fecha_cotizacion }}</td>
-                            <td><span class="badge rounded-pill bg-label-primary me-1">{{cotizacion.estado_cotizacion}}</span></td>
+                            <td><span
+                                    class="badge rounded-pill bg-label-primary me-1">{{cotizacion.estado_cotizacion}}</span>
+                            </td>
                             <td>
-                                
+
                                 <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
                                         <i class="mdi mdi-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="{% url 'ventas:editar_cotizacion' cotizacion.id_cotizacion %}">
+                                        {% if cotizacion.estado_cotizacion == 'Activa' %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'ventas:editar_cotizacion' cotizacion.id_cotizacion %}">
                                             <i class="mdi mdi-pencil-outline me-1"></i> Editar
                                         </a>
-                                        <a class="dropdown-item" href="{% url 'ventas:pasar_reserva' id_cotizacion=cotizacion.id_cotizacion %}">
+                                        <a class="dropdown-item"
+                                           href="{% url 'ventas:pasar_reserva' id_cotizacion=cotizacion.id_cotizacion %}">
                                             <i class="mdi mdi-book-check-outline me-1"></i> Reservar
                                         </a>
-                                        {% comment %} <a class="dropdown-item" href="{% url 'ventas:pasar_reserva' id_cotizacion=cotizacion.id_cotizacion %}">
-                                            <i class="mdi mdi-pencil-outline me-1"></i> Reservar
-                                        </a> {% endcomment %}
                                         <a class="dropdown-item" href="#">
                                             <i class="mdi mdi-book-cancel-outline me-1"></i> Anular
                                         </a>
-                                        <a class="dropdown-item" href="{% url 'ventas:ver_cotizacion_pdf' id_cotizacion=cotizacion.id_cotizacion %}">
+                                        <a class="dropdown-item"
+                                           href="{% url 'ventas:ver_cotizacion_pdf' id_cotizacion=cotizacion.id_cotizacion %}">
                                             <i class="mdi mdi-file-pdf-box me-1"></i> Ver PDF
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Eliminar
                                         </a>
+                                        {% elif cotizacion.estado_cotizacion == 'En Reserva' %}
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-book-cancel-outline me-1"></i> Anular
+                                        </a>
+                                        <a class="dropdown-item"
+                                           href="{% url 'ventas:ver_cotizacion_pdf' id_cotizacion=cotizacion.id_cotizacion %}">
+                                            <i class="mdi mdi-file-pdf-box me-1"></i> Ver PDF
+                                        </a>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="mdi mdi-trash-can-outline me-1"></i> Eliminar
+                                        </a>
+                                        {% elif cotizacion.estado_cotizacion == 'Anulada' %}
+                                        <a class="dropdown-item"
+                                           href="{% url 'ventas:ver_cotizacion_pdf' id_cotizacion=cotizacion.id_cotizacion %}">
+                                            <i class="mdi mdi-file-pdf-box me-1"></i> Ver PDF
+                                        </a>
+                                        {% else %}
+                                        <!-- Otras acciones para estados diferentes -->
+                                        {% endif %}
                                     </div>
                                 </div>
+
                             </td>
                         </tr>
                         {% endfor %}
