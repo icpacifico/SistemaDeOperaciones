@@ -45,10 +45,10 @@
                                 <span class="dt-column-title" role="button">Profesión</span>
                                 <span class="dt-column-order"></span>
                             </th>
-                            <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            {% comment %} <th data-dt-column="7" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Pasaporte Cliente</span>
                                 <span class="dt-column-order"></span>
-                            </th>
+                            </th> {% endcomment %}
                             <th data-dt-column="8" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Fono</span>
                                 <span class="dt-column-order"></span>
@@ -61,18 +61,18 @@
                                 <span class="dt-column-title" role="button">Dirección</span>
                                 <span class="dt-column-order"></span>
                             </th>
-                            <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
+                            {% comment %} <th data-dt-column="11" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Dirección Trabajo</span>
                                 <span class="dt-column-order"></span>
-                            </th>
+                            </th> {% endcomment %}
                             <th data-dt-column="12" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="ID: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Fecha Nacimiento</span>
                                 <span class="dt-column-order"></span>
                             </th>
-                            <th data-dt-column="13" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
+                            {% comment %} <th data-dt-column="13" rowspan="1" colspan="1" class="dt-orderable-asc dt-orderable-desc" aria-label="Nombre: Click para ordenar" tabindex="0">
                                 <span class="dt-column-title" role="button">Estado</span>
                                 <span class="dt-column-order"></span>
-                            </th>
+                            </th> {% endcomment %}
                             <th data-dt-column="14" class="dt-body-right dt-right dt-orderable-asc dt-orderable-desc" rowspan="1" colspan="1" tabindex="0">
                                 <span class="dt-column-title" role="button">Acciones</span>
                                 <span class="dt-column-order"></span>
@@ -86,18 +86,18 @@
                                 <span class="fw-medium">{{cliente.id_cliente}}</span>
                             </td>
                             <td>{{ cliente.nombreCompleto }}</td>
-                            <td>{{ cliente.id_nacionalidad }}</td>
+                            <td>{{ cliente.id_nacionalidad.nombre_nacionalidad }}</td>
                             <td>{{ cliente.region }}</td>
                             <td>{{ cliente.genero }}</td>
                             <td>{{ cliente.estado_civil }}</td>
                             <td>{{ cliente.id_profesion.nombre_profesion }}</td>
-                            <td>{{ cliente.pasaporte_cliente }}</td>                      
+                            {% comment %} <td>{{ cliente.pasaporte_cliente }}</td>                       {% endcomment %}
                             <td>{{ cliente.fono_cliente }}</td>
                             <td>{{ cliente.correo_cliente }}</td>
                             <td>{{ cliente.direccion_cliente }}</td>
-                            <td>{{ cliente.direccion_trabajo_cliente }}</td>
+                            {% comment %} <td>{{ cliente.direccion_trabajo_cliente }}</td> {% endcomment %}
                             <td>{{ cliente.fecha_nacimiento_cliente }}</td>
-                            <td><span class="badge rounded-pill bg-label-primary me-1">{{cliente.estado_cliente}}</span></td>
+                            {% comment %} <td><span class="badge rounded-pill bg-label-primary me-1">{{cliente.estado_cliente}}</span></td> {% endcomment %}
                             <td>
                                 <div class="d-flex justify-content-evenly">
                                     <a href="{% url 'ventas:editar_cliente' cliente.id_cliente %}">
