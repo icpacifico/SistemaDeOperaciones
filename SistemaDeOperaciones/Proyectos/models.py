@@ -7,6 +7,10 @@ def validar_positivo(value):
     if value < 0:
         raise ValidationError('El valor debe ser un número positivo mayor o igual a 0.')
 
+def validar_descuento(value):
+    if value > 100.0:
+        raise ValidationError('El descuento no puede ser mayor al 100%')
+
 class Condominio(models.Model):
     id_condominio = models.AutoField(primary_key=True)
     estado_condominio = models.CharField(verbose_name="Estado",max_length=30, choices=IS_DISPONIBLE_CHOICES, default=disponible)
@@ -120,4 +124,19 @@ class CondominioAutocomplete(autocomplete.Select2QuerySetView):
 
         return qs
     
+class Bienes_Extra(models.Model):
+    id_bien_extra = models.AutoField(primary_key=True)
+    nombre_bien = models.CharField(verbose_name="Nombre", max_length=100)
+    valor_bien = models.FloatField(verbose_name="Valor", validators = [validar_positivo])
+    rol_bien = models.CharField(verbose_name="Rol", max_length=100)
+    descuento_maximo = models.FloatField(verbose_name="Descuento", null=False, blank=False, validators=[validar_descuento])
+    estado_bien = models.CharField(verbose_name="Estado", max_length=30, choices=IS_DISPONIBLE_CHOICES,
+                                     default=disponible)
 
+
+
+    def __str__(self):
+        return "(" + str(self.id_bodega) + ")" + " - " + self.nombre_bodega
+
+    class Meta:
+        db_table = "bienes_extras"

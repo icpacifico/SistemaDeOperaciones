@@ -1,8 +1,8 @@
 from django.urls import path
 from django.contrib.auth.decorators import login_required
 from .views import (
-    CrearCliente, ListadoClientes, ActualizarCliente,
-    CrearCotizacion, ListadoCotizaciones, ActualizarCotizacion,ver_cotizacion_pdf ,CotizacionPdf,
+    CrearCliente, ListadoClientes, ActualizarCliente, crear_cotizacion, #CrearCotizacion,
+    ListadoCotizaciones, ActualizarCotizacion,ver_cotizacion_pdf ,CotizacionPdf,
     CrearVenta, ListadoVentas, ActualizarVenta,
     CrearTipoDesistimiento, ListarTiposDesistimiento, ActualizarTipoDesistimiento,
     CrearDesistimiento, ListarDesistimientos, ActualizarDesistimiento,
@@ -22,7 +22,7 @@ urlpatterns = [
     path('editar_cliente/<str:pk>/', login_required(ActualizarCliente.as_view()), name='editar_cliente'),
 
     # Cotizaciones
-    path('crear_cotizacion/', login_required(CrearCotizacion.as_view()), name='crear_cotizacion'),
+    path('crear_cotizacion/', login_required(crear_cotizacion), name='crear_cotizacion'),
     path('listar_cotizacion/', login_required(ListadoCotizaciones.as_view()), name='listar_cotizacion'),
     path('editar_cotizacion/<int:pk>/', login_required(ActualizarCotizacion.as_view()), name='editar_cotizacion'),
     path('print_cotizacion/<int:id_cotizacion>/', login_required(CotizacionPdf.as_view()), name='print_cotizacion'),

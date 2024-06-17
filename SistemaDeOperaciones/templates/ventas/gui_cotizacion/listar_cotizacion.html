@@ -97,7 +97,7 @@
                                         <i class="mdi mdi-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        {% if cotizacion.estado_cotizacion == 'Activa' %}
+                                        {% if cotizacion.estado_cotizacion == 'Activo' %}
                                         <a class="dropdown-item"
                                            href="{% url 'ventas:editar_cotizacion' cotizacion.id_cotizacion %}">
                                             <i class="mdi mdi-pencil-outline me-1"></i> Editar

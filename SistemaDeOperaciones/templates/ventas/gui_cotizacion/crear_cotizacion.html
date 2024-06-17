@@ -36,6 +36,10 @@
     background-color: DodgerBlue !important;
     color: #ffffff;
     }
+
+
+
+
 </style>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -56,41 +60,47 @@
                         {% if error %}
                         <h2>{{ error }}</h2>
                         {% else %}
-                        <div class="row gx-5">    
+                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_condominio" class="form-select" placeholder="Torre" required="" id="id_id_condominio">
+                                    <select name="id_condominio" class="form-select" placeholder="Torre" required=""
+                                            id="id_id_condominio">
                                         <option value="" selected="">---------</option>
                                         {% for condominio in condominios %}
-                                            <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
+                                        <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
                                         {% endfor %}
-                                      </select>
-                                      <label for="basic-default-fullname">Condominio</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_condominio' %}">+</a>                    
+                                    </select>
+                                    <label for="basic-default-fullname">Condominio</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
+                                       href="{% url 'proyectos:crear_condominio' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_etapa" class="form-select" placeholder="Etapa" required="" id="id_id_etapa" disabled>
+                                    <select name="id_etapa" class="form-select" placeholder="Etapa" required=""
+                                            id="id_id_etapa" disabled>
                                         <option value="" selected="">---------</option>
                                         {% for etapa in etapas %}
-                                            <option value="{{ etapa.0 }}">{{ etapa.1 }}</option>
+                                        <option value="{{ etapa.0 }}">{{ etapa.1 }}</option>
                                         {% endfor %}
-                                      </select>
-                                      <label for="basic-default-fullname">Etapa</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_etapa' %}">+</a>                    
+                                    </select>
+                                    <label for="basic-default-fullname">Etapa</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
+                                       href="{% url 'proyectos:crear_etapa' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_torre" class="form-select" placeholder="Torre" required="" id="id_id_torre" disabled>
+                                    <select name="id_torre" class="form-select" placeholder="Torre" required=""
+                                            id="id_id_torre" disabled>
                                         <option value="" selected="">---------</option>
                                         {% for torre in torres %}
-                                            <option value="{{ torre.0 }}">{{ torre.1 }}</option>
+                                        <option value="{{ torre.0 }}">{{ torre.1 }}</option>
                                         {% endfor %}
-                                      </select>
-                                      <label for="basic-default-fullname">Torre</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>                    
+                                    </select>
+                                    <label for="basic-default-fullname">Torre</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
+                                       href="{% url 'proyectos:crear_torre' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
@@ -100,17 +110,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gx-5">    
+                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4 autocomplete">
                                     {{form.id_cliente}}
                                     <label for="basic-default-fullname">Rut Cliente</label>
                                     <datalist id="lista_clientes">
                                         {% for cliente in clientes %}
-                                            <option value="{{ cliente.id_cliente }}"></option>
+                                        <option value="{{ cliente.id_cliente }}"></option>
                                         {% endfor %}
                                     </datalist>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'ventas:crear_cliente' %}">+</a>                                            
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
+                                       href="{% url 'ventas:crear_cliente' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
@@ -124,51 +135,29 @@
                                     {{ form.canal_cotizacion }}
                                     <label for="basic-default-fullname">Canal Cotización</label>
                                 </div>
-                            </div>
-                            {% comment %} <div class="col-md">
-                                <div class="form-floating form-floating-outline mb-4">
-                                    {{ form.fecha_cotizacion }}
-                                    <label for="basic-default-fullname">Fecha Cotización</label>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-floating form-floating-outline mb-4">
-                                    {{ form.fecha_promesa_cotizacion }}
-                                    <label for="basic-default-fullname">Fecha Promesa</label>
-                                </div>
-                            </div> {% endcomment %}
-                        </div>
-                        <div class="row gx-5">    
-                           
-                            {% comment %} <div class="col-md">
-                                <div class="form-floating form-floating-outline mb-4">
-                                    {{ form.numero_cotizacion }}
-                                    <label for="basic-default-fullname">Número Cotización</label>
-                                </div>
-                            </div> {% endcomment %}
-                            <div class="col-md">
-                                
-                            </div>
-                        </div>
-                        <div class="row gx-5">  
-                            <div class="col-md">
-                                <div class="form-floating form-floating-outline mb-4">
-                                    {{ form.preaprobacion_cotizacion }}
-                                    <label for="basic-default-fullname">Preaprobación Cotización</label>
-                                </div>
-                            </div>
-                            <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{ form.renta_cotizacion }}
                                     <label for="basic-default-fullname">Renta Cotización</label>
                                 </div>
                             </div>
-                            {% comment %} <div class="col-md">
+                            <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
-                                    {{ form.estado_cotizacion }}
-                                    <label for="basic-default-fullname">Estado Cotización</label>
+                                    {{ form.descuento_depto }}
+                                    <label for="basic-default-fullname">Dcto Depto</label>
                                 </div>
-                            </div> {% endcomment %}
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.descuento_bodega }}
+                                    <label for="basic-default-fullname">Dcto Bodega</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.descuento_estacionamiento }}
+                                    <label for="basic-default-fullname">Dcto Estacionamiento</label>
+                                </div>
+                                <div class="form-floating form-floating-outline mb-4">
+                                    {{ form.renta_cotizacion }}
+                                    <label for="basic-default-fullname">Renta Cotización</label>
+                                </div>
+                            </div>
                         </div>
                         <div align="left">
                             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -265,131 +254,9 @@
         }
     });
 
+
+
+
+
 </script>
-
-
-
-
-{% comment %} <script>
-    $(document).ready(function(){
-        const response = await fetch("{% url 'ventas:get_clientes' %}");
-        const data = await response.json();
-        const countries = data.map(country => country.name);
-        autocomplete(document.getElementById('myInput'), countries);
-    });
-
-    function autocomplete(inp, arr) {
-      /*the autocomplete function takes two arguments,
-      the text field element and an array of possible autocompleted values:*/
-      var currentFocus;
-      /*execute a function when someone writes in the text field:*/
-      inp.addEventListener("input", function(e) {
-          var a, b, i, val = this.value;
-          /*close any already open lists of autocompleted values*/
-          closeAllLists();
-          if (!val) { return false;}
-          currentFocus = -1;
-          /*create a DIV element that will contain the items (values):*/
-          a = document.createElement("DIV");
-          a.setAttribute("id", this.id + "autocomplete-list");
-          a.setAttribute("class", "autocomplete-items");
-          /*append the DIV element as a child of the autocomplete container:*/
-          this.parentNode.appendChild(a);
-          /*for each item in the array...*/
-          for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-              /*create a DIV element for each matching element:*/
-              b = document.createElement("DIV");
-              /*make the matching letters bold:*/
-              b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-              b.innerHTML += arr[i].substr(val.length);
-              /*insert a input field that will hold the current array item's value:*/
-              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-              /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function(e) {
-                  /*insert the value for the autocomplete text field:*/
-                  inp.value = this.getElementsByTagName("input")[0].value;
-                  /*close the list of autocompleted values,
-                  (or any other open lists of autocompleted values:*/
-                  closeAllLists();
-              });
-              a.appendChild(b);
-            }
-          }
-      });
-      /*execute a function presses a key on the keyboard:*/
-      inp.addEventListener("keydown", function(e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-              /*and simulate a click on the "active" item:*/
-              if (x) x[currentFocus].click();
-            }
-          }
-      });
-      function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-      }
-      function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-          x[i].classList.remove("autocomplete-active");
-        }
-      }
-      function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inp) {
-            x[i].parentNode.removeChild(x[i]);
-          }
-        }
-      }
-      /*execute a function when someone clicks in the document:*/
-      document.addEventListener("click", function (e) {
-          closeAllLists(e.target);
-      });
-    }
-    
-
-    async function fetchCountries(inp) {
-        try {
-            
-        } catch (error) {
-            console.error('Error al obtener la lista de países:', error);
-        }
-    }
-
-
-    document.addEventListener('DOMContentLoaded', function () {
-        const inputElement = document.getElementById('myInput');
-        fetchCountries(inputElement);
-    });
-    
-</script> {% endcomment %}
-
 {% endblock contenido %}

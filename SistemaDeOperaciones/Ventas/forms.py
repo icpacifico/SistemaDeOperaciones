@@ -1,11 +1,12 @@
 from django import forms
 from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento
 
+
 class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = [
-            'id_cliente','id_nacionalidad', 'region', 'genero', 'estado_civil', 'id_profesion',
+            'id_cliente', 'id_nacionalidad', 'region', 'genero', 'estado_civil', 'id_profesion',
             'estado_cliente', 'pasaporte_cliente', 'nombre_cliente',
             'nombre2_cliente', 'apellido_paterno_cliente', 'apellido_materno_cliente',
             'fono_cliente', 'fono2_cliente', 'correo_cliente', 'correo2_cliente',
@@ -19,7 +20,7 @@ class ClienteForm(forms.ModelForm):
             'estado_civil': 'Estado Civil',
             'id_profesion': 'Profesión',
             'estado_cliente': 'Estado',
-            #'rut_cliente': 'Rut cliente',
+            # 'rut_cliente': 'Rut cliente',
             'pasaporte_cliente': 'Pasaporte cliente',
             'nombre_cliente': '1er Nombre',
             'nombre2_cliente': '2do Nombre',
@@ -41,7 +42,7 @@ class ClienteForm(forms.ModelForm):
             'estado_civil': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Civil'}),
             'id_profesion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Profesión'}),
             'estado_cliente': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado'}),
-            #'rut_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut cliente'}),
+            # 'rut_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut cliente'}),
             'pasaporte_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Pasaporte cliente'}),
             'nombre_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '1er Nombre'}),
             'nombre2_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '2do Nombre'}),
@@ -52,43 +53,58 @@ class ClienteForm(forms.ModelForm):
             'correo_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Correo 1'}),
             'correo2_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Correo 2'}),
             'direccion_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección'}),
-            'direccion_trabajo_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Dirección trabajo'}),
-            'fecha_nacimiento_cliente': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha nacimiento'}),
+            'direccion_trabajo_cliente': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Dirección trabajo'}),
+            'fecha_nacimiento_cliente': forms.DateInput(
+                attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha nacimiento'}),
         }
-
 
 
 class CotizacionForm(forms.ModelForm):
     class Meta:
         model = Cotizacion
         fields = [
-            'id_vivienda', 'id_cliente', 
-            'procentaje_credito_cotizacion',  'canal_cotizacion', 'renta_cotizacion', 'estado_cotizacion',
-            # 'numero_cotizacion', 'fecha_cotizacion', 'fecha_promesa_cotizacion',
-            'preaprobacion_cotizacion',
+            'id_vivienda',
+            'id_cliente',
+            'fecha_cotizacion',
+            'procentaje_credito_cotizacion',
+            'canal_cotizacion',
+            'renta_cotizacion',
+            'descuento_depto',
+            'descuento_bodega',
+            'descuento_estacionamiento',
+            'estado_cotizacion',
         ]
         labels = {
             'id_vivienda': 'Vivienda',
             'id_cliente': 'Cliente',
-            # 'fecha_cotizacion': 'Fecha Cotización',
-            # 'fecha_promesa_cotizacion': 'Fecha Promesa',
+            'fecha_cotizacion': 'Fecha Cotización',
             'procentaje_credito_cotizacion': 'Porcentaje Crédito',
-            # 'numero_cotizacion': 'Número Cotización',
             'canal_cotizacion': 'Canal Cotización',
-            'preaprobacion_cotizacion': 'Preaprobación Cotización',
             'renta_cotizacion': 'Renta Cotización',
+            'descuento_depto': 'Dcto Depto',
+            'descuento_bodega': 'Dcto Bodega',
+            'descuento_estacionamiento': 'Dcto Estacionamiento',
             'estado_cotizacion': 'Estado Cotización'
         }
         widgets = {
             'id_vivienda': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Vivienda', 'disabled': 'true'}),
-            'id_cliente': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Rut Cliente', 'type':'list', 'id': 'myInput', 'list': 'lista_clientes'}),
-            # 'fecha_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date' ,'placeholder': 'Fecha Cotización'}),
-            # 'fecha_promesa_cotizacion': forms.DateInput(attrs={'class': 'form-control','type':'date', 'placeholder': 'Fecha Promesa'}),
-            'procentaje_credito_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Porcentaje Crédito'}),
-            # 'numero_cotizacion': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Número Cotización'}),
+            'id_cliente': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Rut Cliente', 'type': 'list', 'id': 'myInput',
+                       'list': 'lista_clientes'}),
+            'fecha_cotizacion': forms.DateInput(
+                attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha Cotización'}),
+            'procentaje_credito_cotizacion': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Porcentaje Crédito'}),
             'canal_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Canal Cotización'}),
-            'preaprobacion_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Preaprobación Cotización'}),
             'renta_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Renta Cotización'}),
+            'descuento_depto': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': '% Descuento Depto'}),
+            'descuento_bodega': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': '% Descuento Bodega'}),
+            'descuento_estacionamiento': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': '% Descuento Estacionamiento'}),
+
             'estado_cotizacion': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Cotización'}),
         }
 
@@ -168,41 +184,66 @@ class VentaForm(forms.ModelForm):
             'tipo_pago': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Tipo Pago'}),
             'estado_ven': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Venta'}),
             'fecha_ven': forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Fecha Venta'}),
-            'fecha_promesa_ven': forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Fecha Promesa Venta'}),
-            'monto_reserva_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Reserva Venta'}),
-            'descuento_manual_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Descuento Manual Venta'}),
-            'descuento_precio_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Descuento Precio Venta'}),
-            'descuento_adicional_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Descuento Adicional Venta'}),
+            'fecha_promesa_ven': forms.DateTimeInput(
+                attrs={'class': 'form-control', 'placeholder': 'Fecha Promesa Venta'}),
+            'monto_reserva_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Reserva Venta'}),
+            'descuento_manual_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Descuento Manual Venta'}),
+            'descuento_precio_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Descuento Precio Venta'}),
+            'descuento_adicional_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Descuento Adicional Venta'}),
             'descuento_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Descuento Venta'}),
-            'pie_cancelado_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Pie Cancelado Venta'}),
+            'pie_cancelado_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Pie Cancelado Venta'}),
             'pie_cobrar_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Pie Cobrar Venta'}),
-            'monto_estacionamiento_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Estacionamiento Venta'}),
+            'monto_estacionamiento_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Estacionamiento Venta'}),
             'monto_bodega_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Bodega Venta'}),
-            'monto_vivienda_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Vivienda Venta'}),
-            'monto_vivienda_ingreso_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Vivienda Ingreso Venta'}),
+            'monto_vivienda_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Vivienda Venta'}),
+            'monto_vivienda_ingreso_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Vivienda Ingreso Venta'}),
             'monto_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Venta'}),
-            'factor_categoria_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Factor Categoria Venta'}),
-            'porcentaje_comision_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Porcentaje Comision Venta'}),
-            'promesa_porcentaje_comision_reparto_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Promesa Porcentaje Comision Reparto Venta'}),
-            'promesa_monto_comision_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Promesa Monto Comision Venta'}),
-            'escritura_porcentaje_comision_reparto_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Escritura Porcentaje Comision Reparto Venta'}),
-            'escritura_monto_comision_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Escritura Monto Comision Venta'}),
-            'total_comision_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Total Comision Venta'}),
-            'bono_vivienda_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Bono Vivienda Venta'}),
-            'porcentaje_bono_precio_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Porcentaje Bono Precio Venta'}),
-            'promesa_bono_precio_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Promesa Bono Precio Venta'}),
-            'escritura_bono_precio_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Escritura Bono Precio Venta'}),
-            'total_bono_precio_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Total Bono Precio Venta'}),
-            'numero_compra_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Numero Compra Venta'}),
+            'factor_categoria_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Factor Categoria Venta'}),
+            'porcentaje_comision_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Porcentaje Comision Venta'}),
+            'promesa_porcentaje_comision_reparto_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Promesa Porcentaje Comision Reparto Venta'}),
+            'promesa_monto_comision_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Promesa Monto Comision Venta'}),
+            'escritura_porcentaje_comision_reparto_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escritura Porcentaje Comision Reparto Venta'}),
+            'escritura_monto_comision_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escritura Monto Comision Venta'}),
+            'total_comision_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Total Comision Venta'}),
+            'bono_vivienda_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Bono Vivienda Venta'}),
+            'porcentaje_bono_precio_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Porcentaje Bono Precio Venta'}),
+            'promesa_bono_precio_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Promesa Bono Precio Venta'}),
+            'escritura_bono_precio_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escritura Bono Precio Venta'}),
+            'total_bono_precio_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Total Bono Precio Venta'}),
+            'numero_compra_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Numero Compra Venta'}),
             'cotizacion_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Cotización Venta'}),
-            'monto_credito_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Venta'}),
-            'monto_credito_real_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Real Venta'}),
+            'monto_credito_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Venta'}),
+            'monto_credito_real_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Real Venta'}),
             'pie_real_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Pie Real Venta'}),
             'valor_factor_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor Factor Venta'}),
-            'escritura_monto_comision_operacion_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Escritura Monto Comisión Operación Venta'}),
-            'fecha_escritura_ven': forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Fecha Escritura Venta'}),
+            'escritura_monto_comision_operacion_ven': forms.NumberInput(
+                attrs={'class': 'form-control', 'placeholder': 'Escritura Monto Comisión Operación Venta'}),
+            'fecha_escritura_ven': forms.DateInput(
+                attrs={'class': 'form-control', 'placeholder': 'Fecha Escritura Venta'}),
         }
-
 
 
 class TipoDesistimientoForm(forms.ModelForm):
@@ -210,7 +251,9 @@ class TipoDesistimientoForm(forms.ModelForm):
         model = TipoDesistimiento
         fields = ['nombre_tipodesistimiento']
         labels = {'nombre_tipodesistimiento': 'Nombre del Tipo de Desistimiento'}
-        widgets = {'nombre_tipodesistimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre del Tipo de Desistimiento'})}
+        widgets = {'nombre_tipodesistimiento': forms.TextInput(
+            attrs={'class': 'form-control', 'placeholder': 'Nombre del Tipo de Desistimiento'})}
+
 
 class DesistimientoForm(forms.ModelForm):
     class Meta:
@@ -224,5 +267,6 @@ class DesistimientoForm(forms.ModelForm):
         widgets = {
             'id_venta': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Venta'}),
             'comentario_desistimiento': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Comentario'}),
-            'id_tipodesistimiento': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Tipo de Desistimiento'}),
+            'id_tipodesistimiento': forms.Select(
+                attrs={'class': 'form-select', 'placeholder': 'Tipo de Desistimiento'}),
         }

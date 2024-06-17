@@ -1,5 +1,5 @@
 from django.db import models
-from Proyectos.models import Vivienda, Etapa, Torre
+from Proyectos.models import Vivienda, Etapa, Torre, Bienes_Extra
 from Administracion.models import *
 from SistemaDeOperaciones.choices import *
 import datetime
@@ -46,17 +46,32 @@ class Cotizacion(models.Model):
     id_cotizacion = models.AutoField(primary_key=True)
     id_vivienda = models.ForeignKey(Vivienda, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    fecha_cotizacion = models.DateField(verbose_name="Fecha Cotización", null=True, blank=True, default=datetime.date.today) 
-    fecha_promesa_cotizacion = models.DateField(verbose_name="Fecha Promesa", null=True, blank=True ) 
+    fecha_cotizacion = models.DateField(verbose_name="Fecha Cotización", null=True, blank=True, default=datetime.date.today)
     procentaje_credito_cotizacion = models.FloatField(verbose_name="Porcentaje Credito", null=True, blank=True)
-    numero_cotizacion = models.IntegerField(verbose_name="Estado Venta",  null=True, blank=True)
     canal_cotizacion = models.CharField(verbose_name="Canal Cotización", max_length=200, choices=CANAL_COTIZACION_CHOICES, default=None)
-    preaprobacion_cotizacion = models.CharField(verbose_name="Preaprobación Cotización", max_length=200, choices=PREAPROBACION_COTIZACION_CHOICES, default=None)
     renta_cotizacion = models.CharField(verbose_name="Renta Cotización", max_length=200, choices=RENTA_COTIZACION_CHOICES, default=None)
+    descuento_depto = models.FloatField(verbose_name="Descuento Depto", null=True, blank=True)
+    descuento_bodega = models.FloatField(verbose_name="Descuento Bodega", null=True, blank=True)
+    descuento_estacionamiento = models.FloatField(verbose_name="Descuento Estacionamiento", null=True, blank=True)
     estado_cotizacion = models.CharField(verbose_name="Estado Cotización", max_length=200, choices=COTIZACIONES_CHOICES, default="Activo")
 
     class Meta:
         db_table = "cotizacion"
+
+
+"""class Bienes_Cotizados(models.Model):
+    id_bn_cot = models.AutoField(primary_key=True)
+    id_cotizacion = models.ForeignKey(Cotizacion, on_delete=models.CASCADE)
+    id_bien = models.ForeignKey(Bienes_Extra, on_delete=models.CASCADE)
+    valor_bien = models.IntegerField(verbose_name="Precio Lista", null=True, blank=True)
+    descuento_bien = models.FloatField(verbose_name="Descuento", null=True, blank=True)
+    total_bien =  models.IntegerField(verbose_name="Valor Final", null=True, blank=True)
+    
+    class Meta:
+        db_table = "bienes_cotizados"
+        
+"""
+
 
 class Venta(models.Model):
     id_venta = models.AutoField(primary_key=True)

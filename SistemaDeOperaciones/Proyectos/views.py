@@ -172,6 +172,12 @@ class CrearEtapa(CreateView):
     template_name = "proyectos/gui_etapa/crear_etapa.html"
     success_url = reverse_lazy("proyectos:listar_etapa")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['condominios'] = Condominio.objects.values_list('id_condominio', 'nombre_condominio')
+        return context
+
+
 
 class ListadoEtapa(ListView):
     model = Etapa

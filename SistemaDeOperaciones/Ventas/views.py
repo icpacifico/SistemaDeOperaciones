@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, HttpResponse, HttpResponseRedirect, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, View
-from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, Vivienda
+from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento, Reserva, Condominio, Etapa, Torre, \
+    Vivienda
 from Proyectos.models import Modelo, Bodega, Estacionamiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
 from Contabilidad.forms import PagoForm
@@ -21,7 +22,6 @@ from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import numpy as np
 import json
-
 
 
 # Create your views here.
@@ -71,18 +71,41 @@ class ActualizarCliente(UpdateView):
         "ventas:listar_cliente")  # Reemplaza "tu_app" y "listar_clientes" con tus nombres de aplicación y URL
 
 
-class CrearCotizacion(CreateView):
-    model = Cotizacion
-    form_class = CotizacionForm
-    template_name = "ventas/gui_cotizacion/crear_cotizacion.html"  # Reemplaza "tu_app" con el nombre de tu aplicación
-    success_url = reverse_lazy(
-        "ventas:listar_cotizacion")  # Reemplaza "tu_app" y "listar_cotizaciones" con tus nombres de aplicación y URL
+def crear_cotizacion(request):
+    if request.method == 'POST':
+        # Extraer los valores del QueryDict
+        id_condominio = request.POST.get('id_condominio')
+        id_etapa = request.POST.get('id_etapa')
+        id_torre = request.POST.get('id_torre')
+        id_vivienda = request.POST.get('id_vivienda')
+        id_vivienda = int(id_vivienda)
+        id_vivienda = Vivienda.objects.get(id_vivienda=id_vivienda)
+        id_cliente = request.POST.get('id_cliente')
+        id_cliente = str(id_cliente)
+        id_cliente = Cliente.objects.get(id_cliente=id_cliente)
+        procentaje_credito_cotizacion = request.POST.get('procentaje_credito_cotizacion')
+        canal_cotizacion = request.POST.get('canal_cotizacion')
+        renta_cotizacion = request.POST.get('renta_cotizacion')
+        coti = Cotizacion(
+            id_vivienda=id_vivienda,
+            id_cliente=id_cliente,
+            procentaje_credito_cotizacion=procentaje_credito_cotizacion,
+            canal_cotizacion=canal_cotizacion,
+            renta_cotizacion=renta_cotizacion,
+        )
+        coti.save()
+        return redirect(reverse_lazy('ventas:listar_cotizacion'))  # Reemplaza con tu URL de éxito
+    else:
+        form = CotizacionForm()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['clientes'] = Cliente.objects.all()
-        context['condominios'] = Condominio.objects.values_list('id_condominio','nombre_condominio')
-        return context
+    # Añadir contexto adicional
+    context = {
+        'form': form,
+        'clientes': Cliente.objects.all(),
+        'condominios': Condominio.objects.values_list('id_condominio', 'nombre_condominio')
+    }
+
+    return render(request, 'ventas/gui_cotizacion/crear_cotizacion.html', context)
 
 
 def cotizacion_from_cliente(request, id_cliente):
@@ -916,7 +939,6 @@ def pasar_reserva(request, id_cotizacion):
 
         return JsonResponse({'status': 'success'}, status=201)
 
-
         for conjunto in pagos_data:
             # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
             # Accediendo a los valores
@@ -924,7 +946,7 @@ def pasar_reserva(request, id_cotizacion):
             forma_pago = conjunto['forma_pago']
             id_banco = conjunto['id_banco']
             id_banco = int(id_banco)
-            banco = Banco.objects.get(id_banco = id_banco)
+            banco = Banco.objects.get(id_banco=id_banco)
             print("tipo de variable banco ", type(banco))
             fecha_pago = conjunto['fecha_pago']
             monto_pago = conjunto['monto_pago']
@@ -955,7 +977,7 @@ def pasar_reserva(request, id_cotizacion):
         return render(request, 'ventas/gui_reserva/crear_reserva.html', context)
 
 
-def pasar_promesa(request, id_cotizacion):
+def pasar_promesa(request, referecnia):
     # CALCULOS DEL MODELO DE VENTAS
     variables_ventas = [
         "monto_reserva_ven",  # 10 UF
@@ -993,6 +1015,7 @@ def pasar_promesa(request, id_cotizacion):
     ]
 
     pass
+
 
 def anular_reserva(request, id_reserva):
     # agregar un correo automatico a contabibildiad con cc a operaciones, grenci de ventas indicando la devolución del dinero
