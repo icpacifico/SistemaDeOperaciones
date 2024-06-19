@@ -937,8 +937,6 @@ def pasar_reserva(request, id_cotizacion):
         estacionamiento_update.estado_estacionamiento = 'No Disponible'
         estacionamiento_update.save()
 
-        return JsonResponse({'status': 'success'}, status=201)
-
         for conjunto in pagos_data:
             # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
             # Accediendo a los valores
@@ -950,6 +948,7 @@ def pasar_reserva(request, id_cotizacion):
             print("tipo de variable banco ", type(banco))
             fecha_pago = conjunto['fecha_pago']
             monto_pago = conjunto['monto_pago']
+            print("creación nuevo pago")
             nuevo_pago = Pago(
                 forma_pago=forma_pago,
                 id_reserva=id_nueva_reserva,
@@ -961,7 +960,13 @@ def pasar_reserva(request, id_cotizacion):
                 monto_pago=monto_pago,
                 descripcion="Pago de reserva"
             )
+            # print(nuevo_pago)
+            print("Nuevo pago creado")
             nuevo_pago.save()
+
+        return JsonResponse({'status': 'success'}, status=201)
+
+
     else:
         form = PagoForm()
         context = {
@@ -977,44 +982,172 @@ def pasar_reserva(request, id_cotizacion):
         return render(request, 'ventas/gui_reserva/crear_reserva.html', context)
 
 
-def pasar_promesa(request, referecnia):
+def pasar_promesa(request, referencia):
     # CALCULOS DEL MODELO DE VENTAS
-    variables_ventas = [
-        "monto_reserva_ven",  # 10 UF
-        "descuento_manual_ven",  # Descuento que le aplica a la venta
-        "descuento_precio_ven",  # Descuento que tiene la vivienda por promoción
-        "descuento_adicional_ven",  # Descuento extra de la venta
-        "descuento_ven",  # Total descontado a la venta
-        "pie_cancelado_ven",  # Pie total que a cancelado el cliente - Se deben sumar los pagos
-        "pie_cobrar_ven",  # Pie restante por pagar
-        "monto_estacionamiento_ven",  # Monto del estacionamiento
-        "monto_bodega_ven",  # Monto de la bodega
-        "monto_vivienda_ven",  # Valor de la vivineda
-        "monto_vivienda_ingreso_ven",  # Monto total que le ingresa a la inmo por la venta
-        "monto_ven",  # Valor de venta del depto
-        "factor_categoria_ven",  # Ni carajo  idea que es
-        "porcentaje_comision_ven",  # Calculo de la comisión de los vendedores
-        "promesa_porcentaje_comision_reparto_ven",  # calculo comisión % promesa 40%
-        "promesa_monto_comision_ven",  # monto en clp del % de la comisión X promesa
-        "escritura_porcentaje_comision_reparto_ven",  # calculo comisión % escritura 40%
-        "escritura_monto_comision_ven",  # monto en clp del % de la comisión X escritura
-        "total_comision_ven",  # total de la comisión del vendedor
-        "bono_vivienda_ven",  # Bono de venta
-        "porcentaje_bono_precio_ven",  # % de bono que se le da al vendendor
-        "promesa_bono_precio_ven",  # % distribuciíon
-        "escritura_bono_precio_ven",  # % de distribución
-        "total_bono_precio_ven",  # Bono total del vendedpor
-        "numero_compra_ven",  # ??
-        "cotizacion_ven",  # n° Cotización
-        "monto_credito_ven",  # Monto credito que le da el banco
-        "monto_credito_real_ven",  # Monto de credito entregado por el banco
-        "ahorro_previo",  # Ahorro del cliente
-        "monto_subsidio",  # Monto del subsidio del estado
-        "pie_real_ven",  # Pie real del cliente
-        "valor_factor_ven",  # ??
-    ]
 
-    pass
+    cotizacion = get_object_or_404(Cotizacion, id_cotizacion=referencia)
+    cliente = get_object_or_404(Cliente, id_cliente=cotizacion.id_cliente.id_cliente)
+    vivienda = get_object_or_404(Vivienda, id_vivienda=cotizacion.id_vivienda.id_vivienda)
+
+    precio_vivienda = Vivienda.objects.values_list('valor_vivienda').filter(
+        id_vivienda=cotizacion.id_vivienda.id_vivienda)
+    precio_vivienda = precio_vivienda[0][0]
+    print(type(precio_vivienda))
+    print(precio_vivienda)
+
+    nombre_cliente = f"{cliente.nombre_cliente} {cliente.apellido_paterno_cliente} {cliente.apellido_materno_cliente}"
+    fono_cliente = cliente.fono_cliente
+    correo_cliente = cliente.correo_cliente
+
+    bodega = Bodega.objects.filter(id_vivienda=vivienda.id_vivienda)
+    estacionamiento = Estacionamiento.objects.filter(id_vivienda=vivienda.id_vivienda)
+
+    modelo = vivienda.id_modelo
+    torre = vivienda.id_torre
+    etapa = torre.id_etapa_condominio
+    condominio = modelo.id_condominio
+
+    datos_proyecto = {
+        'condominio': condominio.nombre_condominio,
+        'etapa': etapa.nombre_etapa,
+        'torre': torre.nombre_torre,
+        'direccion': condominio.direccion_proyecto
+    }
+
+    if request.method == 'POST':
+        print("Ha ingresado al método POST ####")
+
+        # Verificar el cuerpo de la solicitud
+        print("Contenido de request.body:", request.body)
+
+        try:
+            pagos_data = json.loads(request.body).get('pagos', [])
+
+            body_unicode = request.body.decode('utf-8')
+
+            # Convertir la cadena JSON a un diccionario de Python
+            body_data = json.loads(body_unicode)
+
+            # Extraer los datos de promesa
+            promesa_data = body_data.get('promesa', [])
+
+            csrf_token_promesa = promesa_data['csrfmiddlewaretoken']
+            print(csrf_token_promesa)
+            fecha_ven = promesa_data['fecha_ven']
+            print(fecha_ven)
+            forma_pago_promesa = promesa_data['forma_pago']
+            print(forma_pago_promesa)
+            pie_real_ven = promesa_data['pie_real_ven']
+            pie_real_ven = int(pie_real_ven)
+            print(pie_real_ven)
+            valor_numerico = promesa_data['valor_numerico']
+            print(valor_numerico)
+            valor_numerico=int(valor_numerico)
+            reserva = 10
+
+            # Imprimir los datos de promesa (opcional, para depuración)
+            print("Datos de Promesa:", promesa_data)
+
+        except json.JSONDecodeError as e:
+            return JsonResponse({'status': 'error', 'message': 'Error al decodificar JSON', 'details': str(e)},
+                                status=400)
+
+        # NUEVA VENTA
+        nueva_venta = Venta(
+            monto_reserva_ven=reserva,
+            descuento_manual_ven=valor_numerico,  # Descuento que le aplica a la venta
+            descuento_precio_ven=valor_numerico,  # Descuento que tiene la vivienda por promoción
+            descuento_adicional_ven=valor_numerico,  # Descuento extra de la venta
+            descuento_ven=valor_numerico,  # Total descontado a la venta
+            pie_cancelado_ven=0,  # Pie total que a cancelado el cliente - Se deben sumar los pagos
+            pie_cobrar_ven=pie_real_ven,  # Pie restante por pagar
+            monto_estacionamiento_ven=0,  # Monto del estacionamiento
+            monto_bodega_ven=0,  # Monto de la bodega
+            monto_vivienda_ven=precio_vivienda,  # Valor de la vivineda
+            monto_vivienda_ingreso_ven=0,  # Monto total que le ingresa a la inmo por la venta
+            monto_ven=precio_vivienda-valor_numerico,  # Valor de venta del depto
+            factor_categoria_ven=0,  # Ni carajo  idea que es
+            porcentaje_comision_ven=0,  # Calculo de la comisión de los vendedores
+            promesa_porcentaje_comision_reparto_ven=0,  # calculo comisión % promesa 40%
+            promesa_monto_comision_ven=0,  # monto en clp del % de la comisión X promesa
+            escritura_porcentaje_comision_reparto_ven=0,  # calculo comisión % escritura 40%
+            escritura_monto_comision_ven=0,  # monto en clp del % de la comisión X escritura
+            total_comision_ven=0,  # total de la comisión del vendedor
+            bono_vivienda_ven=0,  # Bono de venta
+            porcentaje_bono_precio_ven=0,  # % de bono que se le da al vendendor
+            promesa_bono_precio_ven=0,  # % distribuciíon
+            escritura_bono_precio_ven=0,  # % de distribución
+            total_bono_precio_ven=0,  # Bono total del vendedpor
+            numero_compra_ven=0,  # ??
+            cotizacion_ven=0,  # n° Cotización
+            monto_credito_ven=precio_vivienda-valor_numerico-pie_real_ven-reserva,  # Monto credito que le da el banco
+            monto_credito_real_ven=precio_vivienda-valor_numerico-pie_real_ven-reserva,  # Monto de credito entregado por el banco
+            ahorro_previo=0,  # Ahorro del cliente
+            monto_subsidio=0,  # Monto del subsidio del estado
+            pie_real_ven=pie_real_ven,  # Pie real del cliente
+            valor_factor_ven=0,
+            pie_abono_ven="si",# ??
+            tipo_pago = forma_pago_promesa,
+            id_banco_id = 1,
+            id_cotizacion_id =1,
+
+
+        )
+        nueva_venta.save()
+        print("Venta registrada")
+        # Obtener el ID de la nueva reserva
+        id_nueva_venta = nueva_venta.id_venta
+
+        
+        # CAMBIO DE ESTADOS DE LA COTIZACIÓN, Y BIENES
+        reserva_update = get_object_or_404(Reserva, referencia=referencia)
+        reserva_update.estado_reserva = 'En Promesa'
+        reserva_update.save()
+       
+        for conjunto in pagos_data:
+        # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
+        # Accediendo a los valores
+            csrf_token = conjunto['csrfmiddlewaretoken']
+            forma_pago = conjunto['forma_pago']
+            id_banco = conjunto['id_banco']
+            id_banco = int(id_banco)
+            banco = Banco.objects.get(id_banco=id_banco)
+            print("tipo de variable banco ", type(banco))
+            fecha_pago = conjunto['fecha_pago']
+            monto_pago = conjunto['monto_pago']
+        nuevo_pago = Pago(
+            forma_pago=forma_pago,
+            id_venta=id_nueva_venta,
+            id_banco=banco,
+            categoria_pago='detalle_pie',
+            estado_pago='pendiente',
+            fecha_pago=fecha_pago,
+            fecha_real_pago=fecha_pago,
+            monto_pago=monto_pago,
+            descripcion="Pago de Pie"
+        )
+        nuevo_pago.save()
+
+        return JsonResponse({'status': 'success'}, status=201)
+
+
+
+    else:
+        form = PagoForm()
+        form_venta = VentaForm()
+        context = {
+            'viviendas': [vivienda],
+            'precio_vivienda': precio_vivienda,
+            'clientes': [cliente],
+            'bodegas': bodega,
+            'estacionamientos': estacionamiento,
+            'proyectos': datos_proyecto,
+            'id_cotizacion': referencia,
+            'form': form,
+            'form_venta': form_venta
+        }
+
+        return render(request, 'ventas/gui_promesa/crear_promesa.html', context)
 
 
 def anular_reserva(request, id_reserva):

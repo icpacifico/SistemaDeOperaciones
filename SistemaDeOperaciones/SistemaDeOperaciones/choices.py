@@ -10,6 +10,11 @@ anulada = 'Anulada'
 COTIZACIONES_CHOICES = [(reserva, 'En Reserva'),
                      (anulada, 'Anulada'),
                      (is_active, 'Activo'),]
+pendiente = 'Pendiente'
+en_promesa = 'En Promesa'
+RESERVAS_CHOICES = [(pendiente, 'Pendiente'),
+                     (en_promesa, 'En Promesa'),]
+
 
 # Activo-Inactivo
 # etapa_estado_etapa
@@ -373,6 +378,16 @@ FORMA_PAGO_CHOICES = [
     (traspaso_de_saldo, 'Traspaso de Saldo'),
     (vale_vista, 'Vale Vista')
 ]
+
+# forma_pago
+credito = 'Crédito'
+contado = 'Contado'
+FORMA_PAGO_VENTA_CHOICES = [
+    (contado, 'Contado'),
+    (credito, 'Crédito'),
+]
+
+
 # FORMA_PAGO_CHOICES = [(credito, 'Crédito'),
 #                       (contado, 'Contado'),
 #                       (transferencia_bancaria, 'Transferencia Bancaria'),

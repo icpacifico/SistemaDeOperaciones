@@ -11,7 +11,7 @@ from .views import (
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
     Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf,
-    invocar_desistimiento)
+    invocar_desistimiento, pasar_promesa)
 
 app_name = 'ventas'
 
@@ -74,6 +74,6 @@ urlpatterns = [
     path('anular_reserva/<int:id_reserva>/', login_required(anular_reserva), name='anular_reserva'),
 
     # Promesas
-    path('pasar_reserva/<int:id_cotizacion>/', login_required(pasar_reserva), name='pasar_reserva'),
+    path('pasar_promesa/<int:referencia>/', login_required(pasar_promesa), name='pasar_promesa'),
 
 ]

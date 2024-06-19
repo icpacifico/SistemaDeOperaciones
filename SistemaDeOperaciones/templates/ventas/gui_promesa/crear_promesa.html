@@ -6,96 +6,158 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    let pagosContainer = document.getElementById('pagos-container');
-    let addPagoBtn = document.getElementById('add-pago-btn');
-    let pagosForm = document.querySelector('.pago-form'); // Cambiado aquí para seleccionar el primer formulario de pago
+    document.addEventListener('DOMContentLoaded', function() {
+        let pagosContainer = document.getElementById('pagos-container');
+        let addPagoBtn = document.getElementById('add-pago-btn');
+        let pagosForm = document.getElementById('pagos-form');
+        let calcularValoresBtn = document.getElementById('calcular-valores-btn');
+        let tablaResultados = document.getElementById('tabla-resultados');
+        let tablaResultadosBody = document.getElementById('tabla-resultados-body');
 
-    function getFormattedDate(date) {
-        let d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
+        function getFormattedDate(date) {
+            let d = new Date(date),
+                month = '' + (d.getMonth() + 1),
+                day = '' + d.getDate(),
+                year = d.getFullYear();
 
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
 
-        return [year, month, day].join('-');
-    }
-
-    let currentDate = new Date();
-    document.querySelector('.pago-form input[name="fecha_pago"]').value = getFormattedDate(currentDate);
-
-    addPagoBtn.addEventListener('click', function() {
-        let lastForm = pagosContainer.querySelector('.pago-form:last-child');
-
-        if (lastForm) {
-            let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
-            let lastDate = new Date(lastDateInput);
-
-            let newDate = new Date(lastDate);
-            newDate.setDate(newDate.getDate() + 30);
-
-            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-            pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
-                if (input.name === "fecha_pago") {
-                    input.value = getFormattedDate(newDate);
-                } else {
-                    input.value = '';
-                }
-            });
-
-            pagosContainer.appendChild(pagoForm);
-        } else {
-            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-            pagosContainer.appendChild(pagoForm);
+            return [year, month, day].join('-');
         }
-    });
 
-    pagosForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        let pagos = [];
-        document.querySelectorAll('.pago-form').forEach(form => {
-            let formData = new FormData(form);
-            let pago = {};
-            formData.forEach((value, key) => pago[key] = value);
-            pagos.push(pago);
-        });
+        let currentDate = new Date();
+        document.querySelector('.pago-form input[name="fecha_pago"]').value = getFormattedDate(currentDate);
 
+        addPagoBtn.addEventListener('click', function() {
+            let lastForm = pagosContainer.querySelector('.pago-form:last-child');
 
-        fetch(pagosForm.action, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({ pagos: pagos })
-        }).then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                alert('Pagos registrados con éxito');
-                window.location.href = "{% url 'ventas:listar_reserva' %}";
+            if (lastForm) {
+                let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
+                let lastDate = new Date(lastDateInput);
+
+                let newDate = new Date(lastDate);
+                newDate.setDate(newDate.getDate() + 30);
+
+                let pagoForm = lastForm.cloneNode(true);
+                pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
+                    if (input.name === "fecha_pago") {
+                        input.value = getFormattedDate(newDate);
+                    } else {
+                        input.value = '';
+                    }
+                });
+
+                pagosContainer.appendChild(pagoForm);
             } else {
-                alert('Ocurrió un error: ' + data.message);
+                let pagoForm = document.querySelector('.pago-form').cloneNode(true);
+                pagosContainer.appendChild(pagoForm);
             }
         });
+
+        pagosForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Obtener datos del formulario de promesa
+            let promesaForm = document.getElementById('promesa-form');
+            let promesaData = new FormData(promesaForm);
+            let promesa = {};
+            promesaData.forEach((value, key) => promesa[key] = value);
+
+            // Obtener datos de los formularios de pagos
+            let pagos = [];
+            document.querySelectorAll('.pago-form').forEach(form => {
+                let formData = new FormData(form);
+                let pago = {};
+                formData.forEach((value, key) => pago[key] = value);
+                pagos.push(pago);
+            });
+
+            // Enviar todos los datos en una sola petición
+            fetch(pagosForm.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ promesa: promesa, pagos: pagos })
+            }).then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Pagos registrados con éxito');
+                    window.location.href = "{% url 'ventas:listar_reserva' %}";
+                } else {
+                    alert('Ocurrió un error: ' + data.message);
+                }
+            });
+        });
+
+        calcularValoresBtn.addEventListener('click', function() {
+            let pieRealVen = parseFloat(document.getElementById('id_pie_real_ven').value);
+            let valorNumerico = parseFloat(document.getElementById('valor-numerico').value);
+            let descuentosInput = document.getElementById('valor-numerico');
+            let descuentos = parseFloat(descuentosInput.value);
+
+            if (isNaN(descuentos)) {
+                descuentos = 0;
+            }
+            var datos_vivienda = {{ precio_vivienda|safe }}
+            let precioFinal = datos_vivienda - descuentos;
+            let reservaUF = 10;
+            let pieUF = pieRealVen;
+            let creditoHipotecario = precioFinal - reservaUF - pieUF;
+
+            tablaResultadosBody.innerHTML = '';
+
+            let resultados = [
+                { parametro: 'Precio Lista Depto', valor: datos_vivienda },
+                { parametro: 'Descuentos', valor: descuentos },
+                { parametro: 'Precio Final', valor: precioFinal },
+                { parametro: 'Reserva UF', valor: reservaUF },
+                { parametro: 'Pie UF', valor: pieUF },
+                { parametro: 'Crédito Hipotecario', valor: creditoHipotecario },
+            ];
+
+            resultados.forEach(resultado => {
+                let row = document.createElement('tr');
+                let parametroCell = document.createElement('td');
+                parametroCell.textContent = resultado.parametro;
+                let valorCell = document.createElement('td');
+                valorCell.textContent = resultado.valor;
+                row.appendChild(parametroCell);
+                row.appendChild(valorCell);
+                tablaResultadosBody.appendChild(row);
+            });
+
+            tablaResultados.style.display = 'block';
+        });
+
+        const selectDescuentos = document.getElementById('exampleFormControlSelect1');
+        const inputValorNumerico = document.getElementById('valor-numerico');
+
+        function toggleInput() {
+            if (selectDescuentos.value === '1') {
+                inputValorNumerico.disabled = true;
+                inputValorNumerico.value = '';
+            } else {
+                inputValorNumerico.disabled = false;
+            }
+        }
+
+        selectDescuentos.addEventListener('change', toggleInput);
+        toggleInput();
     });
-});
-
-
-
-
 </script>
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row invoice-preview">
-        <!-- Invoice -->
         <div class="col-xl-9 col-md-8 col-12 mb-md-0 mb-4">
             <div class="card invoice-preview-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
                         <div class="mb-xl-0 pb-3">
                             <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
-                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ proyectos.condominio }} {{ proyectos.etapa}}</span>
+                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ proyectos.condominio }} {{ proyectos.etapa }}</span>
                             </div>
                         </div>
                     </div>
@@ -103,51 +165,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="card-body">
                     <div>
                         <div class="tabla-container">
-                            <h3 style="text-align: center">Reserva de Unidad</h3>
-                            <!-- Tabla 1 -->
+                            <h3 style="text-align: center">Promesa de Compra-Venta</h3>
                             <div>
                                 <hr class="my-0">
-                                <h3>Datos Reserva</h3>
+                                <h5 class="mb-0">Datos Cliente</h5>
+                                <br>
                                 {% for dato in clientes %}
                                 <table class="table">
                                     <tr>
                                         <th class="table-light">Nombre</th>
-                                        <td>{{ dato.nombre_cliente }} {{ dato.nombre2_cliente }}
-                                            {{dato.apellido_paterno_cliente }} {{ dato.apellido_materno_cliente }}
-                                        </td>
+                                        <td>{{ dato.nombre_cliente }} {{ dato.nombre2_cliente }} {{dato.apellido_paterno_cliente }} {{ dato.apellido_materno_cliente }}</td>
                                         <th class="table-light">Rut</th>
                                         <td>{{ dato.id_cliente }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Proyecto</th>
-                                        <td>{{proyectos.condominio}} - {{proyectos.etapa}} - {{proyectos.torre}}</td>
-                                        <th class="table-light">Cotización</th>
-                                        <td>{{id_cotizacion}}</td>
+                                        <td>{{ proyectos.condominio }} - {{ proyectos.etapa }} - {{ proyectos.torre }}</td>
+                                        <th class="table-light">Reserva</th>
+                                        <td>{{ id_cotizacion }}</td>
                                     </tr>
                                     <tr>
                                         <th class="table-light">Dirección</th>
-                                        <td>{{proyectos.direccion}}</td>
+                                        <td>{{ proyectos.direccion }}</td>
                                         <th class="table-light">Valor U.F $</th>
                                         <td>35.650,50</td>
                                     </tr>
                                 </table>
                                 {% endfor %}
                             </div>
-                            <!-- Tabla 2 -->
                             <div>
                                 <hr class="my-0">
-                                <h3>Datos del Bien</h3>
+                                <br>
+                                <h5 class="mb-0">Datos del Bien</h5>
+                                <br>
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th class="table-light">Unidad</th>
                                         <th class="table-light">N°</th>
-                                        <th class="table-light">Tipo</th>
                                         <th class="table-light">Piso</th>
-                                        <th class="table-light">Orientación</th>
-                                        <th class="table-light">Sup. Útil</th>
-                                        <th class="table-light">Sup. Terraza</th>
-                                        <th class="table-light">Sup. Total</th>
                                         <th class="table-light">Precio. UF</th>
                                         <th class="table-light">Precio. $CLP</th>
                                     </tr>
@@ -157,12 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <tr>
                                         <td>Departamento</td>
                                         <td>{{dato.nombre_vivienda}}</td>
-                                        <td>{{dato.id_modelo.nombre_modelo}}</td>
                                         <td>{{dato.piso}}</td>
-                                        <td>{{dato.ori_vivienda}}</td>
-                                        <td>{{dato.metros_vivienda}}</td>
-                                        <td>{{dato.metros_terraza_vivienda}}</td>
-                                        <td>{{dato.metros_total_vivienda}}</td>
                                         <td>{{dato.valor_vivienda}}</td>
                                         <td>{{dato.valor_vivienda}}</td>
                                     </tr>
@@ -171,12 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <tr>
                                         <td>Bodega</td>
                                         <td>{{dato.nombre_bodega}}</td>
-                                        <td>Bodega</td>
                                         <td>-1</td>
-                                        <td>X</td>
-                                        <td>2.41</td>
-                                        <td>0</td>
-                                        <td>2.41</td>
                                         <td>{{dato.valor_bodega}}</td>
                                         <td>{{dato.valor_bodega}}</td>
                                     </tr>
@@ -185,11 +231,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <tr>
                                         <td>Estacionamiento</td>
                                         <td>{{dato.nombre_estacionamiento}}</td>
-                                        <td>Est</td>
-                                        <td>0</td>
-                                        <td>X</td>
-                                        <td>0</td>
-                                        <td>0</td>
                                         <td>0</td>
                                         <td>{{dato.valor_estacionamiento}}</td>
                                         <td>{{dato.valor_estacionamiento}}</td>
@@ -199,45 +240,108 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </table>
                             </div>
                         </div>
-                        <hr class="my-0">
                         <div class="container mt-5">
-                            <h1>Registrar Pagos</h1>
+                            <h5 class="mb-0">Parámetros promesa</h5>
+                            <br>
                             <hr class="my-0">
                             <br>
-                            <div id="pagos-container">
-                                <form id="pagos-form" class="pago-form" method="post"
-                                      action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
+                            <div>
+                                <form id="promesa-form" class="promesa-form" method="post" action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
                                     {% csrf_token %}
                                     <div class="row">
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form_venta.fecha_ven }}
+                                            <label for="{{ form_venta.fecha_ven.id_for_label }}">Fecha Promesa</label>
+                                            {% if form_venta.fecha_ven.errors %}
+                                            <div class="invalid-feedback">{{ form_venta.fecha_ven.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form_venta.forma_pago }}
+                                            <label for="{{ form_venta.forma_pago.id_for_label }}">Forma de Pago</label>
+                                            {% if form_venta.forma_pago.errors %}
+                                            <div class="invalid-feedback">{{ form_venta.forma_pago.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form_venta.pie_real_ven }}
+                                            <label for="{{ form_venta.pie_real_ven.id_for_label }}">Monto Pie en UF</label>
+                                            {% if form_venta.pie_real_ven.errors %}
+                                            <div class="invalid-feedback">{{ form_venta.pie_real_ven.errors }}</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-md-3 form-floating form-floating-outline mb-4">
+                                            <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                                                <option value="1">Venta sin descuento</option>
+                                                <option value="2">Aplicar descuento al pie (Abono Inmobiliario)</option>
+                                                <option value="3">Aplicar descuento al valor de la propiedad</option>
+                                            </select>
+                                            <label for="exampleFormControlSelect1">Descuentos</label>
+                                        </div>
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            <input type="number" class="form-control" id="valor-numerico" name="valor_numerico" value="0">
+                                            <label for="valor-numerico">Descuento en UF</label>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button class="btn btn-success w-100 waves-effect" id="calcular-valores-btn" type="button">Calcular valores</button>
+                                <hr class="my-0">
+                            </div>
+                            <div id="tabla-resultados" style="display: none;">
+                                <br>
+                                <h3>Resultados Calculados</h3>
+                                <table class="table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>Parámetro</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tabla-resultados-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
+                        <div class="container mt-5">
+                            <h5 class="mb-0">Pactar Pagos del Pie</h5>
+                            <br>
+                            <hr class="my-0">
 
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.forma_pago}}
+                            <div id="pagos-container">
+                                <form id="pagos-form" class="pago-form" method="post" action="{% url 'ventas:pasar_promesa' id_cotizacion %}">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form.forma_pago }}
                                             <label for="floating-input">Forma de Pago</label>
                                         </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.id_banco}}
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form.id_banco }}
                                             <label for="floating-input">Banco</label>
                                         </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.fecha_pago}}
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form.fecha_pago }}
                                             <label for="floating-input">Fecha de Pago</label>
                                         </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.monto_pago}}
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form.monto_pago }}
                                             <label for="floating-input">Monto</label>
+                                        </div>
+                                        <div class="col-md-2 form-floating form-floating-outline mb-4">
+                                            {{ form.numero_documento }}
+                                            <label for="floating-input">N° Documento</label>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <button class="btn btn-info w-100 waves-effect waves-light"
-                                                    id="add-pago-btn" type="button">Agregar Pago
-                                            </button>
+                                        <div class="col-md-4 mb-3">
+                                            <button class="btn btn-info w-100 waves-effect waves-light" id="add-pago-btn" type="button">Agregar Pago</button>
                                         </div>
-                                        <div class="col-md-6 mb-3">
-                                            <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn"
-                                                    type="submit">Enviar Pagos
-                                            </button>
+                                        <div class="col-md-4 mb-3">
+                                            <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn" type="submit">Enviar Pagos</button>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <button class="btn btn-danger w-100 waves-effect" id="cancel-btn" type="button" onclick="window.location.href='#'">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>

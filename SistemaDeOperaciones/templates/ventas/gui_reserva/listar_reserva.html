@@ -62,27 +62,36 @@
                             <td>{{ reserva.fecha_creación }}</td>
                             <td>RUT-DNI</td>
                             <td>{{ reserva.cliente }}</td>
+                            <td>No</td>
+                            <td>1</td>
                             <td>{{ reserva.estado_reserva}}</td>
-                            <td>Modificada</td>
-                            <td>Reserva Origen</td>
                             <td>
                                 <div class="dropdown">
                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                         <i class="mdi mdi-dots-vertical"></i>
                                     </button>
                                     <div class="dropdown-menu">
+                                                                            {% if reserva.estado_reserva == 'Pendiente' %}
+
                                         <a class="dropdown-item" href="{% url 'ventas:detalle_reserva' id_reserva=reserva.id_reserva %}">
                                             <i class="mdi mdi-pencil-outline me-1"></i>Ver Detalle
                                         </a>
                                         <a class="dropdown-item" href="#">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Editar
                                         </a>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="{% url 'ventas:pasar_promesa' referencia=reserva.referencia %}">
                                             <i class="mdi mdi-pencil-outline me-1"></i> Pasar a promesa
                                         </a>
                                         <a class="dropdown-item" href="{% url 'ventas:anular_reserva' id_reserva=reserva.id_reserva %}">
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Anular reserva
                                         </a>
+                                        {% else %}
+                                        <a class="dropdown-item" href="{% url 'ventas:detalle_reserva' id_reserva=reserva.id_reserva %}">
+                                            <i class="mdi mdi-pencil-outline me-1"></i>Ver Detalle
+                                        </a>
+                                        <!-- Otras acciones para estados diferentes -->
+                                        {% endif %}
+
                                     </div>
                                 </div>
                             </td>

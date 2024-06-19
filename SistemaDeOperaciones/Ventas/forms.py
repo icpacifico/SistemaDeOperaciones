@@ -183,9 +183,9 @@ class VentaForm(forms.ModelForm):
             'pie_abono_ven': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Pie Abono Venta'}),
             'tipo_pago': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Tipo Pago'}),
             'estado_ven': forms.Select(attrs={'class': 'form-select', 'placeholder': 'Estado Venta'}),
-            'fecha_ven': forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Fecha Venta'}),
-            'fecha_promesa_ven': forms.DateTimeInput(
-                attrs={'class': 'form-control', 'placeholder': 'Fecha Promesa Venta'}),
+            'fecha_ven': forms.DateInput(attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha Venta', 'name':'fecha_promesa'}),
+            'fecha_promesa_ven': forms.DateInput(
+                attrs={'class': 'form-control', 'type': 'date', 'placeholder': 'Fecha Promesa Venta'}),
             'monto_reserva_ven': forms.NumberInput(
                 attrs={'class': 'form-control', 'placeholder': 'Monto Reserva Venta'}),
             'descuento_manual_ven': forms.NumberInput(
@@ -237,7 +237,7 @@ class VentaForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Venta'}),
             'monto_credito_real_ven': forms.NumberInput(
                 attrs={'class': 'form-control', 'placeholder': 'Monto Crédito Real Venta'}),
-            'pie_real_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Pie Real Venta'}),
+            'pie_real_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Pie Real Venta', 'value':0}),
             'valor_factor_ven': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Valor Factor Venta'}),
             'escritura_monto_comision_operacion_ven': forms.NumberInput(
                 attrs={'class': 'form-control', 'placeholder': 'Escritura Monto Comisión Operación Venta'}),

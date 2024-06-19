@@ -81,14 +81,14 @@ class Venta(models.Model):
     id_cliente = models.CharField(verbose_name="Cliente", max_length=2,) # ForeignKey(Cliente, on_delete=models.CASCADE)
     id_banco = models.ForeignKey(Banco, on_delete=models.CASCADE) # PENDIENTE
     # id_pie_ven = models.ForeignKey(PieVenta, on_delete=models.CASCADE)
-    forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_CHOICES, default=credito)
+    forma_pago = models.CharField(verbose_name="Forma Pago", max_length=30, choices=FORMA_PAGO_VENTA_CHOICES, default=credito)
     # id_descuento = models.ForeignKey(Descuento, on_delete=models.CASCADE) # PENDIENTE
     # id_premio = models.ForeignKey(Premio, on_delete=models.CASCADE) # PENDIENTE
     pie_abono_ven = models.CharField(verbose_name="Pie Abono Venta", max_length=2, choices=SI_NO_CHOICES, default=None)
     tipo_pago = models.CharField(verbose_name="Tipo Pago", max_length=20, choices=TIPO_PAGO, default=None)
     estado_ven = models.CharField(verbose_name="Estado Venta", max_length=20, choices=EST_VENTA_CHOICES, default=activa)
-    fecha_ven = models.DateTimeField(verbose_name="Fecha Venta", null=True, blank=True)
-    fecha_promesa_ven = models.DateTimeField(verbose_name="Fecha Promsa Venta", null=True, blank=True)
+    fecha_ven = models.DateField(verbose_name="Fecha Venta", null=True, blank=True)
+    fecha_promesa_ven = models.DateField(verbose_name="Fecha Promsa Venta", null=True, blank=True)
     monto_reserva_ven = models.FloatField(verbose_name="Monto Reserva Venta", null=True, blank=True)
     descuento_manual_ven = models.FloatField(verbose_name="Desciento Manual Venta", null=True, blank=True)
     descuento_precio_ven = models.FloatField(verbose_name="Descuento Precio Venta", null=True, blank=True)
@@ -183,7 +183,9 @@ class Reserva(models.Model):
     fono = models.CharField(max_length=10)
     correo = models.EmailField()
     proyecto = models.CharField(max_length=10)
-    estado_reserva = models.CharField(max_length=10)
+    estado_reserva = models.CharField(max_length=50)
+    estado_reserva = models.CharField(verbose_name="Estado Reserva", max_length=20, choices=RESERVAS_CHOICES, default=pendiente)
+
 
     def __str__(self):
         return "(" +str(self.id_reserva)+")"+"-"+self.referencia
