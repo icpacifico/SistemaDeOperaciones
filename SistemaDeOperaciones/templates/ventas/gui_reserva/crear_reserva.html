@@ -81,177 +81,170 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
-
-
-
-
 </script>
+
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row invoice-preview">
-        <!-- Invoice -->
-        <div class="col-xl-9 col-md-8 col-12 mb-md-0 mb-4">
-            <div class="card invoice-preview-card">
+    <h4 class="py-3 mb-4 fw-bold">
+        <span class="text-muted fw-light">Ventas /</span>
+        Reserva de Unidad en {{ proyectos.condominio }} {{ proyectos.etapa}}
+    </h4>
+    <div class="row">
+        <div class="col-xl" align="center">
+            <div class="card mb-4">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between flex-xl-row flex-md-column flex-sm-row flex-column">
-                        <div class="mb-xl-0 pb-3">
-                            <div class="d-flex svg-illustration align-items-center gap-2 mb-4">
-                                <span class="h4 mb-0 app-brand-text fw-semibold">INMOBILIARIA COSTANERA PACIFICO <br> {{ proyectos.condominio }} {{ proyectos.etapa}}</span>
-                            </div>
-                        </div>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 fw-normal">Datos Reserva</h3>
                     </div>
+                    {% for dato in clientes %}
+                    <table class="table" style="width: 100%;">
+                        <tr>
+                            <th class="table-light">Nombre</th>
+                            <td>{{ dato.nombre_cliente }} {{ dato.nombre2_cliente }}
+                                {{dato.apellido_paterno_cliente }} {{ dato.apellido_materno_cliente }}
+                            </td>
+                            <th class="table-light">Rut</th>
+                            <td>{{ dato.id_cliente }}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">Proyecto</th>
+                            <td>{{proyectos.condominio}} - {{proyectos.etapa}} - {{proyectos.torre}}</td>
+                            <th class="table-light">Cotización</th>
+                            <td>{{id_cotizacion}}</td>
+                        </tr>
+                        <tr>
+                            <th class="table-light">Dirección</th>
+                            <td>{{proyectos.direccion}}</td>
+                            <th class="table-light">Valor U.F $</th>
+                            <td>35.650,50</td>
+                        </tr>
+                    </table>
+                    {% endfor %}
                 </div>
                 <div class="card-body">
-                    <div>
-                        <div class="tabla-container">
-                            <h3 style="text-align: center">Reserva de Unidad</h3>
-                            <!-- Tabla 1 -->
-                            <div>
-                                <hr class="my-0">
-                                <h3>Datos Reserva</h3>
-                                {% for dato in clientes %}
-                                <table class="table">
-                                    <tr>
-                                        <th class="table-light">Nombre</th>
-                                        <td>{{ dato.nombre_cliente }} {{ dato.nombre2_cliente }}
-                                            {{dato.apellido_paterno_cliente }} {{ dato.apellido_materno_cliente }}
-                                        </td>
-                                        <th class="table-light">Rut</th>
-                                        <td>{{ dato.id_cliente }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light">Proyecto</th>
-                                        <td>{{proyectos.condominio}} - {{proyectos.etapa}} - {{proyectos.torre}}</td>
-                                        <th class="table-light">Cotización</th>
-                                        <td>{{id_cotizacion}}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="table-light">Dirección</th>
-                                        <td>{{proyectos.direccion}}</td>
-                                        <th class="table-light">Valor U.F $</th>
-                                        <td>35.650,50</td>
-                                    </tr>
-                                </table>
-                                {% endfor %}
-                            </div>
-                            <!-- Tabla 2 -->
-                            <div>
-                                <hr class="my-0">
-                                <h3>Datos del Bien</h3>
-                                <table class="table">
-                                    <thead>
-                                    <tr>
-                                        <th class="table-light">Unidad</th>
-                                        <th class="table-light">N°</th>
-                                        <th class="table-light">Tipo</th>
-                                        <th class="table-light">Piso</th>
-                                        <th class="table-light">Orientación</th>
-                                        <th class="table-light">Sup. Útil</th>
-                                        <th class="table-light">Sup. Terraza</th>
-                                        <th class="table-light">Sup. Total</th>
-                                        <th class="table-light">Precio. UF</th>
-                                        <th class="table-light">Precio. $CLP</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for dato in viviendas %}
-                                    <tr>
-                                        <td>Departamento</td>
-                                        <td>{{dato.nombre_vivienda}}</td>
-                                        <td>{{dato.id_modelo.nombre_modelo}}</td>
-                                        <td>{{dato.piso}}</td>
-                                        <td>{{dato.ori_vivienda}}</td>
-                                        <td>{{dato.metros_vivienda}}</td>
-                                        <td>{{dato.metros_terraza_vivienda}}</td>
-                                        <td>{{dato.metros_total_vivienda}}</td>
-                                        <td>{{dato.valor_vivienda}}</td>
-                                        <td>{{dato.valor_vivienda}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    {% for dato in bodegas %}
-                                    <tr>
-                                        <td>Bodega</td>
-                                        <td>{{dato.nombre_bodega}}</td>
-                                        <td>Bodega</td>
-                                        <td>-1</td>
-                                        <td>X</td>
-                                        <td>2.41</td>
-                                        <td>0</td>
-                                        <td>2.41</td>
-                                        <td>{{dato.valor_bodega}}</td>
-                                        <td>{{dato.valor_bodega}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    {% for dato in estacionamientos %}
-                                    <tr>
-                                        <td>Estacionamiento</td>
-                                        <td>{{dato.nombre_estacionamiento}}</td>
-                                        <td>Est</td>
-                                        <td>0</td>
-                                        <td>X</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>0</td>
-                                        <td>{{dato.valor_estacionamiento}}</td>
-                                        <td>{{dato.valor_estacionamiento}}</td>
-                                    </tr>
-                                    {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <hr class="my-0">
-                        <div class="container mt-5">
-                            <h1>Registrar Pagos</h1>
-                            <hr class="my-0">
-                            <br>
-                            <div id="pagos-container">
-                                <form id="pagos-form" class="pago-form" method="post"
-                                      action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
-                                    {% csrf_token %}
-                                    <div class="row">
-
-
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.forma_pago}}
-                                            <label for="floating-input">Forma de Pago</label>
-                                        </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.id_banco}}
-                                            <label for="floating-input">Banco</label>
-                                        </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.fecha_pago}}
-                                            <label for="floating-input">Fecha de Pago</label>
-                                        </div>
-                                        <div class="col-md-6 form-floating form-floating-outline mb-4">
-                                            {{form.monto_pago}}
-                                            <label for="floating-input">Monto</label>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <button class="btn btn-info w-100 waves-effect waves-light"
-                                                    id="add-pago-btn" type="button">Agregar Pago
-                                            </button>
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn"
-                                                    type="submit">Enviar Pagos
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <hr class="my-0">
-                            </div>
-                            <br>
-                        </div>
+                    <hr class="m-0">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 fw-normal">Datos del Bien</h3>
                     </div>
+                    <div class="dt-layout-cell table-responsive text-nowrap">
+                        <table id="example-table-bd" class="display  nowrap dataTable" style="width: 100%;" aria-describedby="example_info">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Unidad</th>
+                                <th class="table-light">N°</th>
+                                <th class="table-light">Tipo</th>
+                                <th class="table-light">Piso</th>
+                                <th class="table-light">Orientación</th>
+                                <th class="table-light">Sup. Útil</th>
+                                <th class="table-light">Sup. Terraza</th>
+                                <th class="table-light">Sup. Total</th>
+                                <th class="table-light">Precio. UF</th>
+                                <th class="table-light">Precio. $CLP</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for dato in viviendas %}
+                            <tr>
+                                <td>Departamento</td>
+                                <td>{{dato.nombre_vivienda}}</td>
+                                <td>{{dato.id_modelo.nombre_modelo}}</td>
+                                <td>{{dato.piso}}</td>
+                                <td>{{dato.ori_vivienda}}</td>
+                                <td>{{dato.metros_vivienda}}</td>
+                                <td>{{dato.metros_terraza_vivienda}}</td>
+                                <td>{{dato.metros_total_vivienda}}</td>
+                                <td>{{dato.valor_vivienda}}</td>
+                                <td>{{dato.valor_vivienda}}</td>
+                            </tr>
+                            {% endfor %}
+                            {% for dato in bodegas %}
+                            <tr>
+                                <td>Bodega</td>
+                                <td>{{dato.nombre_bodega}}</td>
+                                <td>Bodega</td>
+                                <td>-1</td>
+                                <td>X</td>
+                                <td>2.41</td>
+                                <td>0</td>
+                                <td>2.41</td>
+                                <td>{{dato.valor_bodega}}</td>
+                                <td>{{dato.valor_bodega}}</td>
+                            </tr>
+                            {% endfor %}
+                            {% for dato in estacionamientos %}
+                            <tr>
+                                <td>Estacionamiento</td>
+                                <td>{{dato.nombre_estacionamiento}}</td>
+                                <td>Est</td>
+                                <td>0</td>
+                                <td>X</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>{{dato.valor_estacionamiento}}</td>
+                                <td>{{dato.valor_estacionamiento}}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+                <div class="card-body">
+                    <hr class="m-0">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0 fw-normal">Registrar Pagos</h3>
+                    </div>
+                    <form method="post"
+                            action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
+                        {% csrf_token %}
+                        <div class="pago-form" id="pagos-container">
+                            <div class="row gx-5">
+                                <div class="col-md">
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        {{form.forma_pago}}
+                                        <label for="basic-default-fullname">Forma de Pago</label>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        {{form.id_banco}}
+                                        <label for="basic-default-fullname">Banco</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row gx-5">
+                                <div class="col-md">
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        {{form.fecha_pago}}
+                                        <label for="basic-default-fullname">Fecha de Pago</label>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-floating form-floating-outline mb-4">
+                                        {{form.monto_pago}}
+                                        <label for="basic-default-fullname">Monto</label>
+                                    </div>
+                                </div>
+                            </div>          
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-info w-100 waves-effect waves-light"
+                                        id="add-pago-btn" type="button">Agregar Pago
+                                </button>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <button class="btn btn-success w-100 waves-effect" id="submit-pagos-btn"
+                                        type="submit">Enviar Pagos
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <hr class="m-0">
                 </div>
+                <br>
             </div>
-            <hr class="my-0">
         </div>
     </div>
 </div>
+            
 {% endblock contenido %}
