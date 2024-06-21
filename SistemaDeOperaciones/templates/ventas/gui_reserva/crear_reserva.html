@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify({ pagos: pagos })
         }).then(response => response.json())
         .then(data => {
+            console.log('Datos recibidos:', data);
             if (data.status === 'success') {
                 alert('Pagos registrados con éxito');
                 window.location.href = "{% url 'ventas:listar_reserva' %}";
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 </script>
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -126,7 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3 class="mb-0 fw-normal">Datos del Bien</h3>
                     </div>
                     <div class="dt-layout-cell table-responsive text-nowrap">
-                        <table id="example-table-bd" class="display  nowrap dataTable" style="width: 100%;" aria-describedby="example_info">
+                        <table id="example-table-bd" class="display  nowrap dataTable" style="width: 100%;"
+                               aria-describedby="example_info">
                             <thead class="table-light">
                             <tr>
                                 <th>Unidad</th>
@@ -187,14 +190,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             </tbody>
                         </table>
                     </div>
-                </div>  
+                </div>
                 <div class="card-body">
                     <hr class="m-0">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3 class="mb-0 fw-normal">Registrar Pagos</h3>
                     </div>
                     <form method="post"
-                            action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
+                          action="{% url 'ventas:pasar_reserva' id_cotizacion %}">
                         {% csrf_token %}
                         <div class="pago-form" id="pagos-container">
                             <div class="row gx-5">
@@ -224,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <label for="basic-default-fullname">Monto</label>
                                     </div>
                                 </div>
-                            </div>          
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -246,5 +249,5 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </div>
 </div>
-            
+
 {% endblock contenido %}

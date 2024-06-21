@@ -14,7 +14,7 @@ class Cliente(models.Model):
     region = models.CharField(verbose_name="Región", max_length=31, choices=REGIONES_CHOICES, default=iv_reg_coquimbo)
     genero = models.CharField(verbose_name="Género", max_length=30, choices=SEXO_CHOICES, default=sin_definir)
     estado_civil = models.CharField(verbose_name="Estado Civil", max_length=30, choices=ESTADO_CIVIL_CHOICES,
-                                    default=casado_a)
+                                    default=soltero_a)
     id_profesion = models.ForeignKey(Profesion, verbose_name="Profesión", on_delete=models.CASCADE)  # PENDIENTE
     estado_cliente = models.CharField(verbose_name="Estado", max_length=50, choices=IS_ACTIVE_CHOICES,
                                           default=is_active)

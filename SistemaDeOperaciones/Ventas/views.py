@@ -42,7 +42,7 @@ def get_torres(request):
 
 def get_viviendas(request):
     torre_id = request.GET.get('torre_id')
-    viviendas = Vivienda.objects.filter(id_torre=torre_id)
+    viviendas = Vivienda.objects.filter(id_torre=torre_id, estado_vivienda ="Disponible")
     data = [{'id_vivienda': vivienda.id_vivienda, 'nombre_vivienda': vivienda.nombre_vivienda} for vivienda in
             viviendas]
     return JsonResponse(data, safe=False)
@@ -901,7 +901,30 @@ def pasar_reserva(request, id_cotizacion):
         print("Contenido de request.body:", request.body)
 
         try:
-            pagos_data = json.loads(request.body).get('pagos', [])
+            """pagos_data = json.loads(request.body).get('pagos', [])
+            print("Datos de pagos recibidos:", pagos_data)"""
+            # Django ya parsea los datos de application/x-www-form-urlencoded en request.POST
+            csrf_token = request.POST.get('csrfmiddlewaretoken')
+            formas_pago = request.POST.getlist('forma_pago')  # Usar getlist para múltiples valores
+            ids_banco = request.POST.getlist('id_banco')  # Usar getlist para múltiples valores
+            fechas_pago = request.POST.getlist('fecha_pago')  # Usar getlist para múltiples valores
+            montos_pago = request.POST.getlist('monto_pago')  # Usar getlist para múltiples valores
+
+            # Inicializar listas para almacenar los valores
+            pagos_data = []
+
+            # Iterar sobre los valores para llenar la lista
+            for forma_pago, id_banco, fecha_pago, monto_pago in zip(formas_pago, ids_banco, fechas_pago, montos_pago):
+                pagos_data.append({
+                    'csrf_token': csrf_token,
+                    'forma_pago': forma_pago,
+                    'id_banco': int(id_banco),
+                    'fecha_pago': fecha_pago,
+                    'monto_pago': monto_pago
+                })
+
+            # Imprimir los datos para depuración
+            print("Pagos Data:", pagos_data)
         except json.JSONDecodeError as e:
             return JsonResponse({'status': 'error', 'message': 'Error al decodificar JSON', 'details': str(e)},
                                 status=400)
@@ -940,7 +963,7 @@ def pasar_reserva(request, id_cotizacion):
         for conjunto in pagos_data:
             # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
             # Accediendo a los valores
-            csrf_token = conjunto['csrfmiddlewaretoken']
+            csrf_token = conjunto['csrf_token']
             forma_pago = conjunto['forma_pago']
             id_banco = conjunto['id_banco']
             id_banco = int(id_banco)
@@ -1042,7 +1065,7 @@ def pasar_promesa(request, referencia):
             print(pie_real_ven)
             valor_numerico = promesa_data['valor_numerico']
             print(valor_numerico)
-            valor_numerico=int(valor_numerico)
+            valor_numerico = int(valor_numerico)
             reserva = 10
 
             # Imprimir los datos de promesa (opcional, para depuración)
@@ -1065,7 +1088,7 @@ def pasar_promesa(request, referencia):
             monto_bodega_ven=0,  # Monto de la bodega
             monto_vivienda_ven=precio_vivienda,  # Valor de la vivineda
             monto_vivienda_ingreso_ven=0,  # Monto total que le ingresa a la inmo por la venta
-            monto_ven=precio_vivienda-valor_numerico,  # Valor de venta del depto
+            monto_ven=precio_vivienda - valor_numerico,  # Valor de venta del depto
             factor_categoria_ven=0,  # Ni carajo  idea que es
             porcentaje_comision_ven=0,  # Calculo de la comisión de los vendedores
             promesa_porcentaje_comision_reparto_ven=0,  # calculo comisión % promesa 40%
@@ -1080,17 +1103,18 @@ def pasar_promesa(request, referencia):
             total_bono_precio_ven=0,  # Bono total del vendedpor
             numero_compra_ven=0,  # ??
             cotizacion_ven=0,  # n° Cotización
-            monto_credito_ven=precio_vivienda-valor_numerico-pie_real_ven-reserva,  # Monto credito que le da el banco
-            monto_credito_real_ven=precio_vivienda-valor_numerico-pie_real_ven-reserva,  # Monto de credito entregado por el banco
+            monto_credito_ven=precio_vivienda - valor_numerico - pie_real_ven - reserva,
+            # Monto credito que le da el banco
+            monto_credito_real_ven=precio_vivienda - valor_numerico - pie_real_ven - reserva,
+            # Monto de credito entregado por el banco
             ahorro_previo=0,  # Ahorro del cliente
             monto_subsidio=0,  # Monto del subsidio del estado
             pie_real_ven=pie_real_ven,  # Pie real del cliente
             valor_factor_ven=0,
-            pie_abono_ven="si",# ??
-            tipo_pago = forma_pago_promesa,
-            id_banco_id = 1,
-            id_cotizacion_id =1,
-
+            pie_abono_ven="si",  # ??
+            tipo_pago=forma_pago_promesa,
+            id_banco_id=1,
+            id_cotizacion_id=1,
 
         )
         nueva_venta.save()
@@ -1098,15 +1122,14 @@ def pasar_promesa(request, referencia):
         # Obtener el ID de la nueva reserva
         id_nueva_venta = nueva_venta.id_venta
 
-        
         # CAMBIO DE ESTADOS DE LA COTIZACIÓN, Y BIENES
         reserva_update = get_object_or_404(Reserva, referencia=referencia)
         reserva_update.estado_reserva = 'En Promesa'
         reserva_update.save()
-       
+
         for conjunto in pagos_data:
-        # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
-        # Accediendo a los valores
+            # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
+            # Accediendo a los valores
             csrf_token = conjunto['csrfmiddlewaretoken']
             forma_pago = conjunto['forma_pago']
             id_banco = conjunto['id_banco']

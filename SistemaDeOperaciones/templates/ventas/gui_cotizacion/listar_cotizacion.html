@@ -117,9 +117,6 @@
                                             <i class="mdi mdi-trash-can-outline me-1"></i> Eliminar
                                         </a>
                                         {% elif cotizacion.estado_cotizacion == 'En Reserva' %}
-                                        <a class="dropdown-item" href="#">
-                                            <i class="mdi mdi-book-cancel-outline me-1"></i> Anular
-                                        </a>
                                         <a class="dropdown-item"
                                            href="{% url 'ventas:ver_cotizacion_pdf' id_cotizacion=cotizacion.id_cotizacion %}">
                                             <i class="mdi mdi-file-pdf-box me-1"></i> Ver PDF
