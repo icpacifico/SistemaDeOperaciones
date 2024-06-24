@@ -243,10 +243,15 @@
         <script async defer src="https://buttons.github.io/buttons.js"></script>
 
         <script>
-            fetch('https://mindicador.cl/api')
+            const date = new Date();
+            let day = ("0" + date.getDate()).slice(-2) ;
+            let month = ("0" + (date.getMonth() + 1)).slice(-2);
+            let year = date.getFullYear();
+            let currentDate = `${year}-${month}-${day}`;      
+            fetch('https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=pduhartic@gmail.com&pass=hs..J8Nz6ATgWxD&function=GetSeries&timeseries=F073.UFF.PRE.Z.D&firstdate=2024-06-24&lastdate=2024-06-24')
                 .then(response => response.json())
                 .then(data => {
-                    document.getElementById('ufValue').textContent = `Valor UF = $ ${new Intl.NumberFormat('es-CL').format(data.uf.valor)}`;
+                    document.getElementById('ufValue').textContent = `Valor UF = $ ${new Intl.NumberFormat('es-CL').format(data.Series.Obs[0].value)}`;
                 })
                 .catch(error => {
                     console.error('Error fetching UF value:', error);
