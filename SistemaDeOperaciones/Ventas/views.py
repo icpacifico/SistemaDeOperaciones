@@ -5,6 +5,7 @@ from .models import Cliente, Cotizacion, Venta, TipoDesistimiento, Desistimiento
     Vivienda
 from Proyectos.models import Modelo, Bodega, Estacionamiento
 from .forms import ClienteForm, CotizacionForm, VentaForm, TipoDesistimientoForm, DesistimientoForm
+from Administracion.models import *
 from Contabilidad.forms import PagoForm
 from Contabilidad.models import Pago, Banco
 from django.conf import settings
@@ -42,7 +43,7 @@ def get_torres(request):
 
 def get_viviendas(request):
     torre_id = request.GET.get('torre_id')
-    viviendas = Vivienda.objects.filter(id_torre=torre_id, estado_vivienda ="Disponible")
+    viviendas = Vivienda.objects.filter(id_torre=torre_id, estado_vivienda="Disponible")
     data = [{'id_vivienda': vivienda.id_vivienda, 'nombre_vivienda': vivienda.nombre_vivienda} for vivienda in
             viviendas]
     return JsonResponse(data, safe=False)
@@ -1127,6 +1128,25 @@ def pasar_promesa(request, referencia):
         reserva_update.estado_reserva = 'En Promesa'
         reserva_update.save()
 
+        # CALCULO DE COMISIONES
+        nueva_comision = Comisione(
+            id_venta=id_nueva_venta,
+            id_asesor=1,
+            id_cliente=1,
+            # fecha_registro = "a",
+            # fecha_promesa = "a",
+            # fecha_escritura = "a",
+            # fecha_desistimiento = "a",
+            valor_uf=35650.60,
+            concepto="a",
+            proyecto="Distrito Verde",
+            etapa="Etapa I",
+            unidad=303,
+            bono_precio="Si",
+            monto_venta=precio_vivienda - valor_numerico)
+
+        nueva_comision.save()
+
         for conjunto in pagos_data:
             # La variable conjunto contiene los datos de los pagos de la reserva que se quiere registrar
             # Accediendo a los valores
@@ -1373,3 +1393,85 @@ class CotizacionPdf(View):
             print(e)
             pass
         return HttpResponseRedirect(reverse_lazy("ventas:listar_cotizacion"))
+
+
+# Definir la función para calcular el porcentaje de comisión
+def calcular_comision(row):
+    ratio = row['venta_real'] / row['meta_venta']
+    if ratio < 1:
+        return 0.30
+    elif 1 <= ratio < 1.5:
+        return 0.33
+    else:
+        return 0.36
+
+def calcular_comision(row):
+    ratio = row['venta_real'] / row['meta_venta']
+    if ratio == 1:
+        return 0.15
+    elif 1 <= ratio <= 1.5:
+        return 0.20
+    elif ratio > 1.5:
+        return 0.25
+    else:
+        return 0
+
+
+def calcular_comisiones(request, id_registro):  # id_registro = id del cierre de mes
+    # PASO 1: Selecciono el periodo del cual se realizará el "cierre de mes"
+    cm = Cierre_Mes.objects.filter(id_registro=id_registro).values()
+    df_1 = pd.DataFrame(list(cm))
+    print(df_1)
+    # PASO 2: Agregar las fecha de inicio y cierre de mes avariables para usarlas
+    fecha_inicio = df_1["fecha_inicio"].iloc[0]
+    fecha_fin = df_1["fecha_fin"].iloc[0]
+
+    # PASO 3: Obtener todos los registros de Promesas, Escrituras y Desistimientos de la tabla de comisiones
+    # para despues pasarlos a DataFrames
+
+    registros_comisionar = Comisione.objects.filter(fecha_registro__range=(fecha_inicio, fecha_fin))
+    registros_promesa = Comisione.objects.filter(fecha_promesa__range=(fecha_inicio, fecha_fin))
+    registros_escritura = Comisione.objects.filter(fecha_escritura__range=(fecha_inicio, fecha_fin))
+    registros_desistimiento = Comisione.objects.filter(fecha_desistimiento__range=(fecha_inicio, fecha_fin))
+    df_rc = pd.DataFrame(list(registros_comisionar))
+    df_rp = pd.DataFrame(list(registros_promesa))
+    df_re = pd.DataFrame(list(registros_escritura))
+    df_rd = pd.DataFrame(list(registros_desistimiento))
+    """
+    print(df_rp)
+    print(df_re)
+    print(df_rd)
+    """
+    # PASO 4: Calcular la cantidad de promesas, escrituras y desistimientos de cada asesor
+
+    cnt_rp = df_rp.groupby('id_asesor').size().reset_index('promesas')
+    cnt_re = df_re.groupby('id_asesor').size().reset_index('escrituras')
+    cnt_rd = df_rd.groupby('id_asesor').size().reset_index('desistimientos')
+
+    # PASO 5: Obtener los parametros de las comisiones para poder rellenar los % de comisiones
+    parametros = Parametros_Comisione.objects.filter(id_registro=id_registro).values()
+
+    # PASO 6: Unir el DataFrame de parametros con la cantidad de promesas y desistimientos para poder
+    # calcular el % de cumplimiento de meta y en base a ese parámetro calcular el % de comisión que debe recibir el asesor
+
+    # Se une el df de parametros_comisiones con el conteo_promesa y conteo_desistimiento
+    merged_df_1 = pd.merge(parametros, cnt_rp, how="inner", on="id_asesor")
+    merged_df_1 = pd.merge(merged_df_1, cnt_rd, how="inner", on="id_asesor")
+
+    # Calcular las ventas reales de merged_df_1 (parametros).Venta real=promesas-desistimintos
+    merged_df_1['venta_real'] = merged_df_1['promesas']-merged_df_1['desitimientos']
+    merged_df_1['porcentaje_cumplimiento'] = merged_df_1.apply(calcular_cumplimiento, axis=1)
+    merged_df_1['porcentaje_comision'] = merged_df_1.apply(calcular_comision, axis=1)
+
+    # PASO 7: Hacer un merge del dataframe de registros_comisionar y el merged_df_1 para obtener el % de comisión
+    # Con esto tendremos todos los valores para calcular las comisiones, ahora solo se debe realizar el calculo aritmetico
+    registros_comisionar = pd.merge(registros_comisionar, merged_df_1, how="inner", on="id_asesor")
+
+
+    # PASO 4 CALCULAR LOS MONTOS DE LAS COMISIONES A PARTIR DEL % DE COMISIÓN DE PARAMETROS
+    # Hacer un merge entre el registro final de comisiones y el merged_df
+
+    df = pd.DataFrame(list(parametros))
+
+    print(df)
+    pass

@@ -11,7 +11,7 @@ from .views import (
     listado_detalle_venta, informe_pagos_venta, PagosInvoicePdf, CierreNegociopdf,
     carta_cierre_negocios_venta, entrega_documentos_venta, EntregaDocumentoPdf, despacho_promesa_venta,
     Despacho_promesa_ventaPdf, carta_oferta_venta, Carta_oferta_ventaPdf, generate_excel, fpm_venta, Fpm_VentaPdf,
-    invocar_desistimiento, pasar_promesa)
+    invocar_desistimiento, pasar_promesa, calcular_comisiones)
 
 app_name = 'ventas'
 
@@ -75,5 +75,8 @@ urlpatterns = [
 
     # Promesas
     path('pasar_promesa/<int:referencia>/', login_required(pasar_promesa), name='pasar_promesa'),
+
+    #Comisiones
+    path('calcular_comisiones/<int:id_registro>/', login_required(calcular_comisiones), name='calcular_comisiones'),
 
 ]
