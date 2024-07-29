@@ -512,6 +512,7 @@ textarea {
   resize: vertical;
 }
 
+
 fieldset {
   min-width: 0;
   padding: 0;
@@ -16840,6 +16841,10 @@ html:not(.layout-menu-fixed) .menu-inner-shadow {
   overflow: hidden;
 }
 
+.layout-menu-fixed .layout-navbar-full .layout-menu, .layout-menu-fixed-offcanvas .layout-navbar-full .layout-menu {
+  top: 64px !important;
+}
+
 .layout-menu-offcanvas .layout-navbar .layout-menu-toggle,
 .layout-menu-fixed-offcanvas .layout-navbar .layout-menu-toggle {
   display: block !important;
@@ -17059,6 +17064,10 @@ html:not(.layout-navbar-fixed) .layout-content-navbar .layout-page {
 
 html:not(.layout-footer-fixed) .content-wrapper {
   padding-bottom: 0 !important;
+}
+
+.layout-navbar-full .layout-container {
+    flex-direction: column;
 }
 
 @media (max-width: 1199.98px) {

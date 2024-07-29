@@ -61,12 +61,25 @@ let menu, animate;
 
   // Initialize menu togglers and bind click on each
   let menuToggler = document.querySelectorAll('.layout-menu-toggle');
-  menuToggler.forEach(item => {
-    item.addEventListener('click', event => {
-      event.preventDefault();
-      window.Helpers.toggleCollapsed();
-    });
-  });
+  menuToggler.forEach(e=>{
+    e.addEventListener("click", e=>{
+          if (e.preventDefault(),
+          window.Helpers.toggleCollapsed(),
+          config.enableMenuLocalStorage && !window.Helpers.isSmallScreen())
+          try {
+              localStorage.setItem("templateCustomizer-" + templateName + "--LayoutCollapsed", String(window.Helpers.isCollapsed()))
+          } catch (e) {}
+        }
+      )
+    }
+  );
+
+  window.Helpers.swipeIn(".drag-target", function(e) {
+    window.Helpers.setCollapsed(!1)
+  })
+  window.Helpers.swipeOut("#layout-menu", function(e) {
+      window.Helpers.isSmallScreen() && window.Helpers.setCollapsed(!0)
+  })
 
   // Display menu toggle (layout-menu-toggle) on hover with delay
   let delay = function (elem, callback) {
