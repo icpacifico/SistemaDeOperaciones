@@ -103,7 +103,10 @@ def crear_cotizacion(request):
     context = {
         'form': form,
         'clientes': Cliente.objects.all(),
-        'condominios': Condominio.objects.values_list('id_condominio', 'nombre_condominio')
+        'condominios': Condominio.objects.values_list('id_condominio', 'nombre_condominio'),
+        'etapas': Etapa.objects.values_list('id_etapa_condominio','nombre_etapa'),
+        'torres': Torre.objects.values_list('id_torre','nombre_torre'),
+        'modelos': Modelo.objects.values_list('id_modelo','nombre_modelo'),
     }
 
     return render(request, 'ventas/gui_cotizacion/crear_cotizacion.html', context)
@@ -1170,11 +1173,7 @@ def pasar_promesa(request, referencia):
             descripcion="Pago de Pie"
         )
         nuevo_pago.save()
-
         return JsonResponse({'status': 'success'}, status=201)
-
-
-
     else:
         form = PagoForm()
         form_venta = VentaForm()

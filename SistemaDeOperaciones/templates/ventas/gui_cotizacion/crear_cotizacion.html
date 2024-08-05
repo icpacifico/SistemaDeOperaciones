@@ -63,54 +63,60 @@
                         <div class="row gx-5">
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_condominio" class="form-select" placeholder="Torre" required=""
-                                            id="id_id_condominio">
+                                    <select id="select2Basic" class="select2 form-select form-select-sm" data-allow-clear="true">
                                         <option value="" selected="">---------</option>
                                         {% for condominio in condominios %}
                                         <option value="{{ condominio.0 }}">{{ condominio.1 }}</option>
                                         {% endfor %}
                                     </select>
-                                    <label for="basic-default-fullname">Condominio</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
-                                       href="{% url 'proyectos:crear_condominio' %}">+</a>
+                                    <label for="select2Basic">Condominio</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_condominio' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_etapa" class="form-select" placeholder="Etapa" required=""
-                                            id="id_id_etapa" disabled>
+                                    <select id="select2Basic2" class="select2 form-select form-select-sm" data-allow-clear="true">
                                         <option value="" selected="">---------</option>
                                         {% for etapa in etapas %}
                                         <option value="{{ etapa.0 }}">{{ etapa.1 }}</option>
                                         {% endfor %}
                                     </select>
-                                    <label for="basic-default-fullname">Etapa</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
-                                       href="{% url 'proyectos:crear_etapa' %}">+</a>
+                                    <label for="select2Basic">Etapa</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_etapa' %}">+</a>
                                 </div>
                             </div>
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4">
-                                    <select name="id_torre" class="form-select" placeholder="Torre" required=""
-                                            id="id_id_torre" disabled>
+                                    <select id="select2Basic3" class="select2 form-select form-select-sm" data-allow-clear="true">
                                         <option value="" selected="">---------</option>
                                         {% for torre in torres %}
                                         <option value="{{ torre.0 }}">{{ torre.1 }}</option>
                                         {% endfor %}
                                     </select>
-                                    <label for="basic-default-fullname">Torre</label>
-                                    <a class="btn btn-info" style="margin-left:10px" target="_blank"
-                                       href="{% url 'proyectos:crear_torre' %}">+</a>
+                                    <label for="select2Basic">Torre</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_torre' %}">+</a>
                                 </div>
                             </div>
+                            <div class="col-md">
+                                <div class="d-flex form-floating form-floating-outline mb-4">
+                                    <select id="select2Basic4" class="select2 form-select form-select-sm" data-allow-clear="true">
+                                        <option value="" selected="">---------</option>
+                                        {% for modelo in modelos %}
+                                        <option value="{{ modelo.0 }}">{{ modelo.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="select2Basic">Modelo</label>
+                                    <a class="btn btn-info" style="margin-left:10px" target="_blank" href="{% url 'proyectos:crear_condominio' %}">+</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{ form.id_vivienda }}
                                     <label for="basic-default-fullname">Vivienda</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row gx-5">
                             <div class="col-md">
                                 <div class="d-flex form-floating form-floating-outline mb-4 autocomplete">
                                     {{form.id_cliente}}
@@ -124,12 +130,12 @@
                                        href="{% url 'ventas:crear_cliente' %}">+</a>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            {% comment %} <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{ form.procentaje_credito_cotizacion }}
                                     <label for="basic-default-fullname">Porcentaje Crédito</label>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                             <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{ form.canal_cotizacion }}
@@ -143,7 +149,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row gx-5">
+                        {% comment %} <div class="row gx-5">
                             <div class="col-md">
                                 <div class="form-floating form-floating-outline mb-4">
                                     {{ form.descuento_depto }}
@@ -162,8 +168,101 @@
                                     <label for="basic-default-fullname">Dcto Estacionamiento</label>
                                 </div>
                             </div>
+                        </div> {% endcomment %}
+
+                        <div class="row gx-5">
+                            <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>P. Lista</th>
+                                        <th>Desc. UF</th>
+                                        <th>Desc. %</th>
+                                        <th>P. Final</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        <tr>
+                                            <td>
+                                                <span class="badge rounded-pill bg-label-dark">---------</span>
+                                            </td>
+                                            <td>
+                                                <input type="number" disabled class="form-control" id="p_lista_viv" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td> 
+                                            <td>
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td>  
+                                            <td>                                          
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>  
+                                            <td>                                      
+                                                <input type="number" disabled class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>        
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="badge rounded-pill bg-label-dark">---------</span>
+                                            </td>
+                                            <td>
+                                                <input type="number" disabled class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td> 
+                                            <td>
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td>  
+                                            <td>                                          
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>  
+                                            <td>                                      
+                                                <input type="number" disabled class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>   
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="badge rounded-pill bg-label-dark">---------</span>
+                                            </td>
+                                            <td>
+                                                <input type="number" disabled class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td> 
+                                            <td>
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />         
+                                            </td>  
+                                            <td>                                          
+                                                <input type="number" class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>  
+                                            <td>                                      
+                                                <input type="number" disabled class="form-control" id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />
+                                            </td>   
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div align="left">
+                        <div align="left" class="mt-3" >
+                            <div class="form-check mt-4">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Abono Promocional Inmobiliaria (Max: 15%)
+                                </label>
+                            </div>
+                        </div>
+                        <div align="right" class="mt-3" >
+                            <label for="basic-default-fullname">Total Precio Lista</label>             
+                            <input class="form-control ms-2" style="display: inline;max-width: 200px;" type="number" disabled id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />                     
+                        </div>
+                        <div align="right" class="mt-3" >
+                            <label for="basic-default-fullname">Descuento</label>             
+                            <input class="form-control ms-2" style="display: inline;max-width: 200px;" type="number" disabled id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />                     
+                        </div>
+                        <div align="right" class="mt-3" >
+                            <label for="basic-default-fullname">Subtotal</label>             
+                            <input class="form-control ms-2" style="display: inline;max-width: 200px;" type="number" disabled id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />                     
+                        </div>
+                        <div align="right" class="mt-3" >
+                            <label for="basic-default-fullname">Total</label>             
+                            <input class="form-control ms-2" style="display: inline;max-width: 200px;" type="number" disabled id="defaultFormControlInput" placeholder="0.00" aria-describedby="defaultFormControlHelp" />                     
+                        </div>
+                        <div align="left" class="mt-3" >
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <a style="margin-left:10px" href="{% url 'ventas:listar_cotizacion' %}"
                                class="btn btn-dark">Cancelar</a>
@@ -177,8 +276,12 @@
 </div>
 
 <script>
-    
-    document.getElementById('id_id_condominio').addEventListener('change', function() {
+
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+
+    {% comment %} document.getElementById('id_id_condominio').addEventListener('change', function() {
         var condominioId = this.value;
         var etapaSelect = document.getElementById('id_id_etapa');
         var torreSelect = document.getElementById('id_id_torre');
@@ -256,11 +359,7 @@
             viviendaSelect.disabled = true;
             viviendaSelect.value = '';
         }
-    });
-
-
-
-
+    }); {% endcomment %}
 
 </script>
 {% endblock contenido %}

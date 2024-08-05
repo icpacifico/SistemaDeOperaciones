@@ -27,29 +27,22 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('.pago-form input[name="fecha_pago"]').value = getFormattedDate(currentDate);
 
     addPagoBtn.addEventListener('click', function() {
-        let lastForm = pagosContainer.querySelector('.pago-form:last-child');
-
-        if (lastForm) {
-            let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
-            let lastDate = new Date(lastDateInput);
-
-            let newDate = new Date(lastDate);
-            newDate.setDate(newDate.getDate() + 30);
-
-            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-            pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
-                if (input.name === "fecha_pago") {
-                    input.value = getFormattedDate(newDate);
-                } else {
-                    input.value = '';
-                }
-            });
-
-            pagosContainer.appendChild(pagoForm);
-        } else {
-            let pagoForm = document.querySelector('.pago-form').cloneNode(true);
-            pagosContainer.appendChild(pagoForm);
-        }
+        this.disabled = true;
+        let lastForm = document.querySelector('.pago-form');
+        let lastDateInput = lastForm.querySelector('input[name="fecha_pago"]').value;
+        let lastDate = new Date(lastDateInput);
+        let newDate = new Date(lastDate);
+        newDate.setDate(newDate.getDate() + 30);
+        let pagoForm = document.querySelector('.pago-form').cloneNode(true);
+        console.log(pagoForm)
+        pagoForm.querySelectorAll('input, select, textarea').forEach(input => {
+            if (input.name === "fecha_pago") {
+                input.value = getFormattedDate(newDate);
+            } else {
+                input.value = '';
+            }
+        });
+        pagosContainer.appendChild(pagoForm); 
     });
 
     pagosForm.addEventListener('submit', function(event) {
@@ -62,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function() {
             pagos.push(pago);
         });
 
-
         fetch(pagosForm.action, {
             method: 'POST',
             headers: {
@@ -70,14 +62,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-CSRFToken': '{{ csrf_token }}'
             },
             body: JSON.stringify({ pagos: pagos })
-        }).then(response => response.json())
+        })
+        .then(response => response.json())
         .then(data => {
-            console.log('Datos recibidos:', data);
             if (data.status === 'success') {
-                alert('Pagos registrados con éxito');
-                window.location.href = "{% url 'ventas:listar_reserva' %}";
+
             } else {
-                alert('Ocurrió un error: ' + data.message);
             }
         });
     });
